@@ -11,7 +11,7 @@ from revive.allocation.models import (
     PricedCandidate,
     ResourceState,
 )
-from revive.allocation.resources import can_reserve, reserve, usage_dict
+from revive.allocation.resources import can_reserve, clear_usage_cache, reserve, usage_dict
 from revive.allocation.tiebreak import sort_key_candidate, sort_key_opportunity
 
 
@@ -131,6 +131,7 @@ def lagrangian_allocate(
     float | None,
     AllocatorMode,
 ]:
+    clear_usage_cache()
     lambdas = {k: 0.0 for k in _RESOURCE_KEYS}
     if lambda_warm_start:
         for k, v in lambda_warm_start.items():

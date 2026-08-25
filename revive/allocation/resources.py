@@ -8,7 +8,7 @@ from revive.recovery.valuation.config import DEFAULT_INCENTIVE_TIER_PAISE
 from revive.recovery.valuation.models import CandidateValuation
 from revive.allocation.models import PricedCandidate, PortfolioItem, ResourceState
 
-_USAGE_CACHE: dict[int, dict[str, int]] = {}
+_USAGE_CACHE: dict[tuple[tuple[str, int], ...], dict[str, int]] = {}
 
 
 def clear_usage_cache() -> None:
@@ -16,11 +16,18 @@ def clear_usage_cache() -> None:
 
 
 def usage_dict(pc: PricedCandidate) -> dict[str, int]:
-    key = id(pc)
+    """Map a priced candidate to resource → quantity.
+
+    Cache key is the immutable usage tuple, never ``id(pc)``. CPython reuses
+    object ids after GC; an id-keyed cache can attach a stale mapping (for
+    example missing ``contact_allowance``) to a new candidate and desynchronize
+    the reference Lagrangian from the optimized path.
+    """
+    key = pc.usage
     cached = _USAGE_CACHE.get(key)
     if cached is not None:
         return cached
-    usage = dict(pc.usage)
+    usage = dict(key)
     _USAGE_CACHE[key] = usage
     return usage
 

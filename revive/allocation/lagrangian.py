@@ -11,7 +11,7 @@ from revive.allocation.models import (
     PricedCandidate,
     ResourceState,
 )
-from revive.allocation.resources import can_reserve, reserve, usage_dict
+from revive.allocation.resources import can_reserve, clear_usage_cache, reserve, usage_dict
 from revive.allocation.tiebreak import sort_key_candidate, sort_key_opportunity
 
 
@@ -57,11 +57,11 @@ def _reduced_value_paise(
     lambdas: dict[str, float],
     customer_id: str | None,
 ) -> int:
+    usage = usage_dict(pc)
     penalty = 0.0
-    contact_lambda = lambdas.get("contact_allowance", 0.0)
-    for resource, qty in pc.usage:
+    for resource, qty in usage.items():
         if resource == "contact_allowance" and customer_id is not None:
-            penalty += contact_lambda * qty
+            penalty += lambdas.get("contact_allowance", 0.0) * qty
         else:
             penalty += lambdas.get(resource, 0.0) * qty
     return int(round(pc.enrv_paise - penalty))
@@ -94,7 +94,7 @@ def _accumulate_usage(
     for pc in picks.values():
         if pc is None:
             continue
-        for resource, qty in pc.usage:
+        for resource, qty in usage_dict(pc).items():
             usage[resource] = usage.get(resource, 0) + qty
     return usage
 
@@ -111,11 +111,7 @@ def _contact_violation_from_picks(
         item = item_by_id[opp_id]
         if item.customer_id is None:
             continue
-        contact_qty = 0
-        for resource, qty in pc.usage:
-            if resource == "contact_allowance":
-                contact_qty = qty
-                break
+        contact_qty = usage_dict(pc).get("contact_allowance", 0)
         if contact_qty:
             contacts[item.customer_id] = contacts.get(item.customer_id, 0) + contact_qty
     violation = 0
@@ -138,6 +134,7 @@ def lagrangian_allocate(
     float | None,
     AllocatorMode,
 ]:
+    clear_usage_cache()
     lambdas = {k: 0.0 for k in _RESOURCE_KEYS}
     if lambda_warm_start:
         for k, v in lambda_warm_start.items():
