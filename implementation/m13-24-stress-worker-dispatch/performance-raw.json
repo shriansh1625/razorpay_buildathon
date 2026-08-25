@@ -1,0 +1,38 @@
+[
+  {
+    "workers": 1,
+    "cells_planned": 10,
+    "wall_seconds": 72.336,
+    "rss_before_bytes": 30285824,
+    "rss_after_bytes": 48889856,
+    "peak_parent_rss_bytes": 48889856,
+    "peak_worker_rss_bytes": null,
+    "estimated_parallel_peak_bytes": null,
+    "memory_safe": null,
+    "parallel_groups": null
+  },
+  {
+    "workers": 2,
+    "cells_planned": 10,
+    "wall_seconds": 39.788,
+    "rss_before_bytes": 48889856,
+    "rss_after_bytes": 49377280,
+    "peak_parent_rss_bytes": 49041408,
+    "peak_worker_rss_bytes": 98734080,
+    "estimated_parallel_peak_bytes": 246509568,
+    "memory_safe": true,
+    "parallel_groups": 2
+  },
+  {
+    "workers": 8,
+    "cells_planned": 10,
+    "wall_seconds": 31.689,
+    "rss_before_bytes": 49377280,
+    "rss_after_bytes": 49987584,
+    "peak_parent_rss_bytes": 49389568,
+    "peak_worker_rss_bytes": 98185216,
+    "estimated_parallel_peak_bytes": 834871296,
+    "memory_safe": true,
+    "parallel_groups": 2
+  }
+]

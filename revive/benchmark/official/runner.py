@@ -126,6 +126,9 @@ def execute_benchmark(
                 config_hash=config_hash,
                 cells_root=cells_root,
                 cell_count=stress_cells,
+                workers=workers,
+                stop_after_cell=stop_after_cell,
+                benchmark_mode=benchmark_mode,
                 progress=progress,
                 progress_stream=progress_stream,
             )
