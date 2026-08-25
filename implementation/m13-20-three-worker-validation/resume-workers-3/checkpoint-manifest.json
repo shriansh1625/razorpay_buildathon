@@ -1,0 +1,17 @@
+{
+  "benchmark_version": "0.13.0-m13",
+  "cells_completed": 10,
+  "cells_total": 10,
+  "config_hash": "aaceb637ba1a0b77079260ffb433a646e76d9c7c9e848c95874ede8efe4703cf",
+  "last_completed_cell": {
+    "index": 10,
+    "policy_id": "REVIVE",
+    "profile": "HIGH_NATURAL",
+    "seed": 1
+  },
+  "metric_version": "0.12.0-m12",
+  "policy_pack_hash": "4b31e760d16fe9190384d8c8f93e931ded2ffb04b7036b774eea33b22980374b",
+  "policy_pack_version": "pol_m13_official_v1",
+  "schema_version": "1",
+  "updated_at": "2026-08-25T13:28:39.748693+00:00"
+}

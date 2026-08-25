@@ -1,0 +1,64 @@
+{
+  "allocation": {
+    "allocation_hash": "df6882e36cb78e62b852283703add95e6dd1c55e44911dbd57f4df536273a997",
+    "allocator_mode": "LAGRANGIAN",
+    "allocator_version": "0.8.0-m8",
+    "assignments": [
+      {
+        "action_code": "A05",
+        "binding_resource": null,
+        "candidate_id": "cand_opp_a_A05",
+        "customer_id": "cust_1",
+        "enrv_paise": 6000,
+        "explanation": [
+          "portfolio_adjusted_enrv",
+          "rv=6000"
+        ],
+        "opportunity_id": "opp_a",
+        "outcome": "SELECTED",
+        "reason_code": "ALLOCATED_HIGH_REDUCED_VALUE",
+        "reduced_value_paise": 6000
+      },
+      {
+        "action_code": "A05",
+        "binding_resource": null,
+        "candidate_id": "cand_opp_b_A05",
+        "customer_id": "cust_1",
+        "enrv_paise": 5000,
+        "explanation": [
+          "portfolio_adjusted_enrv",
+          "rv=5000"
+        ],
+        "opportunity_id": "opp_b",
+        "outcome": "SELECTED",
+        "reason_code": "ALLOCATED_HIGH_REDUCED_VALUE",
+        "reduced_value_paise": 5000
+      }
+    ],
+    "budget_usage_paise": 0,
+    "constraint_summary": [
+      "retry_slots:0/50",
+      "message_capacity:2/100",
+      "voice_minutes:0/30",
+      "human_review_slots:0/10",
+      "incentive_budget:0/1000000"
+    ],
+    "cycle_id": "cyc_contact_binding",
+    "duality_gap": 0.9999960007678526,
+    "optimality_gap": null,
+    "policy_pack_version": "golden",
+    "produced_at_micros": 3600000000,
+    "resource_usage": {
+      "human_review_slots": 0,
+      "incentive_budget": 0,
+      "message_capacity": 2,
+      "retry_slots": 0,
+      "voice_minutes": 0
+    },
+    "shadow_price_method": "LAGRANGIAN_DUAL",
+    "shadow_prices": {},
+    "total_allocated_enrv_paise": 11000
+  },
+  "fixture_name": "contact_binding",
+  "input_hash": "d4069202c4472415d4ad3ae5c689f9f66302bf271c83f5f0ac4df635f1c7b9d5"
+}

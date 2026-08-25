@@ -1,0 +1,107 @@
+{
+  "seed": 2,
+  "profile": "BALANCED",
+  "total_seconds": 600.8592795000004,
+  "cycle_count": 2016,
+  "stages": {
+    "M4": {
+      "seconds": 28.207635300030233,
+      "count": 2016,
+      "share_pct": 4.694549333331918
+    },
+    "M5": {
+      "seconds": 145.1149965999648,
+      "count": 1506958,
+      "share_pct": 24.151244983804016
+    },
+    "M6": {
+      "seconds": 152.72292160052166,
+      "count": 753479,
+      "share_pct": 25.417419154716004
+    },
+    "M7": {
+      "seconds": 165.4108500002112,
+      "count": 753479,
+      "share_pct": 27.529049753189522
+    },
+    "M8": {
+      "seconds": 70.61950390025595,
+      "count": 2016,
+      "share_pct": 11.753085341216886
+    },
+    "M9": {
+      "seconds": 6.615929500614584,
+      "count": 121120,
+      "share_pct": 1.1010780271413916
+    },
+    "M10": {
+      "seconds": 6.581096800087835,
+      "count": 121120,
+      "share_pct": 1.0952808793373774
+    },
+    "M11": {
+      "seconds": 0.0,
+      "count": 0,
+      "share_pct": 0.0
+    },
+    "M12": {
+      "seconds": 0.0,
+      "count": 0,
+      "share_pct": 0.0
+    }
+  },
+  "hotspots": {
+    "M4": "GREEN",
+    "M5": "YELLOW",
+    "M6": "RED",
+    "M7": "RED",
+    "M8": "YELLOW",
+    "M9": "GREEN",
+    "M10": "GREEN",
+    "M11": "GREEN",
+    "M12": "GREEN"
+  },
+  "counters": {
+    "m4_opportunities": 753479,
+    "m6_candidates": 5547419,
+    "m7_valuations": 5547419,
+    "m8_allocations": 2016,
+    "m9_decisions": 121120,
+    "m10_authorizations": 121120
+  },
+  "peak_rss_bytes": 566951936,
+  "cell_result_hash": "d313e5216bd6a1ba250596ae2e60d6212c0833c6c8d622acb63ce0d84945ba30",
+  "metrics": {
+    "policy_id": "REVIVE",
+    "seed": 2,
+    "profile": "BALANCED",
+    "net_recovered_paise": 0,
+    "gross_recovered_paise": 0,
+    "natural_recovered_paise": 0,
+    "incremental_recovered_paise": 0,
+    "realized_cost_paise": 0,
+    "intervention_count": 0,
+    "contact_count": 0,
+    "unauthorized_executions": 0,
+    "policy_violations": 0,
+    "stopping_rule_violations": 0,
+    "execution_failures": 0,
+    "idempotency_conflicts": 0,
+    "duplicate_effects": 0,
+    "resource_oversubscriptions": 0,
+    "budget_violations": 0,
+    "predicted_enrv_paise": 0,
+    "realized_incremental_paise": 0,
+    "enrv_prediction_error_paise": 0,
+    "recovery_prediction_error_paise": 0,
+    "recovery_rate": 0.0,
+    "budget_utilization": 0.0,
+    "resource_utilization": {
+      "retry_slots": 0.0,
+      "message_capacity": 0.0
+    },
+    "run_valid": true,
+    "invalid_reasons": [],
+    "M-10_incremental_net_paise": null
+  }
+}

@@ -1,0 +1,2897 @@
+{
+  "version": "0.13.7-m13.7",
+  "official_scale_cells": [
+    {
+      "seed": 1,
+      "profile": "BALANCED",
+      "opportunity_count": 365,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 19907.0,
+          "median": 19907.0,
+          "max": 19907.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3669.7964787624846,
+          "median": 3669.7964787624846,
+          "max": 3669.7964787624846,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.48776978417266187,
+        "other": 0.40863309352517985,
+        "human": 0.10359712230215827
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "other": 0.16666666666666666,
+        "retry": 0.8333333333333334
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 305,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 365,
+      "candidates_in_cycle": 695,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 77863,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.76,
+      "b3_total_enrv": 1502372,
+      "revive_total_enrv": 1502372,
+      "shadow_prices": {
+        "retry_slots": 19907.0,
+        "human_review_slots": 3669.7964787624846
+      }
+    },
+    {
+      "seed": 1,
+      "profile": "HIGH_NATURAL",
+      "opportunity_count": 366,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 23358.0,
+          "median": 23358.0,
+          "max": 23358.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3520.811909544458,
+          "median": 3520.811909544458,
+          "max": 3520.811909544458,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.5014409221902018,
+        "other": 0.4092219020172911,
+        "human": 0.0893371757925072
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 306,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 366,
+      "candidates_in_cycle": 694,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 81906,
+      "customers_with_multiple_opps": 82,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.96,
+      "b3_total_enrv": 1667648,
+      "revive_total_enrv": 1667648,
+      "shadow_prices": {
+        "retry_slots": 23358.0,
+        "human_review_slots": 3520.811909544458
+      }
+    },
+    {
+      "seed": 1,
+      "profile": "SCARCE",
+      "opportunity_count": 366,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 34621.0,
+          "median": 34621.0,
+          "max": 34621.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3926.450871082661,
+          "median": 3926.450871082661,
+          "max": 3926.450871082661,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.5014409221902018,
+        "other": 0.4092219020172911,
+        "human": 0.0893371757925072
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 342,
+        "same_highest_enrv_or_rv": 24
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 366,
+      "candidates_in_cycle": 694,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 81906,
+      "customers_with_multiple_opps": 82,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 17.4,
+      "b3_total_enrv": 764146,
+      "revive_total_enrv": 764146,
+      "shadow_prices": {
+        "retry_slots": 34621.0,
+        "human_review_slots": 3926.450871082661
+      }
+    },
+    {
+      "seed": 1,
+      "profile": "ABUNDANT",
+      "opportunity_count": 363,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.688,
+          "peak_utilization": 0.688,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 899.3377466939752,
+          "median": 899.3377466939752,
+          "max": 899.3377466939752,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.4846715328467153,
+        "other": 0.4145985401459854,
+        "human": 0.10072992700729927
+      },
+      "feasible_action_shares": {
+        "retry": 1.0
+      },
+      "b3_selected_shares": {
+        "retry": 0.7747747747747747,
+        "other": 0.22522522522522523
+      },
+      "revive_selected_shares": {
+        "retry": 0.7747747747747747,
+        "other": 0.22522522522522523
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "same_highest_enrv_or_rv": 222,
+        "both_no_selection": 141
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 363,
+      "candidates_in_cycle": 685,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 73725,
+      "customers_with_multiple_opps": 84,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 1.324,
+      "b3_total_enrv": 2573662,
+      "revive_total_enrv": 2573662,
+      "shadow_prices": {
+        "human_review_slots": 899.3377466939752
+      }
+    },
+    {
+      "seed": 1,
+      "profile": "HOSTILE",
+      "opportunity_count": 368,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 23083.0,
+          "median": 23083.0,
+          "max": 23083.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3839.8787871275363,
+          "median": 3839.8787871275363,
+          "max": 3839.8787871275363,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.48840579710144927,
+        "other": 0.4101449275362319,
+        "human": 0.10144927536231885
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "revive_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 319,
+        "same_highest_enrv_or_rv": 49
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 368,
+      "candidates_in_cycle": 690,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 76448,
+      "customers_with_multiple_opps": 89,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 8.170731707317072,
+      "b3_total_enrv": 1299938,
+      "revive_total_enrv": 1299938,
+      "shadow_prices": {
+        "retry_slots": 23083.0,
+        "human_review_slots": 3839.8787871275363
+      }
+    },
+    {
+      "seed": 1,
+      "profile": "DEGRADED",
+      "opportunity_count": 365,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 19907.0,
+          "median": 19907.0,
+          "max": 19907.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3669.7964787624846,
+          "median": 3669.7964787624846,
+          "max": 3669.7964787624846,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.48776978417266187,
+        "other": 0.40863309352517985,
+        "human": 0.10359712230215827
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "other": 0.16666666666666666,
+        "retry": 0.8333333333333334
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 305,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 365,
+      "candidates_in_cycle": 695,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 77863,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.76,
+      "b3_total_enrv": 1502372,
+      "revive_total_enrv": 1502372,
+      "shadow_prices": {
+        "retry_slots": 19907.0,
+        "human_review_slots": 3669.7964787624846
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "BALANCED",
+      "opportunity_count": 377,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 24583.0,
+          "median": 24583.0,
+          "max": 24583.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3780.1707654204347,
+          "median": 3780.1707654204347,
+          "max": 3780.1707654204347,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.49592391304347827,
+        "other": 0.40896739130434784,
+        "human": 0.09510869565217392
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 317,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 377,
+      "candidates_in_cycle": 736,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 86613,
+      "customers_with_multiple_opps": 88,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 7.26,
+      "b3_total_enrv": 1661174,
+      "revive_total_enrv": 1661174,
+      "shadow_prices": {
+        "retry_slots": 24583.0,
+        "human_review_slots": 3780.1707654204347
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "HIGH_NATURAL",
+      "opportunity_count": 380,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 23585.0,
+          "median": 23585.0,
+          "max": 23585.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3787.4334138359395,
+          "median": 3787.4334138359395,
+          "max": 3787.4334138359395,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.4940239043824701,
+        "other": 0.4063745019920319,
+        "human": 0.099601593625498
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 320,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 380,
+      "candidates_in_cycle": 753,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 91701,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 7.4,
+      "b3_total_enrv": 1642512,
+      "revive_total_enrv": 1642512,
+      "shadow_prices": {
+        "retry_slots": 23585.0,
+        "human_review_slots": 3787.4334138359395
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "SCARCE",
+      "opportunity_count": 377,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 34926.0,
+          "median": 34926.0,
+          "max": 34926.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 4080.2366143595623,
+          "median": 4080.2366143595623,
+          "max": 4080.2366143595623,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.49592391304347827,
+        "other": 0.40896739130434784,
+        "human": 0.09510869565217392
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 353,
+        "same_highest_enrv_or_rv": 24
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 377,
+      "candidates_in_cycle": 736,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 86613,
+      "customers_with_multiple_opps": 88,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 18.15,
+      "b3_total_enrv": 767967,
+      "revive_total_enrv": 767967,
+      "shadow_prices": {
+        "retry_slots": 34926.0,
+        "human_review_slots": 4080.2366143595623
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "ABUNDANT",
+      "opportunity_count": 374,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.684,
+          "peak_utilization": 0.684,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 1019.1129060403798,
+          "median": 1019.1129060403798,
+          "max": 1019.1129060403798,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.47844827586206895,
+        "other": 0.40948275862068967,
+        "human": 0.11206896551724138
+      },
+      "feasible_action_shares": {
+        "retry": 1.0
+      },
+      "b3_selected_shares": {
+        "retry": 0.7737556561085973,
+        "other": 0.22624434389140272
+      },
+      "revive_selected_shares": {
+        "retry": 0.7737556561085973,
+        "other": 0.22624434389140272
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 153,
+        "same_highest_enrv_or_rv": 221
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 374,
+      "candidates_in_cycle": 696,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 75378,
+      "customers_with_multiple_opps": 84,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 1.332,
+      "b3_total_enrv": 2754993,
+      "revive_total_enrv": 2754993,
+      "shadow_prices": {
+        "human_review_slots": 1019.1129060403798
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "HOSTILE",
+      "opportunity_count": 377,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 26699.0,
+          "median": 26699.0,
+          "max": 26699.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3951.9065786847573,
+          "median": 3951.9065786847573,
+          "max": 3951.9065786847573,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.49592391304347827,
+        "other": 0.40896739130434784,
+        "human": 0.09510869565217392
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "revive_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 328,
+        "same_highest_enrv_or_rv": 49
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 377,
+      "candidates_in_cycle": 736,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 86613,
+      "customers_with_multiple_opps": 88,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 8.853658536585366,
+      "b3_total_enrv": 1423373,
+      "revive_total_enrv": 1423373,
+      "shadow_prices": {
+        "retry_slots": 26699.0,
+        "human_review_slots": 3951.9065786847573
+      }
+    },
+    {
+      "seed": 2,
+      "profile": "DEGRADED",
+      "opportunity_count": 377,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 24583.0,
+          "median": 24583.0,
+          "max": 24583.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3780.1707654204347,
+          "median": 3780.1707654204347,
+          "max": 3780.1707654204347,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "retry": 0.49592391304347827,
+        "other": 0.40896739130434784,
+        "human": 0.09510869565217392
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 317,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 377,
+      "candidates_in_cycle": 736,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 86613,
+      "customers_with_multiple_opps": 88,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 7.26,
+      "b3_total_enrv": 1661174,
+      "revive_total_enrv": 1661174,
+      "shadow_prices": {
+        "retry_slots": 24583.0,
+        "human_review_slots": 3780.1707654204347
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "BALANCED",
+      "opportunity_count": 357,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 18817.0,
+          "median": 18817.0,
+          "max": 18817.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3770.3045724654667,
+          "median": 3770.3045724654667,
+          "max": 3770.3045724654667,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.4183206106870229,
+        "human": 0.11755725190839694,
+        "retry": 0.46412213740458014
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 297,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 357,
+      "candidates_in_cycle": 655,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 61986,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.02,
+      "b3_total_enrv": 1555012,
+      "revive_total_enrv": 1555012,
+      "shadow_prices": {
+        "retry_slots": 18817.0,
+        "human_review_slots": 3770.3045724654667
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "HIGH_NATURAL",
+      "opportunity_count": 358,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 18817.0,
+          "median": 18817.0,
+          "max": 18817.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3696.7318301685204,
+          "median": 3696.7318301685204,
+          "max": 3696.7318301685204,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.417298937784522,
+        "human": 0.10925644916540213,
+        "retry": 0.47344461305007585
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 298,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 358,
+      "candidates_in_cycle": 659,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 65164,
+      "customers_with_multiple_opps": 91,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.18,
+      "b3_total_enrv": 1514730,
+      "revive_total_enrv": 1514730,
+      "shadow_prices": {
+        "retry_slots": 18817.0,
+        "human_review_slots": 3696.7318301685204
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "SCARCE",
+      "opportunity_count": 358,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 31300.0,
+          "median": 31300.0,
+          "max": 31300.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3926.1099088886112,
+          "median": 3926.1099088886112,
+          "max": 3926.1099088886112,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.417298937784522,
+        "human": 0.10925644916540213,
+        "retry": 0.47344461305007585
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 334,
+        "same_highest_enrv_or_rv": 24
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 358,
+      "candidates_in_cycle": 659,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 65164,
+      "customers_with_multiple_opps": 91,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 15.45,
+      "b3_total_enrv": 743570,
+      "revive_total_enrv": 743570,
+      "shadow_prices": {
+        "retry_slots": 31300.0,
+        "human_review_slots": 3926.1099088886112
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "ABUNDANT",
+      "opportunity_count": 357,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.62,
+          "peak_utilization": 0.62,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 912.7509899426656,
+          "median": 912.7509899426656,
+          "max": 912.7509899426656,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.4183206106870229,
+        "human": 0.11755725190839694,
+        "retry": 0.46412213740458014
+      },
+      "feasible_action_shares": {
+        "retry": 1.0
+      },
+      "b3_selected_shares": {
+        "retry": 0.7560975609756098,
+        "other": 0.24390243902439024
+      },
+      "revive_selected_shares": {
+        "retry": 0.7560975609756098,
+        "other": 0.24390243902439024
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 152,
+        "same_highest_enrv_or_rv": 205
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 357,
+      "candidates_in_cycle": 655,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 60201,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 1.204,
+      "b3_total_enrv": 2301986,
+      "revive_total_enrv": 2301986,
+      "shadow_prices": {
+        "human_review_slots": 912.7509899426656
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "HOSTILE",
+      "opportunity_count": 357,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 23183.0,
+          "median": 23183.0,
+          "max": 23183.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3822.0435928233624,
+          "median": 3822.0435928233624,
+          "max": 3822.0435928233624,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.4183206106870229,
+        "human": 0.11755725190839694,
+        "retry": 0.46412213740458014
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "revive_selected_shares": {
+        "retry": 0.8367346938775511,
+        "other": 0.16326530612244897
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 308,
+        "same_highest_enrv_or_rv": 49
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 357,
+      "candidates_in_cycle": 655,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 61986,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 7.341463414634147,
+      "b3_total_enrv": 1361532,
+      "revive_total_enrv": 1361532,
+      "shadow_prices": {
+        "retry_slots": 23183.0,
+        "human_review_slots": 3822.0435928233624
+      }
+    },
+    {
+      "seed": 3,
+      "profile": "DEGRADED",
+      "opportunity_count": 357,
+      "customer_count": 100,
+      "simulation_window_days": 30,
+      "binding_rows": [
+        {
+          "resource": "retry_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "message_capacity",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "binding_frequency": 1.0,
+          "average_utilization": 1.0,
+          "peak_utilization": 1.0,
+          "shadow_price_frequency": 1.0
+        },
+        {
+          "resource": "incentive_budget",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "binding_frequency": 0.0,
+          "average_utilization": 0.0,
+          "peak_utilization": 0.0,
+          "shadow_price_frequency": 0.0
+        }
+      ],
+      "shadow_stats": [
+        {
+          "resource": "retry_slots",
+          "mean": 18817.0,
+          "median": 18817.0,
+          "max": 18817.0,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "message_capacity",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "voice_minutes",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "human_review_slots",
+          "mean": 3770.3045724654667,
+          "median": 3770.3045724654667,
+          "max": 3770.3045724654667,
+          "nonzero_cycle_pct": 100.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "incentive_budget",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        },
+        {
+          "resource": "contact_allowance",
+          "mean": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "nonzero_cycle_pct": 0.0,
+          "selection_change_pct": 0.0
+        }
+      ],
+      "portfolio_conflicts": 0,
+      "conflict_rate": 0.0,
+      "conflict_by_resource": {},
+      "resource_density_inversions": 0,
+      "inversion_by_resource": {},
+      "candidate_action_shares": {
+        "other": 0.4183206106870229,
+        "human": 0.11755725190839694,
+        "retry": 0.46412213740458014
+      },
+      "feasible_action_shares": {},
+      "b3_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "revive_selected_shares": {
+        "retry": 0.8333333333333334,
+        "other": 0.16666666666666666
+      },
+      "b3_dominant_action": "retry",
+      "revive_dominant_action": "retry",
+      "differing_allocations": 0,
+      "identical_enrv_cause": "A_identical_candidates",
+      "same_action_reasons": {
+        "both_no_selection": 297,
+        "same_highest_enrv_or_rv": 60
+      },
+      "different_action_reasons": {},
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false,
+      "opportunities_in_cycle": 357,
+      "candidates_in_cycle": 655,
+      "distinct_actions_in_cycle": 4,
+      "shared_resource_pairs": 61986,
+      "customers_with_multiple_opps": 87,
+      "customer_contact_conflicts": 0,
+      "competition_ratio_retry": 6.02,
+      "b3_total_enrv": 1555012,
+      "revive_total_enrv": 1555012,
+      "shadow_prices": {
+        "retry_slots": 18817.0,
+        "human_review_slots": 3770.3045724654667
+      }
+    }
+  ],
+  "config_matrix": [
+    {
+      "opportunity_count": 100,
+      "customer_count": 20,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 1.22,
+      "conflict_rate": 0.020674446384269043,
+      "portfolio_conflicts": 450,
+      "differing_allocations": 8,
+      "resource_binding": "contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 880945,
+      "revive_total_enrv": 880914,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 250,
+      "customer_count": 50,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 3.06,
+      "conflict_rate": 0.02451785759421682,
+      "portfolio_conflicts": 2910,
+      "differing_allocations": 35,
+      "resource_binding": "retry_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 1986905,
+      "revive_total_enrv": 1992303,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 5.82,
+      "conflict_rate": 0.022783162998563224,
+      "portfolio_conflicts": 11766,
+      "differing_allocations": 43,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 3774878,
+      "revive_total_enrv": 3548112,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 750,
+      "customer_count": 150,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 9.42,
+      "conflict_rate": 0.02450475727166793,
+      "portfolio_conflicts": 34656,
+      "differing_allocations": 21,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 5132519,
+      "revive_total_enrv": 4952944,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 5.82,
+      "conflict_rate": 0.022783162998563224,
+      "portfolio_conflicts": 11766,
+      "differing_allocations": 43,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 3774878,
+      "revive_total_enrv": 3548112,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 21,
+      "profile": "SCARCE",
+      "seed": 1,
+      "competition_ratio_retry": 15.25,
+      "conflict_rate": 0.02393677507391403,
+      "portfolio_conflicts": 13472,
+      "differing_allocations": 4,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 2421101,
+      "revive_total_enrv": 2436013,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 21,
+      "profile": "BALANCED",
+      "seed": 2,
+      "competition_ratio_retry": 6.32,
+      "conflict_rate": 0.02471906010281354,
+      "portfolio_conflicts": 17604,
+      "differing_allocations": 36,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 4337580,
+      "revive_total_enrv": 4126549,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 21,
+      "profile": "SCARCE",
+      "seed": 2,
+      "competition_ratio_retry": 15.8,
+      "conflict_rate": 0.02471906010281354,
+      "portfolio_conflicts": 17604,
+      "differing_allocations": 5,
+      "resource_binding": "retry_slots,message_capacity,human_review_slots,contact_allowance",
+      "action_diversity": 13,
+      "b3_total_enrv": 2492824,
+      "revive_total_enrv": 2510132,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 30,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 6.76,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 1502372,
+      "revive_total_enrv": 1502372,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 30,
+      "profile": "SCARCE",
+      "seed": 1,
+      "competition_ratio_retry": 17.4,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 764146,
+      "revive_total_enrv": 764146,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 30,
+      "profile": "BALANCED",
+      "seed": 2,
+      "competition_ratio_retry": 7.26,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 1661174,
+      "revive_total_enrv": 1661174,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 30,
+      "profile": "SCARCE",
+      "seed": 2,
+      "competition_ratio_retry": 18.15,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 767967,
+      "revive_total_enrv": 767967,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 50,
+      "window_days": 30,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 6.44,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 1556392,
+      "revive_total_enrv": 1556392,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 100,
+      "window_days": 30,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 6.76,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 1502372,
+      "revive_total_enrv": 1502372,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    },
+    {
+      "opportunity_count": 500,
+      "customer_count": 200,
+      "window_days": 30,
+      "profile": "BALANCED",
+      "seed": 1,
+      "competition_ratio_retry": 7.08,
+      "conflict_rate": 0.0,
+      "portfolio_conflicts": 0,
+      "differing_allocations": 0,
+      "resource_binding": "retry_slots,human_review_slots",
+      "action_diversity": 4,
+      "b3_total_enrv": 1625577,
+      "revive_total_enrv": 1625577,
+      "allocator_mode": "LAGRANGIAN",
+      "fallback_used": false
+    }
+  ],
+  "m8_audit": {
+    "component": "M8 Portfolio Allocator",
+    "status": "ALIGNED",
+    "findings": [
+      "Objective: maximize \u03a3 ENRV under capacities \u2014 implemented in allocate_portfolio (docs/10 \u00a72.1).",
+      "Lagrangian relaxation with subgradient on capacity violations \u2014 lagrangian_allocate().",
+      "Primal recovery with reservation \u2014 primal_recovery() matches docs/10 \u00a75.1.",
+      "Greedy density fallback on iteration budget \u2014 fallback_greedy_allocate() (docs/10 \u00a75.2).",
+      "\u03b5 threshold from PolicyPack \u2014 enforced in best_action_for_opportunity and primal recovery.",
+      "Six resource families tracked \u2014 retry, message, voice, human, incentive, contact_allowance.",
+      "Shadow prices from Lagrangian dual and binding-resource estimates in primal recovery.",
+      "Opportunity exclusivity \u2014 one assignment per opportunity in assignments dict.",
+      "No oracle / latent inputs in allocation package (observable ENRV only).",
+      "CAUTION: contact_allowance subgradient uses aggregate violation heuristic, not per-customer duals.",
+      "CAUTION: M8 fallback uses ENRV/resource density; B3 uses raw ENRV \u2014 differentiation requires density inversions."
+    ]
+  },
+  "b3_audit": {
+    "component": "B3 GREEDY_ENRV Baseline",
+    "status": "ALIGNED",
+    "findings": [
+      "B3 = GREEDY_ENRV per docs/20 \u2014 GreedyEnrvBaseline ranks by raw heuristic ENRV.",
+      "Observable inputs only \u2014 best_action_for_opportunity on ObservableOpportunity features.",
+      "Resource handling via can_reserve_action / reserve_action on BaselineCycleContext.",
+      "Below-\u03b5 opportunities get NO_ACTION; capacity exhaustion yields DEFERRED.",
+      "Tie-breaking: sort by (-enrv, opportunity_id) in decide_cycle.",
+      "Calibration b3_greedy_selection mirrors greedy-by-ENRV on M7 PricedCandidates.",
+      "CAUTION: B3 baseline uses observable heuristic ENRV; calibration path uses M7 ENRV \u2014 same ranking intent.",
+      "No oracle access in baseline package."
+    ]
+  },
+  "fallback_summary": {
+    "official_scale_lagrangian_cycles": 18,
+    "official_scale_fallback_cycles": 0,
+    "fallback_pct": 0.0,
+    "matrix_fallback_rows": 0,
+    "matrix_total_rows": 15
+  },
+  "thesis_classification": "THESIS CONFIGURATION-DEPENDENT",
+  "thesis_rationale": "Proposed official config (500 opps / 100 customers / 30-day window) shows 0 portfolio conflicts and 0 B3/REVIVE differing across 18 cells \u2014 greedy raw ENRV equals Lagrangian selection. Legitimate 21-day-window variants show 195 total differing allocations and thousands of portfolio conflicts. Binding resource at 30d is retry_slots only; message/contact/human do not bind. M8 implementation audit: ALIGNED. Root cause: benchmark configuration + homogeneous mid-cycle candidate pool, not allocator defect."
+}

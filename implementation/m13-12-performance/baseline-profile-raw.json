@@ -1,0 +1,14 @@
+{
+  "seed": 2,
+  "profile": "BALANCED",
+  "cycle_index": 0,
+  "opportunity_count": 251,
+  "portfolio_item_count": 251,
+  "candidate_count": 783,
+  "lagrangian_seconds": 0.06018930000209366,
+  "allocate_seconds": 0.018074799998430535,
+  "mode": "LAGRANGIAN",
+  "duality_gap": null,
+  "allocation_hash": "aa2149aa004f41ac07593cecb6e19f76f758ff49a0ad9283737eddd01c6a89f5",
+  "total_enrv": 1423790
+}

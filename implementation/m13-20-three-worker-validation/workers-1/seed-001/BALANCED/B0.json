@@ -1,0 +1,52 @@
+{
+  "benchmark_version": "0.13.0-m13",
+  "cell_index": 1,
+  "config_hash": "aaceb637ba1a0b77079260ffb433a646e76d9c7c9e848c95874ede8efe4703cf",
+  "metric_version": "0.12.0-m12",
+  "metrics": {
+    "M-10_incremental_net_paise": null,
+    "budget_utilization": 0.0,
+    "budget_violations": 0,
+    "contact_count": 0,
+    "duplicate_effects": 0,
+    "enrv_prediction_error_paise": 0,
+    "execution_failures": 0,
+    "gross_recovered_paise": 0,
+    "idempotency_conflicts": 0,
+    "incremental_recovered_paise": 0,
+    "intervention_count": 0,
+    "invalid_reasons": [],
+    "natural_recovered_paise": 0,
+    "net_recovered_paise": 0,
+    "policy_id": "B0",
+    "policy_violations": 0,
+    "predicted_enrv_paise": 0,
+    "profile": "BALANCED",
+    "realized_cost_paise": 0,
+    "realized_incremental_paise": 0,
+    "recovery_prediction_error_paise": 0,
+    "recovery_rate": 0.0,
+    "resource_oversubscriptions": 0,
+    "resource_utilization": {
+      "message_capacity": 0.0,
+      "retry_slots": 0.0
+    },
+    "run_valid": true,
+    "seed": 1,
+    "stopping_rule_violations": 0,
+    "unauthorized_executions": 0
+  },
+  "metrics_checksum": "903630e018e71403e56a1f9424220f55bc1e26bc81f4da1fc5adaab2d337c273",
+  "policy_id": "B0",
+  "policy_pack_hash": "4b31e760d16fe9190384d8c8f93e931ded2ffb04b7036b774eea33b22980374b",
+  "policy_pack_version": "pol_m13_official_v1",
+  "profile": "BALANCED",
+  "schema_version": "1",
+  "seed": 1,
+  "telemetry": {
+    "duration_seconds": 33.181217899982585,
+    "peak_rss_bytes": 40013824,
+    "rss_after_bytes": 40013824,
+    "rss_before_bytes": 35205120
+  }
+}

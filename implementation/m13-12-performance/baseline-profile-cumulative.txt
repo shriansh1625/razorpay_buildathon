@@ -1,0 +1,31 @@
+         198901 function calls in 0.060 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.006    0.006    0.060    0.060 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:122(lagrangian_allocate)
+    10040    0.014    0.000    0.046    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:55(_best_action_for_opportunity)
+    14400    0.014    0.000    0.023    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:40(_reduced_value_paise)
+     6415    0.003    0.000    0.005    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\tiebreak.py:9(sort_key_candidate)
+       40    0.003    0.000    0.004    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:83(_total_usage)
+    20956    0.004    0.000    0.004    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\resources.py:120(usage_dict)
+       40    0.002    0.000    0.003    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:100(_contact_violation)
+    27712    0.003    0.000    0.003    0.000 {method 'get' of 'dict' objects}
+    35680    0.003    0.000    0.003    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\models.py:75(enrv_paise)
+    37735    0.003    0.000    0.003    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\models.py:71(action_code)
+    17838    0.002    0.000    0.002    0.000 {method 'items' of 'dict' objects}
+     6415    0.001    0.000    0.002    0.000 C:\Users\shria\AppData\Local\Programs\Python\Python313\Lib\enum.py:200(__get__)
+    14400    0.002    0.000    0.002    0.000 {built-in method builtins.round}
+     6415    0.001    0.000    0.001    0.000 C:\Users\shria\AppData\Local\Programs\Python\Python313\Lib\enum.py:1338(value)
+       80    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+       80    0.000    0.000    0.000    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:176(<genexpr>)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+       40    0.000    0.000    0.000    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\config.py:27(step)
+       40    0.000    0.000    0.000    0.000 {built-in method builtins.all}
+      240    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+      251    0.000    0.000    0.000    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\tiebreak.py:22(sort_key_opportunity)
+       80    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\shria\Desktop\razorpay_buildathon\revive\allocation\lagrangian.py:28(_capacity_vector)
+
+

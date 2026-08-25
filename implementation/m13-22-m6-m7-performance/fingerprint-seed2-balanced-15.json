@@ -1,0 +1,10 @@
+{
+  "seed": 2,
+  "profile": "BALANCED",
+  "cycles": 15,
+  "m4_opportunity_count": 251,
+  "m6_hash": "b9af5e6f94cf16997a1fa4be600130396041ac6c379aa672dbaeb1b2d070879f",
+  "m7_hash": "bda2c8a45a6c6ad460958bf3f4455470b9ee66b0055e45b8bcd4ee198f1f2e4c",
+  "metrics_checksum": "37d9db486094b16b614dfa20230c7e229d23df3e147674c330ada324858755cf",
+  "intervention_count": 777
+}

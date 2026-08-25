@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "revive"
+version = "0.1.0"
+description = "REVIVE — Revenue Recovery Autopilot (Razorpay Buildathon Track 03)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+revive = "revive.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["revive*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"

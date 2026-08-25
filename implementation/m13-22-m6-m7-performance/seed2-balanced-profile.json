@@ -1,0 +1,80 @@
+{
+  "wall_seconds": 1040.3164219000028,
+  "profile": {
+    "seed": 2,
+    "profile": "BALANCED",
+    "total_seconds": 685.3915592999838,
+    "cycle_count": 2016,
+    "stages": {
+      "M4": {
+        "seconds": 38.24862309981836,
+        "count": 2016,
+        "share_pct": 5.580550647411404
+      },
+      "M5": {
+        "seconds": 90.81851089003612,
+        "count": 1506958,
+        "share_pct": 13.250602470621683
+      },
+      "M6": {
+        "seconds": 169.89947449380998,
+        "count": 753479,
+        "share_pct": 24.78867330483829
+      },
+      "M7": {
+        "seconds": 223.07589770827326,
+        "count": 753479,
+        "share_pct": 32.54721986014959
+      },
+      "M8": {
+        "seconds": 91.56756939957268,
+        "count": 2016,
+        "share_pct": 13.359891606061517
+      },
+      "M9": {
+        "seconds": 11.037158500344958,
+        "count": 121122,
+        "share_pct": 1.6103435110315079
+      },
+      "M10": {
+        "seconds": 10.315719601989258,
+        "count": 121122,
+        "share_pct": 1.5050841321309956
+      },
+      "M11": {
+        "seconds": 7.195655198593158,
+        "count": 101615,
+        "share_pct": 1.049860492291786
+      },
+      "M12": {
+        "seconds": 4.534019502083538,
+        "count": 101615,
+        "share_pct": 0.6615225181229695
+      }
+    },
+    "hotspots": {
+      "M4": "GREEN",
+      "M5": "YELLOW",
+      "M6": "YELLOW",
+      "M7": "RED",
+      "M8": "YELLOW",
+      "M9": "GREEN",
+      "M10": "GREEN",
+      "M11": "GREEN",
+      "M12": "GREEN"
+    },
+    "counters": {
+      "m4_opportunities": 753479,
+      "m6_candidates": 5547419,
+      "m7_valuations": 5547419,
+      "m8_allocations": 2016,
+      "m9_decisions": 121122,
+      "m10_authorizations": 121122,
+      "m11_executions": 101615,
+      "m12_measurements": 101615
+    },
+    "peak_rss_bytes": 657797120
+  },
+  "cell_result_hash": "d8cd30d5ded34e7cc2650ff87d813afee52b3d1269f71ade1d9b9fd1d14b75e9",
+  "intervention_count": 101615
+}

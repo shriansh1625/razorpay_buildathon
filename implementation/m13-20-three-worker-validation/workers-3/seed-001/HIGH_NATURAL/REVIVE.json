@@ -1,0 +1,49 @@
+{
+  "benchmark_version": "0.13.0-m13",
+  "cell_index": 10,
+  "config_hash": "aaceb637ba1a0b77079260ffb433a646e76d9c7c9e848c95874ede8efe4703cf",
+  "metric_version": "0.12.0-m12",
+  "metrics": {
+    "M-10_incremental_net_paise": null,
+    "budget_utilization": 13.5335,
+    "budget_violations": 0,
+    "contact_count": 36,
+    "duplicate_effects": 0,
+    "enrv_prediction_error_paise": -2547609206,
+    "execution_failures": 16801,
+    "gross_recovered_paise": 66285022,
+    "idempotency_conflicts": 0,
+    "incremental_recovered_paise": 66285022,
+    "intervention_count": 102084,
+    "invalid_reasons": [],
+    "natural_recovered_paise": 0,
+    "net_recovered_paise": 52751522,
+    "policy_id": "REVIVE",
+    "policy_violations": 0,
+    "predicted_enrv_paise": 2600360728,
+    "profile": "HIGH_NATURAL",
+    "realized_cost_paise": 13533500,
+    "realized_incremental_paise": 66285022,
+    "recovery_prediction_error_paise": -2556159093,
+    "recovery_rate": 0.0016770399965470248,
+    "resource_oversubscriptions": 0,
+    "resource_utilization": {
+      "message_capacity": 0.36,
+      "retry_slots": 1.0
+    },
+    "run_valid": true,
+    "seed": 1,
+    "stopping_rule_violations": 0,
+    "unauthorized_executions": 0
+  },
+  "metrics_checksum": "65ea38ddb5b98486ee8ed7483f510d0aa1328ede99cbb1279a0f99d49a46c3c8",
+  "policy_id": "REVIVE",
+  "policy_pack_hash": "4b31e760d16fe9190384d8c8f93e931ded2ffb04b7036b774eea33b22980374b",
+  "policy_pack_version": "pol_m13_official_v1",
+  "profile": "HIGH_NATURAL",
+  "schema_version": "1",
+  "seed": 1,
+  "telemetry": {
+    "elapsed_seconds": 688.5049607999972
+  }
+}

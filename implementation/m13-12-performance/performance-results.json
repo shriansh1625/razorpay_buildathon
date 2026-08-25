@@ -1,0 +1,79 @@
+[
+  {
+    "seed": 2,
+    "profile": "BALANCED",
+    "cycle": 0,
+    "opportunities": 251,
+    "candidates": 783,
+    "lagrangian_ref_seconds": 0.0165,
+    "lagrangian_opt_seconds": 0.0101,
+    "speedup": 1.62,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 2,
+    "profile": "BALANCED",
+    "cycle": 1457,
+    "opportunities": 427,
+    "candidates": 2554,
+    "lagrangian_ref_seconds": 0.0774,
+    "lagrangian_opt_seconds": 0.0463,
+    "speedup": 1.67,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 5,
+    "profile": "SCARCE",
+    "cycle": 500,
+    "opportunities": 282,
+    "candidates": 1862,
+    "lagrangian_ref_seconds": 0.0505,
+    "lagrangian_opt_seconds": 0.0297,
+    "speedup": 1.7,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 7,
+    "profile": "HIGH_NATURAL",
+    "cycle": 800,
+    "opportunities": 317,
+    "candidates": 2146,
+    "lagrangian_ref_seconds": 0.0609,
+    "lagrangian_opt_seconds": 0.0384,
+    "speedup": 1.58,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 3,
+    "profile": "ABUNDANT",
+    "cycle": 400,
+    "opportunities": 268,
+    "candidates": 1750,
+    "lagrangian_ref_seconds": 0.0536,
+    "lagrangian_opt_seconds": 0.0337,
+    "speedup": 1.59,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 4,
+    "profile": "HOSTILE",
+    "cycle": 600,
+    "opportunities": 291,
+    "candidates": 1871,
+    "lagrangian_ref_seconds": 0.054,
+    "lagrangian_opt_seconds": 0.0353,
+    "speedup": 1.53,
+    "allocation_hash_match": true
+  },
+  {
+    "seed": 6,
+    "profile": "DEGRADED",
+    "cycle": 700,
+    "opportunities": 295,
+    "candidates": 1934,
+    "lagrangian_ref_seconds": 0.0591,
+    "lagrangian_opt_seconds": 0.0334,
+    "speedup": 1.77,
+    "allocation_hash_match": true
+  }
+]

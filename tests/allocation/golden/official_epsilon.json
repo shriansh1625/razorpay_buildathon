@@ -1,0 +1,49 @@
+{
+  "allocation": {
+    "allocation_hash": "21ac4d11d8fb177f5d59619f9b22728c501672b4d76e384feb7840c15771526b",
+    "allocator_mode": "LAGRANGIAN",
+    "allocator_version": "0.8.0-m8",
+    "assignments": [
+      {
+        "action_code": "A04",
+        "binding_resource": null,
+        "candidate_id": "cand_opp_off_A04",
+        "customer_id": "cust_2",
+        "enrv_paise": 2500,
+        "explanation": [
+          "portfolio_adjusted_enrv",
+          "rv=2500"
+        ],
+        "opportunity_id": "opp_off",
+        "outcome": "SELECTED",
+        "reason_code": "ALLOCATED_HIGH_REDUCED_VALUE",
+        "reduced_value_paise": 2500
+      }
+    ],
+    "budget_usage_paise": 0,
+    "constraint_summary": [
+      "retry_slots:0/50",
+      "message_capacity:1/100",
+      "voice_minutes:0/30",
+      "human_review_slots:0/10",
+      "incentive_budget:0/1000000"
+    ],
+    "cycle_id": "cyc_official_epsilon",
+    "duality_gap": 0.9999970005758895,
+    "optimality_gap": null,
+    "policy_pack_version": "pol_m13_official_v1",
+    "produced_at_micros": 3600000000,
+    "resource_usage": {
+      "human_review_slots": 0,
+      "incentive_budget": 0,
+      "message_capacity": 1,
+      "retry_slots": 0,
+      "voice_minutes": 0
+    },
+    "shadow_price_method": "LAGRANGIAN_DUAL",
+    "shadow_prices": {},
+    "total_allocated_enrv_paise": 2500
+  },
+  "fixture_name": "official_epsilon",
+  "input_hash": "86e9ee21c56eafeb0691498098c04932f0fe0ebe05b1729a33631c4388816919"
+}

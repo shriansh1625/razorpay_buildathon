@@ -1,0 +1,65 @@
+{
+  "label": "DEVELOPMENT_ONLY",
+  "results": [
+    {
+      "seed": 1,
+      "profile": "BALANCED",
+      "cycles": 15,
+      "m4_opportunity_count": 209,
+      "m6_hash": "9d13749d064ca3f609bd4d684b02a98d0595c602d35bfe70e5827bcc2111fd8b",
+      "m7_hash": "65d6e346570c9af8294bfceb3555f42b36f1e19a23470df35726b152ce994da7",
+      "metrics_checksum": "2f41c2f2e570821d5910465accf74329ff9b95958c4e89cb79e5379a122b0bd3",
+      "intervention_count": 770
+    },
+    {
+      "seed": 1,
+      "profile": "HIGH_NATURAL",
+      "cycles": 15,
+      "m4_opportunity_count": 221,
+      "m6_hash": "8e408bfb3ab2753356b2d8ad67ebbcb118f2afc042dca4593ed777c32473ce3f",
+      "m7_hash": "59bf57795b7e437a8724f753ffc901c0078758bafa52de3a48265d75313249b0",
+      "metrics_checksum": "5a8c36342f92c67548043534b2f8d6c57f0f696c84a18850cdf1470e0bb90faf",
+      "intervention_count": 771
+    },
+    {
+      "seed": 1,
+      "profile": "SCARCE",
+      "cycles": 15,
+      "m4_opportunity_count": 221,
+      "m6_hash": "8e408bfb3ab2753356b2d8ad67ebbcb118f2afc042dca4593ed777c32473ce3f",
+      "m7_hash": "59bf57795b7e437a8724f753ffc901c0078758bafa52de3a48265d75313249b0",
+      "metrics_checksum": "4b9b5f73a757701be2dbb0c0375b29680ecdeb52e8ed415115bcf2be0860925a",
+      "intervention_count": 304
+    },
+    {
+      "seed": 1,
+      "profile": "ABUNDANT",
+      "cycles": 15,
+      "m4_opportunity_count": 220,
+      "m6_hash": "5114375cd4d22dcee2667c03ffb889b636a4f25c31ae25f467e887a1b155a050",
+      "m7_hash": "bf30c0bb11df69f8e73b084baed3f1d22e1d96b6aadbe361491938bc999ab469",
+      "metrics_checksum": "2b7403bc87ea93042d5f154d358f58c22d25b20321993a52297f5dd390855711",
+      "intervention_count": 1835
+    },
+    {
+      "seed": 1,
+      "profile": "HOSTILE",
+      "cycles": 15,
+      "m4_opportunity_count": 224,
+      "m6_hash": "aa6c076232066338ecb20affd5ddae8a7713704ef7f115e45284963e2c1a07ff",
+      "m7_hash": "1e0a72c081f36921a99dcfb11fa5cb41bd8a0f41357a64c904ca8afdec4850e6",
+      "metrics_checksum": "4e2ea66004fa967abf257e65083aa83dbb317c6e460c2d0c5d2233d7e16f6975",
+      "intervention_count": 622
+    },
+    {
+      "seed": 1,
+      "profile": "DEGRADED",
+      "cycles": 15,
+      "m4_opportunity_count": 209,
+      "m6_hash": "9d13749d064ca3f609bd4d684b02a98d0595c602d35bfe70e5827bcc2111fd8b",
+      "m7_hash": "65d6e346570c9af8294bfceb3555f42b36f1e19a23470df35726b152ce994da7",
+      "metrics_checksum": "52acc843522a60ff02580f0e54b2e4b04c65563742b52ba70989aa17e26a7622",
+      "intervention_count": 770
+    }
+  ]
+}

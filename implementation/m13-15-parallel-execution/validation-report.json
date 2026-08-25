@@ -1,0 +1,9 @@
+{
+  "label": "DEVELOPMENT_VALIDATION_ONLY",
+  "workers_1_wall_seconds": 33.97187159999885,
+  "workers_2_wall_seconds": 19.275390000002517,
+  "speedup": 1.7624479504691948,
+  "aggregate_fingerprint_match": true,
+  "cell_fingerprint_match": true,
+  "aggregate_fingerprint": "b067bf08074d8335845292f487f6cc98f45b9c0a210d92e72a3567cf00ab59c8"
+}
