@@ -7,7 +7,7 @@ from typing import Any
 
 from revive.domain.enums import ActionCode
 from revive.execution.models import ExecutionResult, ExecutionStage
-from revive.measurement.aggregate import aggregate_batch, safety_event_counts
+from revive.measurement.aggregate import aggregate_batch
 from revive.measurement.models import RecoveryMeasurement
 from revive.policy.models import AuthorizationState, ExecutionAuthorization
 
@@ -136,6 +136,49 @@ def compute_policy_metrics(
     message_capacity: int,
 ) -> PolicyRunMetrics:
     batch = aggregate_batch(measurements)
+
+    predicted_enrv_paise = 0
+    realized_incremental_paise = 0
+    enrv_prediction_error_paise = 0
+    recovery_prediction_error_paise = 0
+    duplicate_effects = 0
+    for measurement in measurements:
+        predicted_enrv_paise += measurement.predicted_enrv_paise
+        realized_incremental_paise += measurement.incremental_recovered_paise
+        enrv_prediction_error_paise += measurement.enrv_prediction_error_paise
+        recovery_prediction_error_paise += measurement.recovery_prediction_error_paise
+        if measurement.duplicate_measurement:
+            duplicate_effects += 1
+
+    contact_count = 0
+    execution_failures = 0
+    idempotency_conflicts = 0
+    succeeded_auth_ids: set[str] = set()
+    failed_stages = frozenset(
+        {
+            ExecutionStage.FAILED,
+            ExecutionStage.PERMANENT_FAILURE,
+            ExecutionStage.RETRYABLE,
+        }
+    )
+    for execution in executions:
+        stage = execution.execution_stage
+        if execution.action_code in CONTACT_ACTIONS and stage == ExecutionStage.SUCCEEDED:
+            contact_count += 1
+        if stage == ExecutionStage.SUCCEEDED:
+            succeeded_auth_ids.add(execution.authorization_id)
+        elif stage in failed_stages:
+            execution_failures += 1
+        if execution.duplicate:
+            idempotency_conflicts += 1
+
+    unauthorized_executions = sum(
+        1
+        for authorization in authorizations
+        if authorization.authorization_state != AuthorizationState.AUTHORIZED
+        and authorization.authorization_id in succeeded_auth_ids
+    )
+
     metrics = PolicyRunMetrics(
         policy_id=policy_id,
         seed=seed,
@@ -146,41 +189,19 @@ def compute_policy_metrics(
         incremental_recovered_paise=batch.total_incremental_recovery_paise,
         realized_cost_paise=batch.total_realized_cost_paise,
         intervention_count=len(executions),
-    )
-
-    metrics.contact_count = sum(
-        1 for e in executions
-        if e.action_code in CONTACT_ACTIONS
-        and e.execution_stage == ExecutionStage.SUCCEEDED
-    )
-
-    metrics.predicted_enrv_paise = sum(m.predicted_enrv_paise for m in measurements)
-    metrics.realized_incremental_paise = sum(m.incremental_recovered_paise for m in measurements)
-    metrics.enrv_prediction_error_paise = sum(m.enrv_prediction_error_paise for m in measurements)
-    metrics.recovery_prediction_error_paise = sum(
-        m.recovery_prediction_error_paise for m in measurements
+        contact_count=contact_count,
+        predicted_enrv_paise=predicted_enrv_paise,
+        realized_incremental_paise=realized_incremental_paise,
+        enrv_prediction_error_paise=enrv_prediction_error_paise,
+        recovery_prediction_error_paise=recovery_prediction_error_paise,
+        unauthorized_executions=unauthorized_executions,
+        execution_failures=execution_failures,
+        idempotency_conflicts=idempotency_conflicts,
+        duplicate_effects=duplicate_effects,
     )
 
     if batch.total_at_risk_paise > 0:
         metrics.recovery_rate = batch.total_gross_recovered_paise / batch.total_at_risk_paise
-
-    metrics.unauthorized_executions = sum(
-        1 for a in authorizations
-        if a.authorization_state != AuthorizationState.AUTHORIZED
-        and any(
-            e.authorization_id == a.authorization_id
-            and e.execution_stage == ExecutionStage.SUCCEEDED
-            for e in executions
-        )
-    )
-
-    safety = safety_event_counts(executions, ())
-    metrics.execution_failures = safety.get("execution_failed", 0)
-    metrics.idempotency_conflicts = safety.get("idempotency_duplicates", 0)
-
-    metrics.duplicate_effects = sum(
-        1 for m in measurements if m.duplicate_measurement
-    )
 
     total_cost = batch.total_realized_cost_paise
     if incentive_budget_capacity_paise > 0:
