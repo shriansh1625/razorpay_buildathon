@@ -20,7 +20,7 @@ from revive.benchmark.official.cells.progress import (
     group_summary_line,
 )
 from revive.benchmark.official.cells.runner import CellExecutionResult
-from revive.benchmark.official.cells.store import CellStore, aggregate_from_store
+from revive.benchmark.official.cells.store import CellStore, aggregate_from_store, sync_checkpoint_from_persisted
 from revive.benchmark.official.cells.telemetry import CellTelemetry, current_rss_bytes, monotonic_seconds
 from revive.benchmark.official.config import OfficialBenchmarkConfig
 from revive.benchmark.official.policies import ALL_BENCHMARK_POLICIES
@@ -128,6 +128,7 @@ def run_cell_benchmark_parallel(
     progress: bool,
     progress_stream: TextIO | None,
     require_complete_aggregate: bool,
+    reconciliation: dict[str, object] | None = None,
 ) -> CellExecutionResult:
     """Execute independent seed/profile groups concurrently."""
     groups = plan_benchmark_groups(planned)
@@ -135,6 +136,8 @@ def run_cell_benchmark_parallel(
     group_index_by_key = {group.key: index for index, group in enumerate(groups, start=1)}
     config_payload = config_to_worker_payload(config, policy_pack)
     config_payload["mode"] = mode
+    config_payload["checkpoint_planned_cells"] = [c.to_dict() for c in planned]
+    config_payload["cells_total_official"] = cells_total_official
     ctx = store.context
 
     if policy_pack.config_hash() != ctx.policy_pack_hash:
@@ -219,14 +222,7 @@ def run_cell_benchmark_parallel(
                 if group_seconds > 0 and result.get("cells_executed", 0) > 0:
                     cell_durations.append(group_seconds / max(1, result["cells_executed"]))
 
-                completed = store.count_valid_cells(planned)
-                last_index = int(result.get("last_cell_index") or max(c.index for c in group.cells))
-                last_cell = next(c for c in group.cells if c.index == last_index)
-                store.write_checkpoint(
-                    cells_completed=completed,
-                    cells_total=cells_total_official,
-                    last_cell=last_cell,
-                )
+                sync_checkpoint_from_persisted(store, planned, cells_total_official)
 
                 groups_completed += 1
                 if progress and progress_stream is not None:
@@ -244,6 +240,8 @@ def run_cell_benchmark_parallel(
                         cell_durations=cell_durations,
                         parent_rss=parent_rss,
                     )
+
+    sync_checkpoint_from_persisted(store, planned, cells_total_official)
 
     aggregate = aggregate_from_store(
         store,
@@ -271,5 +269,6 @@ def run_cell_benchmark_parallel(
             "peak_worker_rss_bytes": peak_worker_rss,
             "estimated_parallel_peak_bytes": estimated_parallel_peak,
             "memory_safe": memory_safe,
+            "checkpoint_reconciliation": reconciliation or {},
         },
     )

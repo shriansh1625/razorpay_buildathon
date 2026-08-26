@@ -20,6 +20,8 @@ from revive.benchmark.official.cells.store import (
     CellStore,
     aggregate_from_store,
     assert_checkpoint_config_compatible,
+    reconcile_checkpoint,
+    sync_checkpoint_from_persisted,
 )
 from revive.benchmark.official.cells.telemetry import (
     CellTelemetry,
@@ -158,6 +160,7 @@ def run_cell_benchmark(
         ),
     )
     assert_checkpoint_config_compatible(store, cells_total=cells_total_official)
+    reconciliation = reconcile_checkpoint(store, planned, cells_total_official)
 
     if workers > 1:
         from revive.benchmark.official.cells.parallel import (
@@ -180,6 +183,7 @@ def run_cell_benchmark(
             require_complete_aggregate=require_complete_aggregate
             and stop_after_cell is None
             and max_cells is None,
+            reconciliation=reconciliation.to_dict(),
         )
 
     stream = progress_stream
@@ -342,6 +346,7 @@ def run_cell_benchmark(
             "stop_after_cell": stop_after_cell,
             "max_cells": max_cells,
             "workers": workers,
+            "checkpoint_reconciliation": reconciliation.to_dict(),
         },
     )
 

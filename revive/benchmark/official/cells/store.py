@@ -50,6 +50,114 @@ class CellRecordContext:
     metric_version: str
 
 
+@dataclass(frozen=True, slots=True)
+class CheckpointReconciliation:
+    """Result of reconciling checkpoint manifest with persisted cell files."""
+
+    valid_cells: int
+    cells_total: int
+    manifest_cells_completed: int | None
+    manifest_ahead: bool
+    files_ahead: bool
+    last_cell_invalid: bool
+    repaired: bool
+    last_cell_index: int | None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "valid_cells": self.valid_cells,
+            "cells_total": self.cells_total,
+            "manifest_cells_completed": self.manifest_cells_completed,
+            "manifest_ahead": self.manifest_ahead,
+            "files_ahead": self.files_ahead,
+            "last_cell_invalid": self.last_cell_invalid,
+            "repaired": self.repaired,
+            "last_cell_index": self.last_cell_index,
+        }
+
+
+def cell_from_dict(data: dict[str, Any]) -> BenchmarkCell:
+    return BenchmarkCell(
+        index=int(data["index"]),
+        seed=int(data["seed"]),
+        profile=str(data["profile"]),
+        policy_id=str(data["policy_id"]),
+    )
+
+
+def last_completed_cell(
+    store: CellStore,
+    planned: tuple[BenchmarkCell, ...],
+) -> BenchmarkCell | None:
+    for cell in reversed(planned):
+        if store.is_cell_valid(cell):
+            return cell
+    return None
+
+
+def sync_checkpoint_from_persisted(
+    store: CellStore,
+    planned: tuple[BenchmarkCell, ...],
+    cells_total: int,
+) -> tuple[int, BenchmarkCell | None]:
+    """Write checkpoint manifest from validated persisted cell files only."""
+    valid_count = store.count_valid_cells(planned)
+    last_cell = last_completed_cell(store, planned)
+    store.write_checkpoint(
+        cells_completed=valid_count,
+        cells_total=cells_total,
+        last_cell=last_cell,
+    )
+    return valid_count, last_cell
+
+
+def reconcile_checkpoint(
+    store: CellStore,
+    planned: tuple[BenchmarkCell, ...],
+    cells_total: int,
+) -> CheckpointReconciliation:
+    """
+    Reconcile stale checkpoint state with persisted valid cells.
+
+    Persisted valid cell files are authoritative. The manifest is repaired when
+    it is ahead of durable files, behind valid files, or references an invalid
+    last_completed_cell.
+    """
+    checkpoint = store.read_checkpoint()
+    valid_count = store.count_valid_cells(planned)
+    manifest_count = checkpoint.get("cells_completed") if checkpoint else None
+
+    manifest_ahead = manifest_count is not None and manifest_count > valid_count
+    files_ahead = manifest_count is not None and valid_count > manifest_count
+    last_cell_invalid = False
+
+    if checkpoint and checkpoint.get("last_completed_cell"):
+        last_claimed = cell_from_dict(checkpoint["last_completed_cell"])
+        if not store.is_cell_valid(last_claimed):
+            last_cell_invalid = True
+            manifest_ahead = True
+
+    repaired = (
+        checkpoint is None
+        or manifest_ahead
+        or files_ahead
+        or last_cell_invalid
+        or manifest_count != valid_count
+    )
+
+    synced_count, last_cell = sync_checkpoint_from_persisted(store, planned, cells_total)
+    return CheckpointReconciliation(
+        valid_cells=valid_count,
+        cells_total=cells_total,
+        manifest_cells_completed=manifest_count,
+        manifest_ahead=manifest_ahead,
+        files_ahead=files_ahead,
+        last_cell_invalid=last_cell_invalid,
+        repaired=repaired,
+        last_cell_index=last_cell.index if last_cell is not None else None,
+    )
+
+
 class CellStore:
     """Filesystem-backed cell results with atomic writes."""
 
