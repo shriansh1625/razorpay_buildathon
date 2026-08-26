@@ -1,7 +1,7 @@
 {
   "authorization_count": 404319,
-  "compute_policy_metrics_cpu_seconds": 0.3125,
-  "compute_policy_metrics_wall_seconds": 0.3209295999840833,
+  "compute_policy_metrics_cpu_seconds": 1.6875,
+  "compute_policy_metrics_wall_seconds": 4.172767999989446,
   "execution_count": 339890,
   "measurement_count": 339890,
   "metrics": {
@@ -42,6 +42,6 @@
   "policy": "REVIVE",
   "profile": "ABUNDANT",
   "reference_unauthorized_count": 0,
-  "reference_unauthorized_scan_seconds": 4137.63271580002,
+  "reference_unauthorized_scan_seconds": 3877.8556934999942,
   "seed": 1
 }
