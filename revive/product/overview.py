@@ -13,6 +13,7 @@ from typing import Any
 
 from revive.product.benchmark_lab import DECLARED_RUN, OFFICIAL_DIR
 from revive.product.benchmark_story import M10, benchmark_story
+from revive.product.intelligence.status import intelligence_status
 
 WORKFLOW = (
     "DETECT",
@@ -40,6 +41,8 @@ API_CATALOG = (
     {"method": "GET", "path": "/api/benchmark/official/matrix", "returns": "6×5 profile × policy matrix"},
     {"method": "GET", "path": "/api/benchmark/official/cell/{seed}/{profile}/{policy}", "returns": "One official cell + metrics + checksum + validation"},
     {"method": "POST", "path": "/api/recovery-run", "returns": "New bounded sandbox world (does not touch official evidence)"},
+    {"method": "GET", "path": "/api/intelligence/status", "returns": "AI provider status (sandbox product layer)"},
+    {"method": "POST", "path": "/api/opportunity/{id}/ai-diagnosis", "returns": "Groq diagnosis proposal + economic decision boundary"},
 )
 
 UI_ROUTES = (
@@ -304,17 +307,18 @@ def product_overview(
             "internal_policy_id": room.get("internal_policy_id") or "REVIVE",
         },
         "intelligence": {
-            "kind": "DETERMINISTIC_DECISION_SYSTEM",
-            "llm_used": False,
+            "kind": "AI_AUGMENTED_DECISION_SYSTEM",
+            "engine_llm_used": False,
             "official_llm_mode": "LLM_OFF",
-            "diagnosis": "deterministic taxonomy ranking",
+            "diagnosis_engine": "deterministic taxonomy ranking",
             "copy_composer": "not_implemented",
             "allocator": "deterministic Lagrangian",
             "note": (
-                "No LLM is invoked in this submission. Official benchmark cells "
-                "were evaluated with llm_mode=LLM_OFF. See docs/why-ai.md."
+                "Engine path remains deterministic with llm_mode=LLM_OFF on the official "
+                "benchmark. Product sandbox may call Groq for contextual diagnosis proposals."
             ),
         },
+        "ai": snapshot.get("intelligence_status") or intelligence_status(),
         "current_run": {
             "server_run_index": run_index,
             "seed": room.get("seed"),

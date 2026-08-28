@@ -22,8 +22,13 @@ static. Measured money, cell counts, and validation states are not.
 | BENCHMARK_VALID · blocked=false | `validation.json` + manifest | official evidence reader | `test_summary_provenance_fields` | `#/benchmark/evidence` | official summary |
 | Official evidence is read-only | HTTP 405 on writes | `PayvantaHandler._reject_official_write` | `tests/product/test_submission_redteam.py` | Benchmark Lab | POST/PUT/PATCH/DELETE `/api/benchmark/official*` |
 | Sandbox ≠ official cell | Integrity flags | `overview.integrity` | `test_overview_matches_sandbox_snapshot` | `#/system` | `sandbox_is_not_official_evidence` |
-| LLM is off | Diagnosis + official config | `diagnose.py` `llm_used=False`; `LLM_MODE_OFFICIAL` | diagnosis tests; official config | System / why-ai | `overview.intelligence.llm_used` |
+| Groq AI diagnosis (sandbox) | Structured proposal · no execution authority | `revive/product/intelligence/` | `tests/product/test_intelligence.py` | Workspace AI panel · `#/system` | `POST /api/opportunity/{id}/ai-diagnosis` · `overview.ai` |
+| AI never overrides economics | Separate economic decision from AI proposal | `diagnosis.economic_decision()` | `test_economic_boundary_ai_proposal_does_not_override_engine` | Workspace economic block | `economic_decision.authority` |
+| AI never overrides safety | Diagnosis read-only · blocked stays blocked | server + trace | `test_safety_boundary_*`, `test_authorization_boundary_*` | Blocked opp WST4 | `authorization_state` · `blocked` |
+| Engine LLM off | Engine path + official config | `diagnose.py` `llm_used=False`; `LLM_MODE_OFFICIAL` | diagnosis tests; official config | System / why-ai | `overview.intelligence.engine_llm_used` |
+| Deterministic AI fallback | No key or provider failure | `intelligence/diagnosis.py` | `test_fallback_without_api_key` | System intelligence row | `ai.status` |
+| Meaningful agent (Track 03) | Bounded recovery cycle + decision intelligence | `trace.py`, ENRV, Lagrangian allocate | `test_overview`, ENRV/allocator tests | Analyze · Lab · Guardrails | `overview.intelligence`, `track03` |
 | Frozen experiment hash | Manifest | `DECLARED_FROZEN_EXPERIMENT` | verification `frozen_experiment_hash` | Forensics | `contract.frozen_experiment_hash` |
 
 Do not claim: scientifically proven, production proven, guaranteed recovery,
-600 cells prove superiority, two LLM agents in this build.
+600 cells prove superiority, 600 AI evaluations, sandbox equals official cell.

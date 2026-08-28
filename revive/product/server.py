@@ -9,6 +9,12 @@ from urllib.parse import parse_qs, urlparse
 
 from revive.product.benchmark_lab import benchmark_lab
 from revive.product.benchmark_story import benchmark_story
+from revive.product.intelligence.diagnosis import (
+    diagnose_opportunity,
+    economic_decision,
+    intelligence_event,
+)
+from revive.product.intelligence.status import intelligence_status
 from revive.product.official_evidence import (
     official_cell_detail,
     official_contract,
@@ -16,6 +22,7 @@ from revive.product.official_evidence import (
     official_summary,
     search_official_cells_page,
 )
+from revive.product.project import find_trace
 from revive.product.overview import product_overview
 from revive.product.session import (
     DEMO_SEED,
@@ -29,6 +36,23 @@ UI_DIR = Path(__file__).resolve().parent / "ui"
 _SESSION: ProductSession | None = None
 _SNAPSHOT: dict | None = None
 _RUN_COUNT = 0
+_AI_CACHE: dict[str, dict] = {}
+_AI_EVENTS: list[dict] = []
+_LAST_AI_STATUS: str | None = None
+
+
+def _clear_ai_state() -> None:
+    global _LAST_AI_STATUS
+    _AI_CACHE.clear()
+    _AI_EVENTS.clear()
+    _LAST_AI_STATUS = None
+
+
+def _enrich_snapshot(base: dict) -> dict:
+    enriched = dict(base)
+    enriched["intelligence_status"] = intelligence_status(last_status=_LAST_AI_STATUS)
+    enriched["intelligence_events"] = list(_AI_EVENTS[-20:])
+    return enriched
 
 
 def _session() -> ProductSession:
@@ -42,7 +66,48 @@ def _session() -> ProductSession:
 def _snapshot() -> dict:
     _session()
     assert _SNAPSHOT is not None
-    return _SNAPSHOT
+    return _enrich_snapshot(_SNAPSHOT)
+
+
+def _intelligence_receipt_block(cached: dict) -> dict:
+    proposal = cached.get("proposal") or {}
+    return {
+        "source": cached.get("source"),
+        "status": cached.get("status"),
+        "model": cached.get("model"),
+        "provider": cached.get("provider"),
+        "ai_proposal_primary_cause": proposal.get("primary_cause"),
+        "ai_proposal_candidates": [
+            c.get("action_id") for c in (proposal.get("candidate_actions") or [])
+        ],
+        "final_decision_authority": "deterministic_engine",
+        "execution_authority": "none",
+    }
+
+
+def _ai_diagnosis_for(opportunity_id: str) -> dict:
+    if opportunity_id in _AI_CACHE:
+        return _AI_CACHE[opportunity_id]
+    trace = find_trace(_session().state, opportunity_id)
+    if trace is None:
+        raise KeyError(opportunity_id)
+    result = diagnose_opportunity(trace)
+    payload = {
+        **result.to_dict(),
+        "economic_decision": economic_decision(trace),
+        "trust_boundary": {
+            "ai": "understand · propose",
+            "control": "validate · authorize",
+            "engine": "execute · measure",
+        },
+    }
+    _AI_CACHE[opportunity_id] = payload
+    global _LAST_AI_STATUS
+    _LAST_AI_STATUS = result.status
+    _AI_EVENTS.append(intelligence_event(result))
+    if len(_AI_EVENTS) > 50:
+        del _AI_EVENTS[:-50]
+    return payload
 
 
 def _recovery_run(body: dict) -> dict:
@@ -56,6 +121,7 @@ def _recovery_run(body: dict) -> dict:
     """
     global _SESSION, _SNAPSHOT, _RUN_COUNT
     _RUN_COUNT += 1
+    _clear_ai_state()
     seed = body.get("seed")
     try:
         seed = int(seed) if seed is not None else DEMO_SEED + _RUN_COUNT * 7
@@ -241,13 +307,19 @@ class PayvantaHandler(BaseHTTPRequestHandler):
                 }
             )
             return
+        if path == "/api/intelligence/status":
+            self._json(intelligence_status(last_status=_LAST_AI_STATUS))
+            return
         if path.startswith("/api/receipt/"):
             oid = path.rsplit("/", 1)[-1]
             detail = _snapshot()["opportunities"].get(oid)
             if detail is None:
                 self._json({"error": "unknown opportunity"}, 404)
                 return
-            self._json(detail["receipt"])
+            receipt = dict(detail["receipt"])
+            if oid in _AI_CACHE:
+                receipt["intelligence"] = _intelligence_receipt_block(_AI_CACHE[oid])
+            self._json(receipt)
             return
         if path.startswith("/api/opportunity/"):
             parts = [p for p in path.split("/") if p]
@@ -260,10 +332,16 @@ class PayvantaHandler(BaseHTTPRequestHandler):
                 self._json({"error": "unknown opportunity"}, 404)
                 return
             if len(parts) == 4 and parts[3] == "receipt":
-                self._json(detail["receipt"])
+                receipt = dict(detail["receipt"])
+                if oid in _AI_CACHE:
+                    receipt["intelligence"] = _intelligence_receipt_block(_AI_CACHE[oid])
+                self._json(receipt)
                 return
             if len(parts) == 3:
-                self._json(detail)
+                out = dict(detail)
+                if oid in _AI_CACHE:
+                    out["ai_diagnosis"] = _AI_CACHE[oid]
+                self._json(out)
                 return
             self._json({"error": "not found"}, 404)
             return
@@ -291,6 +369,20 @@ class PayvantaHandler(BaseHTTPRequestHandler):
                 self._json(_recovery_run(body))
             except _BadRequest as exc:
                 self._json({"error": str(exc)}, 400)
+            return
+        if parsed.path.startswith("/api/opportunity/") and parsed.path.endswith("/ai-diagnosis"):
+            parts = [p for p in parsed.path.split("/") if p]
+            if len(parts) != 4 or parts[3] != "ai-diagnosis":
+                self._json({"error": "not found"}, 404)
+                return
+            oid = parts[2]
+            if oid not in _snapshot()["opportunities"]:
+                self._json({"error": "unknown opportunity"}, 404)
+                return
+            try:
+                self._json(_ai_diagnosis_for(oid))
+            except KeyError:
+                self._json({"error": "unknown opportunity"}, 404)
             return
         if parsed.path != "/api/simulator":
             self._json({"error": "not found"}, 404)

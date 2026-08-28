@@ -41,6 +41,8 @@ const S = {
   demo: { on: false, i: 0 },
   cine: null,
   run: { phase: 'idle', error: null, summary: null, run_index: 0, history: [] },
+  aiDiagnosis: {},
+  aiLoading: {},
 };
 
 const $  = (s, r) => (r || document).querySelector(s);
@@ -639,6 +641,10 @@ function sysStateCard(cr) {
           <span class="sys-n mono" data-metric="sys-${k}">${esc(Number(p[k]) || 0)}</span>
         </li>`)}
     </ol>
+    <p class="ai-chip" data-ai-status="${esc((S.snap.intelligence_status && S.snap.intelligence_status.status) || 'DETERMINISTIC_FALLBACK')}">
+      <span class="lbl">Intelligence</span>
+      <span class="ai-chip-val">${esc(aiStatusLabel(S.snap.intelligence_status))}</span>
+    </p>
     <div id="run-slot">${runSlot(cr)}</div>
   </section>`;
 }
@@ -762,6 +768,8 @@ async function runRecovery() {
       return;
     }
     S.snap = data;
+    S.aiDiagnosis = {};
+    S.aiLoading = {};
     const cr = data.control_room;
     const p = cr.system_pulse || {};
     const hero = cr.hero || {};
@@ -809,6 +817,8 @@ async function restoreDemoSeed() {
       return;
     }
     S.snap = data;
+    S.aiDiagnosis = {};
+    S.aiLoading = {};
     S.run = { phase: 'idle', error: null, summary: null, run_index: 0, history: [] };
     const dest = '#/control';
     if ((location.hash || dest) === dest) route();
@@ -932,7 +942,11 @@ function viewSystem() {
       ${row('Execution', 'Bounded local execution')}
       ${row('Policy pack', esc(cr.policy_pack_version) + ' · ' + esc(cr.policy_pack_status))}
       ${row('Internal policy id', 'REVIVE', { mono: true })}
-      ${row('Intelligence', 'Deterministic decision system · LLM off')}
+      ${row('Intelligence', aiStatusLabel(S.snap.intelligence_status))}
+      ${row('AI provider', S.snap.intelligence_status && S.snap.intelligence_status.enabled
+        ? esc((S.snap.intelligence_status.provider || 'groq') + ' · ' + (S.snap.intelligence_status.model || 'openai/gpt-oss-120b'))
+        : 'Deterministic fallback (Groq API key not set)')}
+      ${row('AI execution authority', 'None')}
       ${row('Current run', 'seed ' + esc(cr.seed) + ' · ' + esc(cr.cycles_run) + ' cycles')}
       ${row('Current opportunity', wowId
         ? h`<a class="prov" href="#/opportunity/${esc(wowId)}">${esc(shortId(wowId))}</a>`
@@ -1267,6 +1281,7 @@ function viewWorkspace() {
         '”. It is not part of this fixture. Return to the explorer to pick a live opportunity.')}
       <p style="margin-top:var(--s-4)"><a class="btn btn-ghost" href="#/opportunities">Back to explorer</a></p>`;
   }
+  if (!S.aiDiagnosis[id] && !S.aiLoading[id]) fetchAiDiagnosis(id);
   const view = S.sub || '';
   if (view === 'graph')      return wsGraphOnly(d);
   if (view === 'lab')        return wsLabOnly(d);
@@ -1297,10 +1312,12 @@ function wsFull(d) {
   <div class="ws"><div class="ws-grid">
     <div class="ws-col ws-a">
       ${panel('Opportunity', h`${oppFacts(d, true)}${evidencePreview(d)}`)}
+      ${aiDiagnosisPanel(id, d)}
     </div>
     <div class="ws-col ws-c">
-      ${panel('Decision', h`${decisionInstrument(d, true)}
-        <p class="wf-foot">${esc(d.counterfactual.selection_rationale)}</p>`)}
+      ${panel('PAYVANTA economic decision', h`${decisionInstrument(d, true)}
+        <p class="wf-foot">${esc(d.counterfactual.selection_rationale)}</p>
+        <p class="ai-boundary">AI proposes context. ENRV, guardrails, and authorization decide execution.</p>`)}
     </div>
     <div class="ws-lower">
       ${panel('Guardrails', h`${guardStrip(d.guardrail, true)}
@@ -1404,8 +1421,69 @@ function evidenceBlock(d) {
       <ul class="factlist">${ev.signals.map(s =>
         h`<li class="fact"><span class="fact-k">sig</span><span class="fact-v">${esc(s)}</span></li>`)}</ul>
     </div>` : ''}
-    <p class="wf-foot">Diagnosis used a language model: <b>${g.llm_used ? 'yes' : 'no'}</b>.
+    <p class="wf-foot">Engine diagnosis path used a language model: <b>${g.llm_used ? 'yes' : 'no'}</b>.
+      Sandbox AI proposal: <b>${esc(aiStatusLabel(S.snap.intelligence_status))}</b>.
       Causes ranked: ${esc((g.causes || []).map(titleize).join(', ') || 'none')}.</p>`;
+}
+
+function aiStatusLabel(st) {
+  if (!st) return 'DETERMINISTIC FALLBACK';
+  if (!st.enabled) return 'DETERMINISTIC FALLBACK';
+  if (st.status === 'AI_COMPLETED') return 'AI DIAGNOSIS AVAILABLE';
+  if (st.status === 'AI_UNAVAILABLE') return 'AI FALLBACK ACTIVE';
+  if (st.status === 'DETERMINISTIC_FALLBACK') return 'DETERMINISTIC FALLBACK';
+  return st.status || 'AI ENABLED';
+}
+
+function fetchAiDiagnosis(oppId) {
+  if (S.aiDiagnosis[oppId]) return Promise.resolve(S.aiDiagnosis[oppId]);
+  if (S.aiLoading[oppId]) return S.aiLoading[oppId];
+  S.aiLoading[oppId] = fetch('/api/opportunity/' + encodeURIComponent(oppId) + '/ai-diagnosis', { method: 'POST' })
+    .then(r => r.json())
+    .then(data => {
+      if (data && !data.error) S.aiDiagnosis[oppId] = data;
+      delete S.aiLoading[oppId];
+      if (S.route === 'opportunity' && S.param === oppId) render();
+      return data;
+    })
+    .catch(() => {
+      delete S.aiLoading[oppId];
+      return null;
+    });
+  return S.aiLoading[oppId];
+}
+
+function aiDiagnosisPanel(oppId, d) {
+  const ai = S.aiDiagnosis[oppId];
+  if (!ai) {
+    return panel('AI diagnosis', absentBlock('loading', 'Loading contextual diagnosis proposal…'));
+  }
+  const p = ai.proposal || {};
+  const econ = ai.economic_decision || {};
+  const src = ai.source === 'groq'
+    ? 'GPT-OSS 120B · Groq'
+    : 'Deterministic fallback';
+  const cand = (p.candidate_actions || []).slice(0, 3).map(c =>
+    h`<li><span class="mono">${esc(c.action_id)}</span> — ${esc(c.reason)}</li>`);
+  return panel('AI diagnosis', h`
+    <div class="ai-panel" data-source="${esc(ai.source || 'fallback')}" data-status="${esc(ai.status || '')}">
+      <p class="lbl">Intelligence source</p>
+      <p><b>${esc(src)}</b> · diagnosis confidence ${esc(typeof p.cause_confidence === 'number' ? p.cause_confidence.toFixed(2) : '—')}</p>
+      <div class="dl" style="margin-top:var(--s-3)">
+        ${row('Primary cause', esc(titleize(p.primary_cause || 'unknown')))}
+        ${row('Observed evidence', (p.observed_evidence || []).length
+          ? esc((p.observed_evidence || []).slice(0, 4).join(' · '))
+          : absentInline('none'))}
+        ${row('Uncertainty', p.uncertainty ? esc(p.uncertainty) : absentInline('none'))}
+      </div>
+      ${cand.length ? h`<p class="lbl" style="margin-top:var(--s-3)">Candidate proposals</p><ul class="factlist">${cand.join('')}</ul>` : ''}
+      ${(p.inference_notes || []).length ? h`<p class="wf-foot">${esc((p.inference_notes || []).join(' '))}</p>` : ''}
+      <div class="ai-boundary" style="margin-top:var(--s-3)">
+        <p class="lbl">PAYVANTA economic decision</p>
+        <p><b>${esc(econ.selected_action || d.card.best_action || 'Do nothing / deferred')}</b></p>
+        <p class="wf-foot">${esc(econ.note || 'Deterministic ENRV and guardrails are authoritative.')}</p>
+      </div>
+    </div>`, titleize(p.primary_cause || 'proposal'));
 }
 
 function decisionInstrument(d, compact) {
@@ -3897,6 +3975,7 @@ const CINE_BEATS = [
 function runCinematic(oppId) {
   const d = detailFor(oppId);
   if (!d) { go('#/opportunity/' + oppId); return; }
+  fetchAiDiagnosis(oppId);
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) { go('#/opportunity/' + oppId); return; }
 

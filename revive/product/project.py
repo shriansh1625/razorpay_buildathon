@@ -955,6 +955,14 @@ def latest_traces(state: ProductRunState) -> list[OpportunityTrace]:
     return ranked
 
 
+def find_trace(state: ProductRunState, opportunity_id: str) -> OpportunityTrace | None:
+    for cycle in reversed(state.cycles):
+        for tr in cycle.opportunities:
+            if tr.opportunity.opportunity_id == opportunity_id:
+                return tr
+    return None
+
+
 def waterfall(state: ProductRunState) -> dict[str, Any]:
     """Revenue accounting in two internally coherent tracks.
 

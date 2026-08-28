@@ -26,8 +26,9 @@ def test_overview_matches_sandbox_snapshot():
     assert ov["environment"]["seed"] == room["seed"] == DEMO_SEED
     assert ov["engine"]["status"] == "READY"
     assert ov["engine"]["internal_policy_id"] == "REVIVE"
-    assert ov["intelligence"]["llm_used"] is False
+    assert ov["intelligence"]["engine_llm_used"] is False
     assert ov["intelligence"]["official_llm_mode"] == "LLM_OFF"
+    assert ov["ai"]["execution_authority"] == "none"
     assert ov["audit"]["ledger_count"] >= 1
     assert ov["track03"]["detect"] is True
     assert (

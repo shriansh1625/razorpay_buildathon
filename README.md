@@ -2,11 +2,12 @@
 
 **AUTONOMOUS REVENUE RECOVERY INTELLIGENCE**
 
-Find revenue at risk.
-Choose the economically justified intervention.
-Execute inside deterministic controls.
-Measure the incremental net recovery.
-Prove the engine across 600 official experiment cells.
+**RECOVER REVENUE. PROVE THE RECOVERY.**
+
+PAYVANTA detects revenue at risk, determines the economically justified intervention, executes only within deterministic bounds, measures incremental net recovery, and leaves an auditable decision trail.
+
+**Track 03:** DETECT → INTERVENE → BOUNDED EXECUTE → MEASURE
+**Official evaluation:** 600 cells · 20 seeds × 6 profiles × 5 policies · frozen experiment
 
 Razorpay Buildathon — Track 03: AI Revenue Recovery
 
@@ -24,6 +25,22 @@ The Control Room is a **PAYVANTA Sandbox**: synthetic test population, bounded l
 | **Why AI (honest)** | `docs/why-ai.md` |
 | **Track 03 map** | `docs/track3-evidence.md` |
 | **View Official Evidence** | `artefacts/benchmark/official-cloud-final/` (frozen — do not modify) |
+
+## Contents
+
+- [Inspect PAYVANTA](#inspect-payvanta-human-and-machine)
+- [Why PAYVANTA](#why-payvanta)
+- [Why AI (honest)](#why-ai-honest)
+- [Problem](#problem)
+- [The Recovery OS](#the-recovery-os)
+- [How PAYVANTA works](#how-payvanta-works)
+- [Track 03](#track-03--ai-revenue-recovery)
+- [Architecture](#architecture)
+- [Measured, Not Claimed](#measured-not-claimed)
+- [How We Got Here](#how-we-got-here)
+- [Setup](#setup)
+- [Demo](#demo)
+- [Technical stack](#technical-stack)
 
 ---
 
@@ -52,7 +69,75 @@ Vocabulary used everywhere: **SANDBOX**, **OFFICIAL EVIDENCE**, **BOUNDED EXECUT
 
 ---
 
-## Problem
+## Why PAYVANTA
+
+Three differentiators — not agent count, not chatbot chrome:
+
+### 1. Counterfactual economics
+
+PAYVANTA chooses against **do nothing**, not merely against a list of actions. Every intervention is scored on **incremental net recovery** (uplift × value − cost − fatigue) versus natural recovery. Gross conversion is not the win condition.
+
+### 2. Bounded autonomy
+
+**Recommendation ≠ permission.** Diagnosis, ENRV, and allocation propose. Deterministic guardrails, stopping rules, and authorization decide whether anything executes. The decision layer does not own execution authority.
+
+### 3. Measured proof
+
+The engine is evaluated across a frozen experiment:
+
+```
+20 seeds × 6 profiles × 5 policies = 600 official cells
+```
+
+Sandbox demonstrates operation. Official Benchmark Lab evaluates the **same engine** under frozen configuration. They are not the same run.
+
+---
+
+## Why AI (honest)
+
+Track 03 is **AI Revenue Recovery**. Two layers — keep them separate:
+
+| Layer | LLM? | Role |
+|---|---|---|
+| **Official engine / benchmark** | No — `llm_used=False`, `LLM_OFF` | Deterministic ENRV, allocation, guardrails, execution |
+| **Product sandbox (optional)** | Yes — Groq `openai/gpt-oss-120b` when `GROQ_API_KEY` is set | Contextual diagnosis + candidate **proposal** only |
+
+| Question | Answer |
+|---|---|
+| **What is autonomous?** | The recovery cycle: detect → diagnose → compare → allocate → guard → authorize → execute → measure → audit |
+| **What does Groq do?** | Interprets sandbox context; proposes cause and candidates — **no execution authority** |
+| **What is deterministic?** | Every gate that can permit or block money movement — ENRV, PolicyPack, stopping rules, authorization, execution |
+| **What decides the intervention?** | Highest feasible ENRV subject to portfolio constraints; guardrails may override. AI never overrides this. |
+
+**Trust boundary:**
+
+```
+AI (propose · interpret)  →  ECONOMIC ENGINE (price · select)  →  CONTROL (validate · authorize)  →  ENGINE (execute · measure)
+```
+
+Groq API key must be supplied through `GROQ_API_KEY` (server-side environment only — never in Git or frontend). Without it: **DETERMINISTIC FALLBACK** (honest, no fake AI). Full detail: [`docs/why-ai.md`](docs/why-ai.md) · `GET /api/product/overview` → `ai`
+
+---
+
+## AI architecture
+
+| Layer | Role | Authority |
+|---|---|---|
+| **Groq GPT-OSS 120B** (optional) | Contextual diagnosis + candidate **proposal** | None over money |
+| **Deterministic engine** | ENRV · Lagrangian allocation · guardrails · authorization | Full execution gate |
+| **Official benchmark** | Frozen `LLM_OFF` evidence | Read-only |
+
+```
+OBSERVED CONTEXT → AI DIAGNOSIS (optional) → ENRV / COUNTERFACTUAL → POLICY → GUARDRAILS → AUTHORIZE → EXECUTE → MEASURE → AUDIT
+```
+
+- **AI ENABLED:** set `GROQ_API_KEY` server-side (never in frontend or Git)
+- **DETERMINISTIC FALLBACK:** product runs without the key — no fake AI
+- API: `POST /api/opportunity/{id}/ai-diagnosis` · `GET /api/intelligence/status`
+
+See `implementation/ai-substance/` for contract, fallback, and failure modes.
+
+---
 
 Merchants lose revenue in fragments: failed payments, abandoned checkouts, subscription mandate failures, overdue invoices. Recovery effort is finite. So is customer patience. A large share of at-risk revenue would return **without** intervention.
 

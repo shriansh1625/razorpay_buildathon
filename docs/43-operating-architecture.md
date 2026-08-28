@@ -6,20 +6,19 @@ agents in the original spec. Spec vs implementation: [why-ai.md](why-ai.md),
 
 ---
 
-## 1. Recovery loop
+## 1. Recovery loop (under 20 seconds)
 
 ```mermaid
 flowchart TD
-  IN[INPUT · signals] --> DET[DETECTION]
-  DET --> DIAG[DIAGNOSIS]
-  DIAG --> CAND[CANDIDATES]
-  CAND --> CF[COUNTERFACTUAL / ECONOMICS]
+  CTX[OBSERVED CONTEXT] --> AI[AI DIAGNOSIS · Groq optional]
+  AI --> CAND[CANDIDATE VALIDATION]
+  CAND --> CF[COUNTERFACTUAL / ENRV]
   CF --> POL[DETERMINISTIC POLICY]
   POL --> GRD[GUARDRAILS]
   GRD --> AUTH[AUTHORIZATION]
   AUTH --> EX[BOUNDED EXECUTION]
   EX --> MEAS[MEASUREMENT]
-  MEAS --> AUD[AUDIT]
+  MEAS --> AUD[AUDIT / RECEIPT]
 ```
 
 Intelligence (diagnosis, ENRV, allocation) **proposes**.  
@@ -33,14 +32,40 @@ Execution cannot start without `AUTHORIZED`.
 ```mermaid
 flowchart TD
   ENG[SAME ENGINE] --> EXP[OFFICIAL EXPERIMENT]
-  EXP --> FZ[FROZEN CONFIG + PolicyPack]
-  FZ --> CELLS[600 CELLS · 20 × 6 × 5]
-  CELLS --> EV[VERIFIED EVIDENCE]
-  EV --> LAB[Benchmark Lab · read-only]
+  EXP --> FZ[FROZEN CONFIGURATION]
+  FZ --> GRID[20 SEEDS × 6 PROFILES × 5 POLICIES]
+  GRID --> CELLS[600 CELLS · 120 GROUPS]
+  CELLS --> VAL[VALIDATED EVIDENCE]
+  VAL --> LAB[Benchmark Lab · read-only]
 ```
 
 Sandbox ≠ cell. Evidence path:
 `artefacts/benchmark/official-cloud-final/` (gitignored; mount to verify).
+
+---
+
+## 3. Trust boundary
+
+```mermaid
+flowchart LR
+  subgraph INTELLIGENCE["INTELLIGENCE · PROPOSE"]
+    D[Diagnosis]
+    E[ENRV]
+    A[Lagrangian allocate]
+  end
+  subgraph CONTROL["CONTROL · AUTHORIZE"]
+    G[Guardrails]
+    Z[Authorization]
+  end
+  subgraph ENGINE["ENGINE · EXECUTE"]
+    X[Bounded execution]
+    M[Measurement]
+    J[Audit]
+  end
+  D --> E --> A --> G --> Z --> X --> M --> J
+```
+
+No LLM in this submission. Intelligence cannot skip CONTROL.
 
 ---
 

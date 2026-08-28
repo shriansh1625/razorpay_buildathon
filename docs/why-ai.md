@@ -7,24 +7,21 @@ architecture without dressing deterministic code as an LLM.
 
 ## 1. What is actually AI in this submission?
 
-**Not a chat model. Not two LLM agents.**
+**Two layers — keep them separate:**
 
-The shipped intelligence is a **decision system**:
-
-| Stage | Mechanism | LLM? |
+| Layer | Mechanism | LLM? |
 |---|---|---|
-| Detect revenue at risk | Deterministic Revenue Sentinel | No |
-| Diagnose cause | Deterministic taxonomy ranking (`rank_causes`) | No — `llm_used=False`, `allow_llm=False` |
-| Generate candidates | Deterministic rule table | No |
+| **Engine diagnosis (benchmark path)** | Deterministic taxonomy ranking (`rank_causes`) | No — `llm_used=False`, official `LLM_OFF` |
+| **Product AI diagnosis (sandbox)** | Optional Groq `openai/gpt-oss-120b` structured proposal | Yes — when `GROQ_API_KEY` is set |
+| Generate candidates (engine) | Deterministic rule table | No |
 | Compare interventions | Deterministic counterfactual ENRV | No |
 | Select under scarcity | Deterministic Lagrangian allocator | No |
 | Guard / stop / authorize | Deterministic PolicyPack gates | No |
 | Execute | Bounded adapters, simulated in sandbox | No |
-| Measure / audit | Deterministic attribution + journal | No |
-| Official benchmark | `llm_mode=LLM_OFF` | No |
 
-Copy Composer (spec C-10) is **not implemented**. There is no chatbot, no
-`llm_used=true`, no external model credentials.
+Copy Composer (spec C-10) is **not implemented**. There is no chatbot and no
+`llm_used=true` on the engine path. Optional Groq credentials are read from
+`GROQ_API_KEY` server-side only — never embedded in the repo.
 
 The word **agentic** applies only to **bounded orchestration**: a fixed cycle
 that cannot skip GUARD, cannot call adapters without AUTHORIZED, and cannot
@@ -93,8 +90,12 @@ Everything that can move money:
 
 authorization → reservation → adapter → measurement → audit.
 
-Invariant: **no LLM output becomes a number that moves money.** In this
-build the invariant holds vacuously: no LLM output exists.
+**Invariant:** no LLM output becomes a number that moves money.
+
+Groq may propose causes and candidate actions in the **product sandbox** only.
+Those proposals are displayed separately from `economic_decision`. ENRV,
+guardrails, and authorization remain authoritative. The **official benchmark**
+path never calls Groq (`LLM_OFF`).
 
 ---
 
@@ -103,7 +104,7 @@ build the invariant holds vacuously: no LLM output exists.
 ```
 signals
   → detection
-  → diagnosis / proposal          (deterministic intelligence)
+  → AI diagnosis / proposal (optional Groq · sandbox only)
   → candidate set
   → counterfactual / economics
   → deterministic policy
@@ -118,15 +119,43 @@ Intelligence proposes. Controls decide whether anything executes.
 
 ---
 
-## 8. Why we did not bolt on a last-minute LLM
+## 9. AI / deterministic boundary (trust architecture)
 
-Adding a live model would require credentials, nondeterminism, and a second
-diagnosis path that the **frozen official experiment does not use**
-(`LLM_OFF`). Faking `llm_used=true` would be a credibility failure.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  AI DIAGNOSIS · Groq optional · sandbox only                    │
+│  contextual interpretation · candidate proposal · no authority  │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  DETERMINISTIC ENGINE · ENRV · Lagrangian allocate              │
+│  llm_used=False on engine path · official benchmark LLM_OFF   │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  CONTROL · VALIDATE · AUTHORIZE                                 │
+│  PolicyPack · stopping rules · authorization · escalation       │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  ENGINE · EXECUTE · MEASURE                                     │
+│  bounded adapters · incremental attribution · audit journal     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+Machine-readable: `GET /api/product/overview` → `ai`, `intelligence`, `guardrails`, `track03`.
+
+---
+
+## 8. Why the official benchmark stays LLM_OFF
+
+The **frozen official experiment** ran with `LLM_OFF`. That evidence is not
+re-run when Groq is enabled in the sandbox. Faking benchmark AI usage would be
+a credibility failure.
 
 The honest Track 03 story:
 
-> PAYVANTA is an autonomous recovery **decision system**. It reasons over a
-> batch with counterfactuals and constraints. It does not chat. It does not
-> call an LLM in this submission. The official evidence was measured with
-> LLM mode off.
+> PAYVANTA is an autonomous recovery **decision system**. The sandbox may use
+> Groq to interpret context and propose candidates. Deterministic economics and
+> controls decide what is allowed. The official 600-cell evaluation measured the
+> engine with LLM mode off.

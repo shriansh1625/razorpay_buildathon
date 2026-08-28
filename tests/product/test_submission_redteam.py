@@ -63,7 +63,7 @@ def test_overview_exposes_intelligence_and_track03():
         ov = json.loads(resp.read().decode("utf-8"))
         assert ov["product"] == "PAYVANTA"
         assert ov["environment"]["kind"] == "SANDBOX"
-        assert ov["intelligence"]["llm_used"] is False
+        assert ov["intelligence"]["engine_llm_used"] is False
         assert ov["integrity"]["sandbox_is_not_official_evidence"] is True
         assert ov["integrity"]["official_evidence_writable_by_product"] is False
         assert ov["track03"]["audit_trail"] is True
