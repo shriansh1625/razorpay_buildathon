@@ -1,7 +1,7 @@
-# Final blockers (P14 — shipped)
+# Final blockers (P15 — frozen)
 
-**Release:** `1f6f069` on `origin/main`  
-**Public parity:** `submission/PUBLIC-PARITY.md`
+**Release:** `bdf0f1d` on `origin/main`  
+**Report:** `submission/P15-FINAL-RELEASE-REPORT.md`
 
 ---
 
@@ -9,22 +9,15 @@
 
 **None open.**
 
-| ID | Item | Status |
-|---|---|---|
-| P0-1 | Product on public GitHub | **RESOLVED** — `1f6f069` |
-| P0-2 | AI layer on public GitHub | **RESOLVED** |
-| P0-3 | Secrets in repository | **CLEAR** |
-| P0-4 | Official benchmark modified | **CLEAR** |
-
 ---
 
-## P1 — material risk
+## P1 — material risk (submit after these)
 
-| ID | Issue | Status |
-|---|---|---|
-| P1-1 | **5-minute pitch video not recorded** | **OPEN** |
-| P1-2 | Groq key rotation (external) | **OWNER** — use rotated key via env only |
-| P1-3 | Official evidence not in Git | **ACCEPTED** — mount separately |
+| ID | Issue | Status | Action |
+|---|---|---|---|
+| P1-1 | **5-minute pitch video** | **OPEN** | Record per `FINAL-5-MINUTE-SCRIPT.md` · 1440×900 |
+| P1-2 | **Razorpay submission form** | **OPEN** | Upload video + repo URL manually |
+| P1-3 | Official evidence mount (for benchmark drilldown in video) | **OWNER** | Extract `official-cloud-final` if needed |
 
 ---
 
@@ -33,16 +26,16 @@
 | ID | Issue | Status |
 |---|---|---|
 | P2-1 | GitHub description/topics | **OPEN** — `GITHUB-METADATA.md` |
-| P2-2 | Refresh screenshots after video | **OPTIONAL** |
+| P2-2 | Post-video screenshot refresh | **OPTIONAL** |
 
 ---
 
 ## P3 — optional
 
-Local-only QA scripts · ui-v3 audit trees · `.claude/` — not shipped (intentional).
+Local QA scripts · `.claude/` · ui-v3 audit trees — not in public repo (intentional).
 
 ---
 
 ## Freeze
 
-**Code frozen at `1f6f069`.** No features. No benchmark reruns. Only video + metadata + submission form.
+**Code frozen at `bdf0f1d`.** No features. No benchmark reruns. Close P1-1 and P1-2 to submit.

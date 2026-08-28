@@ -6,22 +6,21 @@ Merchants lose revenue across failed payments, abandoned checkouts, mandate fail
 
 ## Solution
 
-PAYVANTA is an autonomous revenue recovery operating system. It detects typed revenue-at-risk opportunities, diagnoses cause from observable evidence, compares interventions against a **do-nothing baseline**, selects under simultaneous constraints, gates execution through deterministic controls, measures incremental net recovery across a batch, and writes an auditable decision trail.
+PAYVANTA detects revenue at risk, determines the economically justified recovery intervention, executes only inside deterministic bounds, measures incremental net recovery across a batch, and records an auditable decision trail. Its sandbox uses AI-assisted contextual diagnosis (Groq GPT-OSS 120B), while deterministic economics and controls retain execution authority. The underlying engine is evaluated separately across 600 official experiment cells.
 
 ## Agentic / AI role (honest)
 
-| Claim | Reality |
-|---|---|
-| LLM in runtime | **No** — `llm_used=False`, official `LLM_OFF` |
-| Track 03 “agent” | **Yes** — bounded recovery cycle that detects, decides, and acts within guardrails |
-| Intelligence | Deterministic **decision system**: taxonomy diagnosis, counterfactual ENRV, Lagrangian allocation |
-| Autonomy | Orchestrated pipeline cannot skip guardrails or execute without AUTHORIZED |
+| Layer | LLM? | Role |
+|---|---|---|
+| **Sandbox product** | Optional Groq | Contextual diagnosis + candidate **proposal** — no execution authority |
+| **Engine / official benchmark** | No — `llm_used=false`, `LLM_OFF` | ENRV, allocation, guardrails, execution |
+| **Track 03 agent** | Yes | Bounded recovery cycle: detect → decide → act within guardrails |
 
-Track 03 AI Revenue Recovery is satisfied through **decision intelligence under uncertainty**, not chatbot theatrics.
+AI proposes. The economic engine selects. Controls authorize. Nothing executes without AUTHORIZED.
 
 ## Bounded execution
 
-Recommendation ≠ permission. PolicyPack gates, stopping rules, and authorization sit between optimisation and adapters. Blocked opportunities (`opp_WST4PPPH81VPNTNC18K0YGRAW9`) demonstrate escalation without execution.
+Recommendation ≠ permission. PolicyPack gates, stopping rules, and authorization sit between optimisation and adapters. Blocked opportunity `opp_WST4PPPH81VPNTNC18K0YGRAW9` demonstrates escalation without execution.
 
 ## Measurement
 
@@ -31,11 +30,11 @@ Recommendation ≠ permission. PolicyPack gates, stopping rules, and authorizati
 
 ## Audit
 
-Hash-chained journal. `ACTION_INTENT` recorded before irreversible effects. UI `#/audit` · `GET /api/audit`.
+Hash-chained journal. Intent recorded before irreversible effects. UI `#/audit` · `GET /api/audit`.
 
 ## Benchmark
 
-20 seeds × 6 profiles × 5 policies = **600 official cells**. Frozen configuration. `BENCHMARK_VALID` when `artefacts/benchmark/official-cloud-final/` is mounted. Does **not** prove universal superiority or production fitness.
+20 seeds × 6 profiles × 5 policies = **600 official cells**. Frozen configuration. `BENCHMARK_VALID` when `artefacts/benchmark/official-cloud-final/` is mounted. Does **not** prove universal superiority or production fitness. Official experiment did **not** use Groq.
 
 ## Repository
 
@@ -46,12 +45,16 @@ pip install -e ".[dev]"
 revive control-room
 ```
 
+Optional AI: `$env:GROQ_API_KEY = "<rotated-key>"` (server-side env only — never commit).
+
 ## Submission assets
 
 | Asset | Path |
 |---|---|
+| P15 release report | `submission/P15-FINAL-RELEASE-REPORT.md` |
 | Architecture | `docs/43-operating-architecture.md` |
 | Track 03 evidence | `docs/track3-evidence.md` |
-| AI honesty | `docs/why-ai.md` · `implementation/final-submission/AI-SUBSTANCE-GATE.md` |
+| AI honesty | `docs/why-ai.md` · `implementation/ai-substance/` |
 | 5-minute script | `submission/pitch/FINAL-5-MINUTE-SCRIPT.md` |
 | Judge answers | `submission/pitch/JUDGE-ANSWER-BOOK.md` |
+| Video checklist | `submission/pitch/VIDEO-RECORDING-CHECKLIST.md` |
