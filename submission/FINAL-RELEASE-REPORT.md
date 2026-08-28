@@ -1,18 +1,28 @@
 # PAYVANTA — Final release report (P13)
 
-**War room:** P13 — Release candidate → public proof → video → judge simulation → freeze  
+**War room:** P14 — Shipped to public GitHub  
 **Date:** 2026-08-28  
-**Branch:** `main` (local ahead of public)  
-**Public remote HEAD:** `7bed946`  
-**Local state:** P11.5 Groq AI layer + P12 validation + P13 docs (**uncommitted, unpushed**)
+**Release commit:** `1f6f069`  
+**Status:** **PUBLIC PARITY VERIFIED**
 
 ---
 
-## Executive summary
+## Ship summary
 
-PAYVANTA is **submission-ready locally** after P12 AI validation (55 product tests, trust-boundary tests, benchmark integrity). The **public GitHub repository does not yet contain the Groq AI layer** — only the product through `7bed946`. Until the owner commits and pushes the local release candidate, judges cloning from GitHub will **not** see AI diagnosis, `revive/product/intelligence/`, or the updated pitch/docs.
+| Gate | Result |
+|---|---|
+| Commit + push | **PASS** — `7bed946..1f6f069` |
+| Author | shriansh1625 · no Co-authored-by |
+| Official benchmark | **UNTOUCHED** |
+| Fresh public clone | **PASS** — intelligence + 21 AI tests |
+| Demo paths seed 14 | **PASS** |
+| Remaining P1 | Video not recorded |
 
-**Freeze applied:** no benchmark changes, no feature sprawl, no commit/push in this pass.
+See **`submission/PUBLIC-PARITY.md`** for full matrix.
+
+---
+
+## Executive summary (P13 baseline)
 
 ---
 
@@ -21,8 +31,8 @@ PAYVANTA is **submission-ready locally** after P12 AI validation (55 product tes
 | Gate | Local | Public clone | Evidence |
 |---|---|---|---|
 | **Public repository** | Repo public | **PASS** | https://github.com/shriansh1625/razorpay_buildathon |
-| **Fresh clone (no key)** | — | **PASS** | `23 passed, 11 skipped` · Control Room path in README |
-| **Fresh clone parity** | Full product + AI | **FAIL** | Public: no `revive/product/intelligence/` |
+| **Fresh clone (no key)** | — | **PASS** | 44 passed, 11 skipped · intelligence present |
+| **Fresh clone parity** | Full product + AI | **PASS** | **PASS** · `PUBLIC-PARITY.md` |
 | **Product tests** | **PASS** | 34 tests only | `pytest tests/product -q` → **55 passed** local |
 | **JS syntax** | **PASS** | **PASS** | `node --check revive/product/ui/app.js` |
 | **Artifact integrity** | **PASS** | **PASS** | `git diff -- artefacts/benchmark/official-cloud-final/` → empty |
@@ -155,7 +165,7 @@ pytest tests/product -q  # 55 passed
 | ID | Issue | Status |
 |---|---|---|
 | P1-1 | **5-minute pitch video not recorded** | **OPEN** |
-| P1-2 | **AI layer not on public GitHub** | **OPEN** — local only; push when owner authorizes |
+| P1-2 | **AI layer on public GitHub** | **RESOLVED** — `1f6f069` |
 | P1-3 | Official evidence not in Git (by design) | **ACCEPTED** — mount path documented |
 
 ### P2 — presentation
@@ -163,7 +173,7 @@ pytest tests/product -q  # 55 passed
 | ID | Issue | Status |
 |---|---|---|
 | P2-1 | GitHub description/topics | **OPEN** — `submission/GITHUB-METADATA.md` |
-| P2-2 | Commit submission + AI docs to public | **OPEN** — awaiting owner |
+| P2-2 | Commit submission + AI docs | **RESOLVED** — `1f6f069` |
 
 ### P3 — optional
 
@@ -202,4 +212,4 @@ No benchmark artefacts modified. No commit. No push.
 
 One product · one public repository · one trust model · one evidence chain.
 
-**FREEZE** until P1-1 and P1-2 are closed by the owner.
+**FREEZE** at `1f6f069`. Close P1-1 (video) before submission.

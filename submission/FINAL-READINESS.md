@@ -1,11 +1,10 @@
 # PAYVANTA — final submission readiness
 
-**War room:** P13 — Final submission production  
-**Date:** 2026-08-28 (P13 release candidate)  
+**War room:** P14 — Commit + push verified release candidate  
+**Date:** 2026-08-28  
 **Repository:** https://github.com/shriansh1625/razorpay_buildathon (PUBLIC)  
-**Public HEAD:** `7bed946` · **Local RC:** uncommitted (AI layer + submission docs)
-
-See **`submission/FINAL-RELEASE-REPORT.md`** for full P13 verification.
+**Release commit:** `1f6f069` — `origin/main` == local HEAD  
+**Parity:** `submission/PUBLIC-PARITY.md`
 
 ---
 
@@ -14,10 +13,9 @@ See **`submission/FINAL-RELEASE-REPORT.md`** for full P13 verification.
 | Check | Result |
 |---|---|
 | Public access | **PASS** |
-| PAYVANTA on `main` (remote) | **PASS** — product through `7bed946` |
-| Local AI layer | **READY** — not yet pushed |
-| Fresh clone (no key) | **PASS** — DETERMINISTIC FALLBACK |
-| Contributor integrity | **PASS** — single author, no AI co-author trailers |
+| PAYVANTA + AI on `main` | **PASS** — `1f6f069` |
+| Fresh public clone | **PASS** — intelligence module present |
+| Contributor integrity | **PASS** — single author, no Co-authored-by trailers |
 
 Manual: GitHub description/topics (`submission/GITHUB-METADATA.md`).
 
@@ -30,7 +28,7 @@ Manual: GitHub description/topics (`submission/GITHUB-METADATA.md`).
 | Control Room | **PASS** — sandbox seed 14 |
 | Success path | **PASS** — `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` AUTHORIZED → SUCCEEDED |
 | Blocked path | **PASS** — `opp_WST4PPPH81VPNTNC18K0YGRAW9` BLOCKED → NOT_EXECUTED |
-| Tests | **PASS** — `pytest tests/product -q` → 55 passed |
+| Tests | **PASS** — 55 collected · 44 run + 11 skip (no mount) on fresh clone |
 | JS syntax | **PASS** — `node --check revive/product/ui/app.js` |
 
 ---
