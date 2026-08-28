@@ -72,11 +72,13 @@ def test_benchmark_lab_does_not_write_official_dir(tmp_path: Path):
     assert not official.exists()
 
 
-def test_invalidated_official_tree_is_not_product_proof():
-    from revive.product.benchmark_lab import INVALIDATED_OFFICIAL, classify_artefact_tree
+def test_invalidated_official_tree_is_not_product_proof(tmp_path: Path):
+    from revive.product.benchmark_lab import classify_artefact_tree
 
-    assert classify_artefact_tree(INVALIDATED_OFFICIAL) == "INADMISSIBLE"
-    lab = benchmark_lab(INVALIDATED_OFFICIAL)
+    invalidated = tmp_path / "official"
+    invalidated.mkdir()
+    assert classify_artefact_tree(invalidated) == "INADMISSIBLE"
+    lab = benchmark_lab(invalidated)
     assert lab["artefact_status"] == "INADMISSIBLE_LOCAL_TREE"
     assert lab["policy_summaries"] is None
     assert lab["integrity"]["never_use_invalidated_official_tree"] is True
