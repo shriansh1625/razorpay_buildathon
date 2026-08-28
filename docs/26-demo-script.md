@@ -66,7 +66,7 @@ node in the relationship graph to drill down.
 
 ### Exact claim
 
-> "REVIVE detects revenue at risk across four categories and diagnoses candidate causes.
+> "PAYVANTA detects revenue at risk across four categories and diagnoses candidate causes.
 > Here's the leakage landscape — [PLACEHOLDER]% of value at risk is from payment failures,
 > [PLACEHOLDER]% from overdue receivables. The relationship graph shows how failure reasons
 > map to candidate causes and determine which recovery actions are applicable."
@@ -98,10 +98,10 @@ Select a single opportunity. Walk through the full decision pipeline.
 
 ### Exact claim
 
-> "For this [risk class] opportunity worth ₹[PLACEHOLDER], REVIVE generated [N] candidate
+> "For this [risk class] opportunity worth ₹[PLACEHOLDER], PAYVANTA generated [N] candidate
 > actions plus no-action. Here's the counterfactual comparison: each candidate's recovery
 > probability, the natural recovery probability, the uplift, the cost, and the expected
-> incremental net recovered revenue. REVIVE selected [action] because it had the highest ENRV
+> incremental net recovered revenue. PAYVANTA selected [action] because it had the highest ENRV
 > of ₹[PLACEHOLDER] paise. The no-action alternative would have cost nothing but recovered
 > ₹[PLACEHOLDER] paise less in expectation."
 
@@ -136,7 +136,7 @@ opportunities.
 
 ### Exact claim
 
-> "REVIVE doesn't decide one opportunity at a time — it solves a portfolio allocation problem.
+> "PAYVANTA doesn't decide one opportunity at a time — it solves a portfolio allocation problem.
 > This cycle had [N] opportunities competing for [N] resources. The allocator selected [N]
 > actions, deferred [N], and chose no-action for [N]. Here are the binding constraints — SMS
 > capacity is exhausted, and its shadow price tells us that one more SMS credit would generate
@@ -173,9 +173,9 @@ Show a gate denial. Show a stopping rule firing. Show the approval queue.
 
 ### Exact claim
 
-> "REVIVE does not bypass controls. Here's an action that was denied by [gate] because
+> "PAYVANTA does not bypass controls. Here's an action that was denied by [gate] because
 > [reason]. Here's a stopping rule that fired — this customer was contacted [N] times and
-> REVIVE stopped, even though the ENRV was positive. Here's the approval queue — this
+> PAYVANTA stopped, even though the ENRV was positive. Here's the approval queue — this
 > high-value action required human approval. And here's the most important number:
 > `M-16 = 0` — zero actions executed without a full ALLOW verdict."
 
@@ -208,10 +208,10 @@ Show the baseline comparison table. Show the seed matrix. Show the confidence in
 
 ### Exact claim
 
-> "REVIVE's claim is falsifiable and measured. On a batch of [N] synthetic opportunities
-> across [N] seeds, REVIVE recovered ₹[PLACEHOLDER] more than the best non-trivial baseline
+> "PAYVANTA's claim is falsifiable and measured. On a batch of [N] synthetic opportunities
+> across [N] seeds, the REVIVE recovery policy recovered ₹[PLACEHOLDER] more than the best non-trivial baseline
 > (B[N]: [name]), net of all costs. The median paired advantage is ₹[PLACEHOLDER] with a
-> [PLACEHOLDER]% confidence interval of [PLACEHOLDER, PLACEHOLDER]. REVIVE also outperforms
+> [PLACEHOLDER]% confidence interval of [PLACEHOLDER, PLACEHOLDER]. PAYVANTA also outperforms
 > on cost efficiency: ₹[PLACEHOLDER] recovered per rupee spent, versus ₹[PLACEHOLDER] for
 > the best baseline. Zero policy violations across all seeds."
 
@@ -246,10 +246,10 @@ Show the learning-on vs learning-off comparison. Return to the command center.
 
 ### Exact claim
 
-> "REVIVE learns from outcomes. With learning enabled, calibration [improved/was maintained]
+> "PAYVANTA learns from outcomes. With learning enabled, calibration [improved/was maintained]
 > across cycles. The learning-on vs learning-off ablation shows [PLACEHOLDER] — and we report
-> both results honestly. The limitations section shows where REVIVE performed worse than a
-> baseline or wasted effort. Finally: REVIVE doesn't just automate recovery actions. It
+> both results honestly. The limitations section shows where the REVIVE policy performed worse than a
+> baseline or wasted effort. Finally: PAYVANTA doesn't just automate recovery actions. It
 > allocates bounded recovery effort toward the opportunities with the highest expected
 > incremental net revenue, executes within merchant-defined controls, and proves the result
 > through reproducible batch evaluation."
@@ -316,3 +316,28 @@ runs. No manual entry.
 | Confidence interval | Paired CI from evaluation | Artefact |
 | Cost efficiency | `M-11` | Artefact |
 | Learning ablation | `M-10` learning-on vs off | Artefact |
+
+---
+
+## 11. Pitch video — official benchmark segment (04:10–05:00)
+
+Approximately 40–50 seconds of the five-minute pitch. Not the whole video.
+Control Room numbers remain **sandbox**. Official cells remain **official**.
+
+| Time | Beat | Surface |
+|---|---|---|
+| 04:10 | “Now let’s see whether this is just one carefully selected scenario.” | Leave Control Room |
+| 04:15 | 20 seeds × 6 profiles × 5 policies | `#/benchmark` |
+| 04:20 | 600 official cells | Executive stats |
+| 04:25 | 120 groups | Executive stats |
+| 04:30 | Profile × policy matrix | `#/benchmark/matrix` |
+| 04:35 | ABUNDANT × REVIVE | Matrix cell |
+| 04:40 | Seed 14 | Seed drill-down |
+| 04:45 | Cell evidence + checksum | Forensic panel |
+| 04:50 | “Same engine. Measured across the experiment.” | |
+| 05:00 | MEASURED. NOT CLAIMED. | Final seal |
+
+Do not click Run Recovery. Do not present sandbox incremental net as M-10.
+Do not claim the 600-cell run proves superiority.
+
+Full evidence map: [42-official-benchmark.md](42-official-benchmark.md).

@@ -1,6 +1,6 @@
 # 13 · Policy and Guardrails
 
-The policy engine (C-13) is the only component in REVIVE with the authority to say *yes*. The
+The policy engine (C-13) is the only component in PAYVANTA with the authority to say *yes*. The
 allocator proposes; this engine authorises. Nothing reaches an adapter without an `ALLOW` verdict
 from here.
 

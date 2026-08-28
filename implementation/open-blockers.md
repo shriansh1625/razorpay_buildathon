@@ -1,4 +1,4 @@
-# REVIVE — Open Blockers
+# PAYVANTA — Open Blockers
 
 **Phase:** M0  
 **Last updated:** 2026-08-21

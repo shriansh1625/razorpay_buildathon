@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "revive"
 version = "0.1.0"
-description = "REVIVE — Revenue Recovery Autopilot (Razorpay Buildathon Track 03)"
+description = "PAYVANTA — Autonomous Revenue Recovery Intelligence (Razorpay Buildathon Track 03)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
@@ -19,6 +19,9 @@ revive = "revive.cli:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["revive*"]
+
+[tool.setuptools.package-data]
+revive = ["product/ui/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

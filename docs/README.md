@@ -1,19 +1,20 @@
-# REVIVE — Revenue Recovery Autopilot
+# PAYVANTA — Autonomous Revenue Recovery Intelligence
 
 **Razorpay Buildathon — Track 03: AI Revenue Recovery**
-**Document package status: SPECIFICATION COMPLETE — NOT IMPLEMENTED**
+**Document package status: SPECIFICATION COMPLETE — IMPLEMENTED**
 
 ---
 
 ## What this package is
 
-This is the complete specification for REVIVE. It is the **source of truth** for the
-implementation phase. No code exists yet. Nothing in this package describes something that
-has been built, measured, or verified against a live system.
+This is the complete specification for **PAYVANTA**, the autonomous revenue recovery intelligence
+platform. It is the **source of truth** for the implementation. The Python package namespace
+remains `revive`; the benchmark recovery policy identifier remains `REVIVE`.
 
-> **REVIVE is a bounded agentic decision system that allocates scarce recovery effort toward
-> the highest expected incremental revenue and proves the value of its decisions through
-> reproducible batch evaluation.**
+> **PAYVANTA is an evidence-driven autonomous revenue recovery intelligence and execution platform
+> that detects where revenue is recoverable, diagnoses why it is at risk, optimizes interventions
+> under real constraints, executes only authorized actions, and proves incremental net recovery
+> through reproducible batch evaluation.**
 
 The implementation phase MUST read [32-implementation-contract.md](32-implementation-contract.md)
 before writing a single line of code.
@@ -39,6 +40,7 @@ before writing a single line of code.
 **If you are a judge or reviewer, read:**
 [02-product-vision.md](02-product-vision.md) → [01-track-alignment.md](01-track-alignment.md) →
 [10-recovery-allocation.md](10-recovery-allocation.md) → [20-benchmark.md](20-benchmark.md) →
+[42-official-benchmark.md](42-official-benchmark.md) →
 [27-judging-criteria-mapping.md](27-judging-criteria-mapping.md) → [29-tradeoffs.md](29-tradeoffs.md)
 
 ---
@@ -57,8 +59,12 @@ before writing a single line of code.
 - [06-nonfunctional-requirements.md](06-nonfunctional-requirements.md) — `RR-NFR-*`
 
 ### Architecture
-- [07-system-architecture.md](07-system-architecture.md) — Components, cycle model, data flow, deployment
-- [08-agent-architecture.md](08-agent-architecture.md) — Module/agent roster, permissions, tool grants
+- [07-system-architecture.md](07-system-architecture.md) — Components, cycle model, data flow, deployment, product vs official evidence
+- [08-agent-architecture.md](08-agent-architecture.md) — Module/agent roster (**spec**; see implementation status banner)
+- [43-operating-architecture.md](43-operating-architecture.md) — Shipped loop + mermaid
+- [why-ai.md](why-ai.md) — What is deterministic vs LLM in this build
+- [claim-evidence-matrix.md](claim-evidence-matrix.md) — Claim → source → test → UI → API
+- [track3-evidence.md](track3-evidence.md) — Official Track 03 bar mapped to code
 - [34-state-machine.md](34-state-machine.md) — Opportunity lifecycle states and legal transitions
 
 ### Decision core
@@ -85,6 +91,7 @@ before writing a single line of code.
 ### Proof of value
 - [20-benchmark.md](20-benchmark.md) — Baselines, batch design, hidden outcome mechanism
 - [21-evaluation.md](21-evaluation.md) — Methodology, statistics, honesty rules
+- [42-official-benchmark.md](42-official-benchmark.md) — Frozen official experiment, engineering journey, evaluator map
 - [37-metrics-dictionary.md](37-metrics-dictionary.md) — Every metric with an exact formula
 - [24-observability.md](24-observability.md) — Metrics, logs, traces, alerts
 
@@ -115,7 +122,7 @@ Changing any of these requires a new ADR in [31-decision-records.md](31-decision
 ### C-1 · Certainty labels
 
 Every non-trivial claim in this package carries one of these labels. Absence of a label means
-the statement is a definition internal to REVIVE (i.e. `KNOWN` by construction).
+the statement is a definition internal to PAYVANTA (i.e. `KNOWN` by construction).
 
 | Label | Meaning |
 |-------|---------|
@@ -181,7 +188,7 @@ determinism).
 
 ### C-5 · The frozen objective
 
-REVIVE maximises **expected incremental net recovered revenue**, written `ENRV`.
+PAYVANTA maximises **expected incremental net recovered revenue**, written `ENRV`.
 
 For opportunity `i` and candidate action `a`:
 
@@ -207,8 +214,8 @@ ENRV(i, a) =   u(i, a) · V(i) · m
 `ENRV(i, ∅) = 0` by definition. An action is only worth taking if `ENRV(i, a) > ε` where `ε` is
 the merchant's minimum-justification threshold.
 
-**The single most important consequence:** REVIVE is scored on `u`, not `p`. Contacting a
-customer who would have paid anyway earns REVIVE nothing. This is what stops the system from
+**The single most important consequence:** PAYVANTA is scored on `u`, not `p`. Contacting a
+customer who would have paid anyway earns PAYVANTA nothing. This is what stops the system from
 degenerating into a blast-everyone engine, and it is enforced in the metrics
 ([37-metrics-dictionary.md](37-metrics-dictionary.md), `M-14 Wasted Intervention Rate`).
 

@@ -1,6 +1,6 @@
 # 00 · Project Charter
 
-**Project:** REVIVE — Revenue Recovery Autopilot
+**Project:** PAYVANTA — Autonomous Revenue Recovery Intelligence
 **Event:** Razorpay Buildathon, Track 03 — AI Revenue Recovery
 **Phase of this document:** Specification. No implementation exists.
 
@@ -51,18 +51,18 @@ It is:
 > revenue?**"
 
 That is a constrained allocation problem over a portfolio of opportunities. It is the problem
-REVIVE solves.
+PAYVANTA solves.
 
 ---
 
 ## 3. Product definition (locked)
 
-> REVIVE is an autonomous revenue-recovery decision engine that continuously identifies revenue at
+> PAYVANTA is an autonomous revenue-recovery intelligence platform that continuously identifies revenue at
 > risk, diagnoses why it is at risk, evaluates possible recovery actions, allocates limited
 > recovery effort toward the highest-value opportunities, executes bounded interventions, measures
 > actual recovery outcomes, and learns from those outcomes.
 
-> REVIVE does not merely ask what to do when one payment fails. It decides **where the merchant's
+> PAYVANTA does not merely ask what to do when one payment fails. It decides **where the merchant's
 > next unit of recovery effort is most likely to create incremental net revenue.**
 
 Both statements are locked by the project owner and may not be reinterpreted by the
@@ -94,7 +94,7 @@ The following are **not** the objective, and optimising for them is a defect:
 ### 4.2 The one-sentence success test
 
 > On a fixed, pre-registered batch of synthetic opportunities, under identical resource budgets
-> and identical policy constraints, REVIVE produces **more net recovered revenue than the
+> and identical policy constraints, the REVIVE recovery policy produces **more net recovered revenue than the
 > strongest non-trivial baseline**, with **zero policy violations**, a **complete audit trail for
 > every action**, and results **reproducible from a seed**.
 
@@ -130,7 +130,7 @@ Each criterion is measurable and maps to a requirement ID.
 |---|---|---|
 | D-1 | This specification package | **Complete** |
 | D-2 | Synthetic data generator | Not started |
-| D-3 | REVIVE decision engine (SEE → LEARN) | Not started |
+| D-3 | PAYVANTA decision engine (SEE → LEARN) | Not started |
 | D-4 | Policy / guardrail engine | Not started |
 | D-5 | Bounded execution layer with simulated adapters | Not started |
 | D-6 | Audit store | Not started |
@@ -159,10 +159,10 @@ Each criterion is measurable and maps to a requirement ID.
 Restated in full in [04-principles-and-non-goals.md](04-principles-and-non-goals.md). Headline
 non-goals:
 
-- REVIVE is not a chatbot, a dashboard, a CRM, a fraud system, or a generic multi-agent demo.
-- REVIVE does not take unbounded autonomous financial action.
-- REVIVE does not claim causal inference it has not implemented.
-- REVIVE does not claim production readiness.
+- PAYVANTA is not a chatbot, a dashboard, a CRM, a fraud system, or a generic multi-agent demo.
+- PAYVANTA does not take unbounded autonomous financial action.
+- PAYVANTA does not claim causal inference it has not implemented.
+- PAYVANTA does not claim production readiness.
 
 ---
 
@@ -181,7 +181,7 @@ The build is done when **all** of the following hold. This is a checklist, not a
 5. `M-16 Policy Violation Count` is `0` on every seed. A non-zero value is a build failure, not a
    finding.
 6. The audit hash chain verifies for every run.
-7. The evaluation report includes at least one section describing where REVIVE performed **worse**
+7. The evaluation report includes at least one section describing where the REVIVE policy performed **worse**
    than a baseline or wasted effort.
 8. No fabricated number appears in any artefact, slide, or README.
 9. The demo executes end to end without manual intervention or hidden steps.

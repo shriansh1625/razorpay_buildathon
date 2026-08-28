@@ -4,7 +4,7 @@
 
 ## 1. Architectural style and the decision that drives it
 
-REVIVE is a **cycle-based batch decision system**, not an event-driven per-event workflow engine.
+PAYVANTA is a **cycle-based batch decision system**, not an event-driven per-event workflow engine.
 
 This is the most consequential architectural choice in the package, so it is stated first.
 
@@ -232,7 +232,7 @@ labelled clearly, never presented as a real human decision (see [20](20-benchmar
 | LLM | Claude — `claude-opus-5` for diagnosis reasoning, `claude-haiku-4-5-20251001` for closed-set classification and copy slots | Highest capability where reasoning matters; cheapest tier where the task is classification. Both behind the cache in § 7 |
 
 Storage note: monetary columns are `INTEGER` paise (`RR-NFR-001`). SQLite's lack of a decimal type is
-irrelevant because REVIVE never uses decimals for money.
+irrelevant because PAYVANTA never uses decimals for money.
 
 ---
 
@@ -379,3 +379,29 @@ finding.
 | AI-10 | Same seed ⇒ byte-identical metric artefact | `RR-NFR-020` |
 | AI-11 | A gate verdict is never overridden within its cycle | `RR-GUARD-023` |
 | AI-12 | Every cycle terminates within its step budget | `RR-GUARD-025` |
+
+---
+
+## 11. Product, engine, official evidence
+
+Three layers. Mixing them is a documentation defect.
+
+```
+PAYVANTA Sandbox  ──▶  demonstrates the recovery workflow
+        │
+        │  same engine
+        ▼
+Official benchmark  ──▶  evaluates the engine (20 × 6 × 5 = 600 cells)
+        │
+        ▼
+artefacts/benchmark/official-cloud-final/  ──▶  frozen, read-only
+```
+
+The Control Room is not a benchmark cell. M-10 of the experiment is
+`NetRecovered(policy) − NetRecovered(B0)` on the same seed and profile, defined
+in [21-evaluation.md](21-evaluation.md) § 2.1. Design: [20-benchmark.md](20-benchmark.md).
+Evidence journey, hashes, and evaluator map: [42-official-benchmark.md](42-official-benchmark.md).
+
+The product never writes the official tree. Parallel dispatch, checkpoint
+reconciliation, ABUNDANT forensics, and the metrics-tail rescue are
+infrastructure around the engine; they are not M-10 improvements.

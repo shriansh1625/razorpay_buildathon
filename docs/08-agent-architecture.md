@@ -1,10 +1,21 @@
 # 08 · Agent and Module Architecture
 
+> **Implementation status (this submission).** The table below is the original
+> specification. It is **not** a description of the running binary.
+>
+> Shipped diagnosis always records `llm_used=False` (`revive/recovery/diagnosis/diagnose.py`;
+> `allow_llm=False`). Official cells use `llm_mode=LLM_OFF`. **Copy Composer (C-10) is not
+> implemented.** There is no chatbot and no live model call.
+>
+> What shipped: deterministic diagnosis, deterministic ENRV and allocation,
+> deterministic guardrails, bounded execution, measurement, audit.
+> See [why-ai.md](why-ai.md) and [43-operating-architecture.md](43-operating-architecture.md).
+
 ---
 
 ## 1. The anti-proliferation rule
 
-Multi-agent architectures are easy to draw and hard to justify. REVIVE applies a hard test before
+Multi-agent architectures are easy to draw and hard to justify. PAYVANTA applies a hard test before
 any module is granted "agent" status:
 
 > A module exists only if it has (a) a distinct responsibility, (b) a typed output another module
@@ -13,9 +24,9 @@ any module is granted "agent" status:
 
 A module that fails any of the four is merged into its caller.
 
-Furthermore, **most modules in REVIVE are not agents.** They are deterministic functions. The word
+Furthermore, **most modules in PAYVANTA are not agents.** They are deterministic functions. The word
 "agent" is reserved for components that (i) invoke an LLM, or (ii) orchestrate a bounded sequence of
-tool calls. By that definition REVIVE has **three agents and eighteen deterministic modules**, and
+tool calls. By that definition PAYVANTA has **three agents and eighteen deterministic modules**, and
 that ratio is intentional — it is the direct consequence of
 [README § C-7](README.md#c-7--the-deterministic-authority-rule).
 

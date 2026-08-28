@@ -8,7 +8,7 @@ result.
 
 ## 1. In scope
 
-The following are inside REVIVE's scope for this build. Each maps to at least one requirement in
+The following are inside PAYVANTA's scope for this build. Each maps to at least one requirement in
 [05-functional-requirements.md](05-functional-requirements.md).
 
 ### 1.1 Detection (SEE)

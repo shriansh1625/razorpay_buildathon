@@ -1,4 +1,4 @@
-# REVIVE — Implementation Decisions (M0)
+# PAYVANTA — Implementation Decisions (M0)
 
 **Purpose:** Record implementation choices that are consistent with the spec but not fully prescribed. Deviations from the spec go in `deviations.md` (created when needed) and require ADRs in `docs/31-decision-records.md`.
 

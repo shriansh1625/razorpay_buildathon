@@ -4,7 +4,7 @@
 
 ## 1. One line
 
-**REVIVE is a revenue recovery autopilot: it decides where a merchant's next unit of recovery
+**PAYVANTA is autonomous revenue recovery intelligence: it decides where a merchant's next unit of recovery
 effort should go, executes it within hard limits, and proves what it earned.**
 
 ---
@@ -35,20 +35,20 @@ Put those together and the real question emerges:
 > Given everything currently at risk, and given what I can afford to do, **which opportunities
 > deserve which action** — and which deserve nothing at all?
 
-That is a portfolio allocation problem under constraints. REVIVE is built around it.
+That is a portfolio allocation problem under constraints. PAYVANTA is built around it.
 
 ---
 
 ## 3. Product thesis
 
-REVIVE treats revenue recovery as **constrained decision-making over a portfolio**, evaluated on
+PAYVANTA treats revenue recovery as **constrained decision-making over a portfolio**, evaluated on
 **incremental** value.
 
 Three commitments follow, and they define the product:
 
 ### 3.1 Uplift, not conversion
 
-REVIVE's unit of value is the *difference* between what happens with an action and what would have
+PAYVANTA's unit of value is the *difference* between what happens with an action and what would have
 happened without it:
 
 ```
@@ -57,12 +57,12 @@ uplift = P(recover | action) − P(recover | no action)
 
 A customer with a 90% chance of self-recovering is a bad target even though acting on them looks
 like a 92% success story. A customer with a 20% baseline who jumps to 55% with the right nudge is
-where the money is. This single choice is what separates REVIVE from a recovery blaster, and it is
+where the money is. This single choice is what separates PAYVANTA from a recovery blaster, and it is
 enforced all the way through to the metrics.
 
 ### 3.2 Allocation, not workflow
 
-REVIVE does not run one workflow per event. It runs a **recovery cycle**: it looks at everything
+PAYVANTA does not run one workflow per event. It runs a **recovery cycle**: it looks at everything
 currently at risk, prices every feasible action, and solves for the best feasible bundle under all
 active constraints simultaneously. Opportunities compete. Losing opportunities are explicitly
 deferred with a reason, not silently dropped.
@@ -80,7 +80,7 @@ authority precisely so that the reasoning layer can be creative without being da
 
 # Recovery allocation under constraints
 
-REVIVE models the merchant as holding a set of exhaustible recovery resources:
+PAYVANTA models the merchant as holding a set of exhaustible recovery resources:
 
 | Resource | Unit | Why it binds |
 |---|---|---|
@@ -135,7 +135,7 @@ system. See [07-system-architecture.md](07-system-architecture.md).
 
 ## 6. "Do nothing" is a first-class decision
 
-REVIVE must be able to conclude, for a specific opportunity, with a recorded reason:
+PAYVANTA must be able to conclude, for a specific opportunity, with a recorded reason:
 
 > No intervention is economically justified.
 
@@ -163,9 +163,9 @@ when the numbers defend it.
 
 ---
 
-## 7. What REVIVE is not
+## 7. What PAYVANTA is not
 
-| REVIVE is not | Because |
+| PAYVANTA is not | Because |
 |---|---|
 | A chatbot | Nothing in the product requires conversation with the merchant to work |
 | An LLM wrapper | The money-affecting decisions are deterministic; the LLM reasons and explains, it does not price |
@@ -185,11 +185,11 @@ Detailed architectural differentiation: [33-not-a-clone.md](33-not-a-clone.md).
 
 ## 8. Users
 
-`ASSUMPTION` — REVIVE is specified for a mid-market Indian merchant with meaningful volume across
+`ASSUMPTION` — PAYVANTA is specified for a mid-market Indian merchant with meaningful volume across
 one-time payments, subscriptions, and B2B invoices. Personas below are design targets, not
 research findings.
 
-| Persona | Needs from REVIVE | Primary screen |
+| Persona | Needs from PAYVANTA | Primary screen |
 |---|---|---|
 | **Revenue / growth owner** | How much is at risk, how much came back, was it worth it | Executive Revenue Command Center |
 | **Finance controller** | Budget consumption, incentive spend, ROI, receivables ageing | Recovery Allocation View |
@@ -197,14 +197,14 @@ research findings.
 | **Operations agent** | The approval queue; which cases need a human and why | Approval Queue (part of Recovery Opportunities) |
 | **Engineer / judge** | Does the decision logic beat a baseline, reproducibly | Benchmark / Evaluation Lab |
 
-The system is designed to be **supervisable**: a human can always see what REVIVE decided, what it
+The system is designed to be **supervisable**: a human can always see what PAYVANTA decided, what it
 rejected, and why — and can always stop it. See [25-ui-ux-spec.md](25-ui-ux-spec.md).
 
 ---
 
 ## 9. Value proposition, stated honestly
 
-What REVIVE can credibly claim after this build:
+What PAYVANTA can credibly claim after this build:
 
 - A specified, implemented decision architecture for constrained revenue recovery.
 - A reproducible benchmark showing its allocation policy beats non-trivial baselines **on a
@@ -212,7 +212,7 @@ What REVIVE can credibly claim after this build:
 - Zero policy violations and a verifiable audit chain across that benchmark.
 - An explicit accounting of where it wasted effort and where it fell short of the oracle.
 
-What REVIVE **cannot** claim after this build, and must never imply:
+What PAYVANTA **cannot** claim after this build, and must never imply:
 
 - Any real-world recovery rate, or that the synthetic uplift numbers transfer to live traffic.
 - Any verified integration with Razorpay or any payment provider.
@@ -231,9 +231,9 @@ If a judge asks one hostile question, it will be some form of:
 
 > "Isn't this just a smarter retry-and-remind loop with a dashboard on top?"
 
-The answer REVIVE must be able to give, with artefacts on screen:
+The answer PAYVANTA must be able to give, with artefacts on screen:
 
-> No. A retry-and-remind loop acts on each event independently and counts gross recoveries. REVIVE
+> No. A retry-and-remind loop acts on each event independently and counts gross recoveries. PAYVANTA
 > prices every action by *uplift over doing nothing*, makes opportunities compete for a fixed
 > budget under six simultaneous constraints, chooses no-action on a measurable share of cases,
 > refuses actions its policy engine forbids rather than routing around them, and reports the

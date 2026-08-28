@@ -1,6 +1,6 @@
 # 36b · Documentation Consistency Check
 
-A formal audit of cross-document consistency across the REVIVE documentation package.
+A formal audit of cross-document consistency across the PAYVANTA documentation package.
 Inconsistencies are exposed, not silently resolved. The implementation phase can resolve them
 explicitly via ADRs.
 
@@ -18,8 +18,9 @@ explicitly via ADRs.
 
 | Check | Result |
 |---|---|
-| Product name is "REVIVE" everywhere | **CONSISTENT.** All documents use "REVIVE" |
-| Subtitle is "Revenue Recovery Autopilot" everywhere | **CONSISTENT** |
+| Product name is "PAYVANTA" everywhere (product-facing) | **UPDATED.** Product-facing docs use "PAYVANTA"; benchmark policy identifier `REVIVE` preserved |
+| Descriptor is "Autonomous Revenue Recovery Intelligence" everywhere | **UPDATED** |
+| Tagline is "Detect. Diagnose. Optimize. Guard. Execute. Prove." (product-facing) | **UPDATED** |
 | Product definition matches across [00 § 3](00-project-charter.md), [02](02-product-vision.md), [README](README.md) | **CONSISTENT.** The locked definition is reproduced verbatim |
 
 ---

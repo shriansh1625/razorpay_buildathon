@@ -1,5 +1,1 @@
-"""REVIVE — Revenue Recovery Autopilot."""
-
-from revive.__version__ import __version__
-
-__all__ = ["__version__"]
+"""PAYVANTA recovery engine (Python package namespace: revive)."""

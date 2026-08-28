@@ -1,4 +1,4 @@
-# REVIVE — Implementation Plan (M0)
+# PAYVANTA — Implementation Plan (M0)
 
 **Status:** Planning artifact — no application code yet  
 **Phase:** M0 Specification Audit complete  

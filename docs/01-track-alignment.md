@@ -1,6 +1,6 @@
 # 01 · Track Alignment
 
-**Purpose.** Prove, clause by clause, that REVIVE sits inside Razorpay Buildathon Track 03 and
+**Purpose.** Prove, clause by clause, that PAYVANTA sits inside Razorpay Buildathon Track 03 and
 satisfies its stated bar. This document is the defence against the two most common submission
 failures: building something adjacent to the track, and building something inside the track that
 cannot be *shown* to satisfy the bar.
@@ -39,7 +39,7 @@ Priority order for resolving any question. Lower priority may never override hig
 |---|---|---|
 | 1 | Track 03 brief above | `KNOWN`. Non-negotiable. |
 | 2 | Official Razorpay documentation, **when explicitly verified and cited** | Nothing in this package is currently at this rank — see [36-razorpay-integration-assumptions.md](36-razorpay-integration-assumptions.md) |
-| 3 | REVIVE project decisions from the owner's brief | Product name, definition, differentiator, loop, objective |
+| 3 | PAYVANTA project decisions from the owner's brief | Product name, definition, differentiator, loop, objective |
 | 4 | Labelled engineering assumptions in this package | `ASSUMPTION` / `PROPOSED` |
 | 5 | General technical convention | Last resort |
 
@@ -54,7 +54,7 @@ claim it directly states.
 
 ## 2. Clause-by-clause alignment
 
-| Track clause | REVIVE response | Where specified | Evidence in demo | Evidence in benchmark |
+| Track clause | PAYVANTA response | Where specified | Evidence in demo | Evidence in benchmark |
 |---|---|---|---|---|
 | "detects revenue at risk" | Revenue Sentinel converts signals into typed `RevenueOpportunity` records across 4 risk classes with a value-at-risk estimate | [05](05-functional-requirements.md) `RR-FUNC-001`…`004`, [12](12-revenue-leakage-model.md) | Demo beat 2 | `M-01 Value at Risk`, detection recall per class |
 | "determines the right intervention" | Candidate generation → per-candidate uplift and cost → `ENRV` ranking → allocator selects | [09](09-decision-engine.md), [10](10-recovery-allocation.md), [11](11-counterfactual-engine.md) | Demo beats 3–5 | `M-09 Net Recovered`, `M-10 Incremental Net Recovery` |
@@ -76,15 +76,15 @@ No row in this table is empty. Rows that would be empty are tracked as
 
 ---
 
-## 3. How REVIVE relates to the seven "example directions"
+## 3. How PAYVANTA relates to the seven "example directions"
 
 The brief lists seven example directions. A common failure is to pick one and build only that — a
 narrow point solution. A second failure is to claim all seven and implement none properly.
 
-REVIVE's position: **the example directions are action patterns inside one allocation problem, not
-seven separate products.** REVIVE implements a subset properly and is explicit about the rest.
+PAYVANTA's position: **the example directions are action patterns inside one allocation problem, not
+seven separate products.** PAYVANTA implements a subset properly and is explicit about the rest.
 
-| Example direction | REVIVE treatment | Tier |
+| Example direction | PAYVANTA treatment | Tier |
 |---|---|---|
 | Payment degradation → root cause → recovery action | Core path. Degradation is a cohort-level feature that changes action fit. | **MVP** |
 | Checkout drop-off recovery | Core path. Risk class with stage-aware candidate set. | **MVP** |
@@ -112,16 +112,16 @@ Frozen position:
 - It appears in the demo **only after** allocation and guardrails have been shown, and only as an
   illustration that the allocator chose an expensive channel because the expected uplift on a
   high-value receivable justified it.
-- If voice cannot be built within the timebox, REVIVE loses nothing structural. If the allocator
-  cannot be built, REVIVE has no product.
+- If voice cannot be built within the timebox, PAYVANTA loses nothing structural. If the allocator
+  cannot be built, PAYVANTA has no product.
 
 See [03-scope-boundaries.md](03-scope-boundaries.md) § 5 for the firewall entry.
 
 ---
 
-## 5. Where REVIVE goes beyond the literal brief (and why that is allowed)
+## 5. Where PAYVANTA goes beyond the literal brief (and why that is allowed)
 
-The brief asks for "an agent". REVIVE is specified as a portfolio decision system. This is a
+The brief asks for "an agent". PAYVANTA is specified as a portfolio decision system. This is a
 deliberate reading, justified as follows:
 
 1. The brief's bar says "across a **batch**". A per-event agent cannot demonstrate a batch result
@@ -138,7 +138,7 @@ defensible but it is an interpretation, and it is recorded as [ADR-001](31-decis
 
 ---
 
-## 6. What would put REVIVE *outside* the track
+## 6. What would put PAYVANTA *outside* the track
 
 Recorded here so the implementation phase can self-check. If any of these becomes true, scope has
 drifted and must be corrected:
@@ -160,7 +160,7 @@ drifted and must be corrected:
 
 ## 7. The bar, restated as a falsifiable claim
 
-REVIVE's submission claim will be exactly this sentence, and nothing stronger:
+PAYVANTA's submission claim will be exactly this sentence, and nothing stronger:
 
 > On a pre-registered synthetic batch of *N* revenue-at-risk opportunities, replicated across *K*
 > seeds, under identical budgets and identical policy constraints, REVIVE's allocation policy

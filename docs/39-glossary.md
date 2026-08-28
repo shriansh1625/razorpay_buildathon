@@ -10,8 +10,8 @@ is used in any document, its meaning is this document's meaning.
 
 | Term | Definition | Source | Not called |
 |---|---|---|---|
-| **Action** | A concrete recovery activity that REVIVE can execute: retry, send message, generate payment link, escalate, etc. Represented as an `ActionCandidate` before selection and an `Intervention` after execution | [05](05-functional-requirements.md), [17](17-data-model.md) | "Task", "job", "step" |
-| **Action Adapter** | The interface that translates a REVIVE action into a provider-specific API call. In the hackathon, all adapters are simulators | [18](18-api-contracts.md), C-18 | "Connector", "plugin" |
+| **Action** | A concrete recovery activity that PAYVANTA can execute: retry, send message, generate payment link, escalate, etc. Represented as an `ActionCandidate` before selection and an `Intervention` after execution | [05](05-functional-requirements.md), [17](17-data-model.md) | "Task", "job", "step" |
+| **Action Adapter** | The interface that translates a PAYVANTA action into a provider-specific API call. In the hackathon, all adapters are simulators | [18](18-api-contracts.md), C-18 | "Connector", "plugin" |
 | **Action Catalogue** | The closed set of action codes available per risk class and cause. Defined in the policy pack | [05 § 3](05-functional-requirements.md) | "Action library" |
 | **Addressable** | An opportunity for which at least one recovery action is feasible. Non-addressable opportunities are counted in `M-01` but excluded from candidate generation | [05](05-functional-requirements.md) `RR-FUNC-007` | — |
 | **ADR** | Architecture Decision Record. A documented decision with context, alternatives, rationale, and consequences. Stored in [31](31-decision-records.md) | [31](31-decision-records.md) | — |
@@ -31,7 +31,7 @@ is used in any document, its meaning is this document's meaning.
 | **Decision** | The allocator's output for one opportunity in one cycle: `SELECTED`, `DEFERRED`, `REJECTED`, or `NO_ACTION` | [17](17-data-model.md) | "Plan", "recommendation" |
 | **Deferral** | A deliberate decision to postpone action on an opportunity to a future cycle. The opportunity remains in the pool | [05](05-functional-requirements.md) `RR-FUNC-041` | "Delay", "skip" |
 | **Degradation** | A cohort-level elevation in failure rate detected by C-03. Flags affected opportunities | [05](05-functional-requirements.md) `RR-FUNC-006` | "Outage" |
-| **Deterministic** | A computation that, given the same inputs and seed, always produces the same output. All financial computations in REVIVE are deterministic | [README § C-7](README.md) | — |
+| **Deterministic** | A computation that, given the same inputs and seed, always produces the same output. All financial computations in PAYVANTA are deterministic | [README § C-7](README.md) | — |
 | **ENRV** | Expected Net Recovered Value. The objective function. `u(i,a)·V(i)·m − c(a) − p(i,a)·d(i,a) − λ_f·F(i,a)` | [README § C-5](README.md) | "Score", "priority" |
 | **Exploration** | Deliberately selecting an action in a sparse or unseen cell to collect data, within a capped budget | [35 § 5](35-learning-engine.md) | "Experiment" |
 | **Fail closed** | The default posture: when uncertain or in error, do less, not more. Missing data → no action. Unknown state → treat as stopped. Gate error → deny | [04](04-principles-and-non-goals.md), [13](13-policy-and-guardrails.md), [14](14-stopping-rules.md) | — |
@@ -47,7 +47,7 @@ is used in any document, its meaning is this document's meaning.
 | **Opportunity** | A `RevenueOpportunity`: a detected instance of revenue at risk, with a value, risk class, and lifecycle state | [17](17-data-model.md) | "Case", "ticket", "lead" |
 | **Oracle** | The hidden-outcome function in the synthetic dataset. Knows what would have happened under any action, including no action | [19 § 4](19-synthetic-dataset.md) | "Ground truth" |
 | **Outcome** | The observed result of an intervention: `recovered_amount_paise`, `attribution_class`, and reconciliation data | [17](17-data-model.md) | "Result" |
-| **Paise** | 1/100 of a rupee. All monetary values in REVIVE are integer paise | [README § C-2](README.md) | "Cents" |
+| **Paise** | 1/100 of a rupee. All monetary values in PAYVANTA are integer paise | [README § C-2](README.md) | "Cents" |
 | **Policy Pack** | A versioned, sealed bundle of all merchant-configurable policy parameters: contact caps, budget limits, gate thresholds, action catalogue, cooldowns | [13](13-policy-and-guardrails.md) | "Configuration", "settings" |
 | **Profile** | A named parameter set for the synthetic generator: `BALANCED`, `HIGH_NATURAL`, `SCARCE`, `ABUNDANT` | [19 § 2.3](19-synthetic-dataset.md) | "Scenario" |
 | **Reconciliation** | The process of determining the actual outcome of an action whose immediate result was unknown (e.g., `TIMEOUT_UNKNOWN`) | [15](15-execution-model.md) `RR-FUNC-065` | — |

@@ -1,6 +1,6 @@
 # 15 · Execution Model
 
-Execution is where REVIVE stops reasoning and starts having effects. Everything in this document exists
+Execution is where PAYVANTA stops reasoning and starts having effects. Everything in this document exists
 to guarantee two properties:
 
 > **Nothing happens that was not authorised. Nothing authorised happens twice.**

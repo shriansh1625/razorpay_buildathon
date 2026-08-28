@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>PAYVANTA — Recover revenue. Prove the recovery.</title>
+<link rel="alternate" type="application/json" href="/api/product/overview" title="PAYVANTA product overview">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<a class="skiplink" href="#view">Skip to content</a>
+
+<div class="app" id="app">
+
+  <!-- ============ NAVIGATION RAIL ============ -->
+  <nav class="rail" aria-label="Primary">
+    <a class="rail-mark" href="#/control" aria-label="PAYVANTA control room">
+      <span class="rail-mark-glyph" aria-hidden="true">PV</span>
+      <span class="rail-mark-word">PAYVANTA</span>
+    </a>
+
+    <ul class="rail-list">
+      <li><a class="rail-item" href="#/control"     data-route="control"><i class="rail-ico" aria-hidden="true">01</i><span>Control Room</span></a></li>
+      <li><a class="rail-item" href="#/opportunities" data-route="opportunities"><i class="rail-ico" aria-hidden="true">02</i><span>Opportunities</span></a></li>
+      <li><a class="rail-item" href="#/lab"         data-route="lab"><i class="rail-ico" aria-hidden="true">03</i><span>Recovery Lab</span></a></li>
+      <li><a class="rail-item" href="#/guardrails"  data-route="guardrails"><i class="rail-ico" aria-hidden="true">04</i><span>Guardrails</span></a></li>
+      <li><a class="rail-item" href="#/audit"       data-route="audit"><i class="rail-ico" aria-hidden="true">05</i><span>Audit Ledger</span></a></li>
+      <li><a class="rail-item" href="#/benchmark"   data-route="benchmark"><i class="rail-ico" aria-hidden="true">06</i><span>Benchmark Lab</span></a></li>
+    </ul>
+
+    <div class="rail-foot">
+      <button type="button" class="rail-cmd" id="cmd-open" aria-keyshortcuts="Control+K">
+        <span>Command</span><kbd>⌃K</kbd>
+      </button>
+      <a class="rail-sys" href="#/system">System / Evidence</a>
+      <button type="button" class="rail-demo" id="demo-open">Run guided demo</button>
+    </div>
+  </nav>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div class="topbar-id">
+        <p class="topbar-crumb" id="crumb">Control Room</p>
+        <p class="topbar-sub" id="crumb-sub">Revenue recovery operating system</p>
+      </div>
+      <nav class="subnav" id="subnav" aria-label="Section"></nav>
+      <div class="topbar-meta">
+        <button type="button" class="datachip" id="source-badge" aria-describedby="source-note">
+          <span class="datachip-dot" aria-hidden="true"></span>
+          <span class="datachip-text">Loading</span>
+        </button>
+        <button type="button" class="iconbtn" id="rail-toggle" aria-label="Collapse navigation" aria-pressed="false">
+          <span aria-hidden="true">☰</span>
+        </button>
+      </div>
+    </header>
+
+    <p class="srhint" id="source-note" hidden></p>
+    <div class="live" id="live" role="status" aria-live="polite"></div>
+
+    <main class="view" id="view" tabindex="-1">
+      <div class="boot" role="status">
+        <p class="boot-word">PAYVANTA</p>
+        <p class="boot-line">Building recovery session from the engine…</p>
+      </div>
+    </main>
+
+    <div class="actionbar" id="actionbar" hidden></div>
+  </div>
+
+  <!-- ============ INSPECTOR ============ -->
+  <aside class="inspector" id="inspector" aria-labelledby="inspector-title" hidden>
+    <header class="inspector-head">
+      <p class="inspector-kicker" id="inspector-kicker">Detail</p>
+      <h2 class="inspector-title" id="inspector-title">—</h2>
+      <button type="button" class="iconbtn" id="inspector-close" aria-label="Close detail panel"><span aria-hidden="true">✕</span></button>
+    </header>
+    <div class="inspector-body" id="inspector-body"></div>
+  </aside>
+</div>
+
+<!-- ============ DEMO DIRECTOR ============ -->
+<section class="director" id="director" aria-label="Guided demo" hidden>
+  <div class="director-inner">
+    <div class="director-meter" aria-hidden="true"><span id="director-fill"></span></div>
+    <div class="director-text">
+      <p class="director-step"><span id="director-index">1</span><span class="director-of">/10</span> <strong id="director-title">Discover</strong></p>
+      <p class="director-beat" id="director-beat">—</p>
+    </div>
+    <div class="director-ctl">
+      <button type="button" class="btn btn-ghost" id="director-back">Back</button>
+      <button type="button" class="btn btn-primary" id="director-next">Next</button>
+      <button type="button" class="btn btn-quiet" id="director-stop">Exit</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMAND PALETTE ============ -->
+<dialog class="palette" id="palette" aria-label="Command palette">
+  <form class="palette-form" id="palette-form" method="dialog">
+    <input class="palette-input" id="palette-input" type="text" autocomplete="off" spellcheck="false"
+           placeholder="Jump to a screen or an opportunity…" role="combobox"
+           aria-expanded="true" aria-controls="palette-list" aria-autocomplete="list">
+  </form>
+  <ul class="palette-list" id="palette-list" role="listbox" aria-label="Results"></ul>
+  <footer class="palette-foot"><kbd>↑</kbd><kbd>↓</kbd> move <kbd>↵</kbd> open <kbd>esc</kbd> close</footer>
+</dialog>
+
+<!-- ============ PROVENANCE / CALCULATION SHEET ============ -->
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <header class="sheet-head">
+    <p class="sheet-kicker" id="sheet-kicker">Calculation</p>
+    <h2 class="sheet-title" id="sheet-title">—</h2>
+    <button type="button" class="iconbtn" id="sheet-close" aria-label="Close"><span aria-hidden="true">✕</span></button>
+  </header>
+  <div class="sheet-body" id="sheet-body"></div>
+</dialog>
+
+<!-- ============ CINEMATIC OVERLAY ============ -->
+<div class="cine" id="cine" hidden aria-hidden="true">
+  <div class="cine-frame">
+    <p class="cine-kicker" id="cine-kicker">Analysing</p>
+    <p class="cine-line" id="cine-line">—</p>
+    <div class="cine-beats" id="cine-beats"></div>
+  </div>
+</div>
+
+<script src="/app.js" defer></script>
+</body>
+</html>

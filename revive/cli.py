@@ -8,7 +8,7 @@ def main() -> None:
     from revive.__version__ import __version__
 
     parser = argparse.ArgumentParser(prog="revive")
-    parser.add_argument("--version", action="version", version=f"REVIVE {__version__}")
+    parser.add_argument("--version", action="version", version=f"PAYVANTA {__version__}")
     sub = parser.add_subparsers(dest="command")
 
     gen = sub.add_parser("generate-dataset", help="Generate synthetic dataset (M2)")
@@ -101,6 +101,10 @@ def main() -> None:
     )
     feas.add_argument("--skip-resume", action="store_true")
     feas.add_argument("--skip-determinism", action="store_true")
+
+    room = sub.add_parser("control-room", help="PAYVANTA Recovery Control Room (demo UI)")
+    room.add_argument("--host", default="127.0.0.1")
+    room.add_argument("--port", type=int, default=8765)
 
     args = parser.parse_args()
     if args.command == "generate-dataset":
@@ -241,8 +245,13 @@ def main() -> None:
         print(f"cells={gate.cells_run} wall_seconds={gate.total_wall_seconds:.1f}")
         print(f"median_projected_hours={gate.projection.get('median_estimate_hours')}")
         print(f"reports={paths}")
+    elif args.command == "control-room":
+        from revive.product.server import serve
+
+        serve(args.host, args.port)
     else:
         print(
-            f"REVIVE {__version__} — use generate-dataset, benchmark, calibrate, "
-            "repair-calibrate, thesis-audit, freeze-decision, freeze-seal, or feasibility-gate."
+            f"PAYVANTA {__version__} — use generate-dataset, benchmark, calibrate, "
+            "repair-calibrate, thesis-audit, freeze-decision, freeze-seal, "
+            "feasibility-gate, or control-room."
         )

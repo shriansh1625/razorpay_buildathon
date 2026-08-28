@@ -1,4 +1,4 @@
-# REVIVE — Dependency Map
+# PAYVANTA — Dependency Map
 
 **Phase:** M0  
 **Purpose:** Module and milestone dependencies for controlled implementation order.

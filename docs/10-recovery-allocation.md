@@ -1,6 +1,6 @@
 # 10 · Recovery Allocation Under Constraints
 
-> This is REVIVE's primary differentiator. Every other document supports it.
+> This is PAYVANTA's primary differentiator. Every other document supports it.
 
 ---
 

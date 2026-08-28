@@ -1,6 +1,6 @@
 # 23 · Failure Recovery
 
-REVIVE operates on money under time constraints. Every failure mode has a defined detection,
+PAYVANTA operates on money under time constraints. Every failure mode has a defined detection,
 containment, and resolution path. The system's default posture is **fail closed**: when in doubt,
 do less, not more.
 

@@ -49,18 +49,34 @@ Merchant operator, executive reviewer.
 
 ### Primary information
 
+The command center leads with **incremental net recovery** and the recovery pipeline. Metric cards appear in this order:
+
 | Element | Source | Metric ID |
 |---|---|---|
+| **Incremental net recovery** | Primary headline — paired uplift over natural recovery | `M-10` |
+| **Recoverable revenue** | Sum of addressable value at risk with positive ENRV potential | `M-02`, derived |
+| **Recovery rate** | Incremental net recovery ÷ recoverable revenue | Derived |
+| **Authorized interventions** | Interventions that passed all guardrails and executed | `Intervention` count (authorized) |
+| **Blocked interventions** | Candidates denied by policy gates with recorded reason | Gate-denial count |
+| **Realized cost** | Total direct and incentive cost of executed interventions | `M-08` |
+| **Policy compliance** | Unauthorized executions — must show zero prominently | `M-16` |
+| **Execution integrity** | Reconciliation failures, duplicate effects, audit-chain breaks | `M-17`, `M-18`, `M-22` |
 | **Value at risk** | Sum of `value_at_risk_paise` over all open opportunities | `M-01` |
-| **Addressable value** | Same, restricted to `addressable = true` | `M-02` |
-| **Expected recoverable** | Sum of `ENRV` over selected candidates | Derived from allocation |
-| **Recovered revenue (gross)** | `M-05` | `M-05` |
-| **Incremental recovery** | `M-10` — REVIVE vs B0, paired | `M-10` |
+| **Recovered revenue (gross)** | Gross recovered before incremental attribution | `M-05` |
+| **Baseline comparison** | `M-10` — REVIVE policy vs B0, paired | `M-10` |
 | **Active interventions** | Count of opportunities in `ACTING` or `AWAITING_OUTCOME` | State query |
 | **Budget utilisation** | Per-resource utilisation bar | `M-29` |
 | **Important alerts** | Critical and high-severity alerts from [24 § 4](24-observability.md) | Alert engine |
-| **Intervention count** | Total interventions this period | `Intervention` count |
-| **Policy violations** | `M-16` — must show zero prominently | `M-16` |
+
+### Recovery pipeline (visual)
+
+A prominent horizontal flow diagram on Screen 1:
+
+```
+Detected → Diagnosed → Optimized → Guarded → Authorized → Executed → Measured
+```
+
+Each stage shows a count and value subtotal for the selected period. Stages link to the screen that exposes that phase (Leakage Explorer, Opportunities, Decision Detail, Audit Trail).
 
 ### Interactions
 
@@ -204,7 +220,7 @@ The approval queue is a filtered view of this screen where `policy_state = REQUI
 
 ### Purpose
 
-The full decision record for a single opportunity. Everything needed to answer: "Why did REVIVE do this?"
+The full decision record for a single opportunity. Everything needed to answer: "Why did PAYVANTA do this?"
 
 ### User
 
@@ -357,7 +373,34 @@ Reviewer, engineer, judge.
 
 ### Purpose
 
-The proof screen. Shows that REVIVE beats baselines on measured, reproducible batch evaluation.
+The proof screen. Shows official benchmark evidence: the **REVIVE** recovery policy evaluated against frozen baselines on measured, reproducible batch evaluation.
+
+Official evidence directory: `artefacts/benchmark/official-cloud-final/`
+
+Prominently display:
+
+| Claim | Value |
+|---|---|
+| Deterministic seeds | **20** |
+| Operating profiles | **6** |
+| Evaluated policies | **5** (B0, B1, B2, B3, REVIVE) |
+| Official benchmark cells | **600** |
+| Evaluation groups | **120** |
+| Official run status | **600/600** cells, **120/120** groups, `workers=8`, `BENCHMARK_VALID`, `blocked=False` |
+
+Do not invent additional benchmark claims beyond these frozen artefacts.
+
+### Levels (as implemented)
+
+| Level | Surface | Shows |
+|---|---|---|
+| **1 · Executive evidence** | `#/benchmark` | 600 cells, 120 groups, 20 × 6 × 5, M-10, BENCHMARK_VALID, methodology, engineering hardening, performance validation (not a score), limitations |
+| **2 · Forensic evidence** | `#/benchmark/matrix` · `#/benchmark/evidence` | Cell, seed, profile, policy, metrics, checksum, artefact, frozen hashes, PolicyPack, validation |
+
+Sandbox numbers never appear as official cells. Pitch drill-down: ABUNDANT × REVIVE × seed 14.
+
+Machine-readable: `GET /api/benchmark/story`, `GET /api/benchmark/official/contract`.
+Journey: [42-official-benchmark.md](42-official-benchmark.md).
 
 ### User
 
@@ -378,7 +421,7 @@ Evaluator, judge.
 | **Profile comparison** | Results across `BALANCED`, `HIGH_NATURAL`, `SCARCE`, `ABUNDANT` profiles |
 | **Single-case replay** | Select one opportunity and see REVIVE vs baseline decision side by side |
 | **Coverage** | `M-55` with named gap lists |
-| **Limitations** | Mandatory section listing where REVIVE performed worse or wasted effort |
+| **Limitations** | Mandatory section listing where the REVIVE policy performed worse or wasted effort |
 
 ### Interactions
 
@@ -409,7 +452,28 @@ Evaluator, judge.
 
 ---
 
-## 10. Design constraints
+## 10. Visual identity
+
+Premium fintech infrastructure aesthetic — not a generic AI chatbot product.
+
+| Element | Specification |
+|---|---|
+| **Base palette** | Dark graphite / near-black background |
+| **Primary accent** | Cyan / teal — CTAs, pipeline flow, primary metrics |
+| **Secondary accent** | Restrained violet — secondary charts, guardrail highlights |
+| **Imagery** | Financial flow diagrams, decision graphs, recovery waterfall, audit timeline, precision grids, evidence panels |
+| **Avoid** | Robot imagery, generic chatbot UI, giant AI brain visuals, excessive neon, generic SaaS card grids, copycat multi-agent diagrams |
+
+Primary CTAs:
+
+- **Explore the Recovery Engine** — navigates to Recovery Opportunities / Allocation
+- **View Benchmark Evidence** — navigates to Benchmark Lab (Screen 7)
+
+Architecture narrative in UI copy leads with **Revenue Signal → Diagnosis → Opportunity → Optimization → Guardrails → Execution → Measurement → Evidence**. Agent modules may appear under technical architecture views only; they are not the primary marketing message.
+
+---
+
+## 11. Design constraints
 
 | Constraint | Rationale |
 |---|---|
@@ -421,7 +485,7 @@ Evaluator, judge.
 
 ---
 
-## 11. Requirement mapping
+## 12. Requirement mapping
 
 | Requirement | Screen | Where |
 |---|---|---|

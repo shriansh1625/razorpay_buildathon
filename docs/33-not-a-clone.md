@@ -1,21 +1,21 @@
 # 33 · Not a Clone — Architectural Differentiation Analysis
 
-REVIVE is not a wrapper around an existing product. This document proves it by identifying the
-specific architectural decisions that differentiate REVIVE from the obvious alternative designs
+PAYVANTA is not a wrapper around an existing product. This document proves it by identifying the
+specific architectural decisions that differentiate PAYVANTA from the obvious alternative designs
 a judge would consider.
 
 ---
 
-## 1. What REVIVE is not
+## 1. What PAYVANTA is not
 
-| Alternative | How it would work | Why REVIVE is different |
+| Alternative | How it would work | Why PAYVANTA is different |
 |---|---|---|
-| **A retry-everything engine** | Failed payment → retry immediately → repeat | REVIVE prices uplift: a retry that adds nothing is not worth doing. `ENRV(i,∅) = 0` is what stops this |
-| **A notification blaster** | Failed payment → send SMS → send email → call | REVIVE allocates under constraints. It contacts only when the marginal recovery exceeds the marginal cost plus fatigue damage |
-| **A rules engine** | If payment failed and amount > X → retry after 24h | REVIVE computes expected value, not rules. Rules engines cannot trade off cost against probability against fatigue across a portfolio |
-| **A Razorpay feature wrapper** | Call Razorpay's existing auto-retry / smart collect endpoints | REVIVE owns the decision layer. It assumes no Razorpay intelligence exists beyond basic API capability ([36](36-razorpay-integration-assumptions.md)). All recovery logic is original |
-| **An LLM agent with tools** | Give GPT-4 a set of tools and let it decide | REVIVE's LLMs cannot move money, set prices, or bypass gates. The intellectual core is deterministic. LLMs handle only diagnosis residual and copy |
-| **A dunning platform** | Schedule escalating reminders on a fixed cadence | REVIVE's cadence is dynamic, value-ranked, and budget-constrained. A fixed cadence ignores opportunity cost |
+| **A retry-everything engine** | Failed payment → retry immediately → repeat | PAYVANTA prices uplift: a retry that adds nothing is not worth doing. `ENRV(i,∅) = 0` is what stops this |
+| **A notification blaster** | Failed payment → send SMS → send email → call | PAYVANTA allocates under constraints. It contacts only when the marginal recovery exceeds the marginal cost plus fatigue damage |
+| **A rules engine** | If payment failed and amount > X → retry after 24h | PAYVANTA computes expected value, not rules. Rules engines cannot trade off cost against probability against fatigue across a portfolio |
+| **A Razorpay feature wrapper** | Call Razorpay's existing auto-retry / smart collect endpoints | PAYVANTA owns the decision layer. It assumes no Razorpay intelligence exists beyond basic API capability ([36](36-razorpay-integration-assumptions.md)). All recovery logic is original |
+| **An LLM agent with tools** | Give GPT-4 a set of tools and let it decide | PAYVANTA's LLMs cannot move money, set prices, or bypass gates. The intellectual core is deterministic. LLMs handle only diagnosis residual and copy |
+| **A dunning platform** | Schedule escalating reminders on a fixed cadence | PAYVANTA's cadence is dynamic, value-ranked, and budget-constrained. A fixed cadence ignores opportunity cost |
 
 ---
 
@@ -23,7 +23,7 @@ a judge would consider.
 
 ### D-01 · Portfolio-level constrained allocation
 
-Most recovery products decide per-opportunity. REVIVE solves a constrained portfolio allocation:
+Most recovery products decide per-opportunity. PAYVANTA solves a constrained portfolio allocation:
 maximise total ENRV subject to SMS capacity, call-minute budget, incentive ceiling, and contact
 caps — simultaneously, in one pass.
 
@@ -35,8 +35,8 @@ systems.
 
 ### D-02 · Uplift-based objective, not gross recovery
 
-REVIVE maximises `u(i,a) = p(i,a) − p(i,∅)` — the **incremental** effect of the action.
-Contacting a customer who would have paid anyway earns REVIVE nothing.
+PAYVANTA maximises `u(i,a) = p(i,a) − p(i,∅)` — the **incremental** effect of the action.
+Contacting a customer who would have paid anyway earns PAYVANTA nothing.
 
 **Why it matters:** Every alternative optimises `p(i,a)` (gross recovery probability), which is
 maximised by contacting everyone. Uplift-based scoring is what prevents the system from
@@ -49,7 +49,7 @@ degenerating into a blast-everyone engine.
 `NO_ACTION` is a candidate with `ENRV = 0`. The system explicitly decides not to act when no
 action has positive expected incremental value.
 
-**Why it matters:** Most systems treat inaction as a failure. REVIVE treats it as the baseline
+**Why it matters:** Most systems treat inaction as a failure. PAYVANTA treats it as the baseline
 against which every action must justify itself. `M-15` reports the value deliberately left alone.
 
 **Evidence:** [05 § 5](05-functional-requirements.md) `RR-FUNC-040`; [14 § 5](14-stopping-rules.md).
@@ -60,18 +60,18 @@ against which every action must justify itself. `M-15` reports the value deliber
 is a static-check-enforced architectural constraint.
 
 **Why it matters:** Most AI products use LLMs for everything and add guardrails after the fact.
-REVIVE's boundary is structural: LLMs produce labels and text; deterministic code produces every
+PAYVANTA's boundary is structural: LLMs produce labels and text; deterministic code produces every
 price, probability, and verdict.
 
 **Evidence:** [08-agent-architecture.md](08-agent-architecture.md); [ADR-004](31-decision-records.md).
 
 ### D-05 · Reproducible batch evaluation with pre-registered falsification
 
-REVIVE pre-registers falsification conditions (F-1…F-6) before the benchmark runs. Results are
-reproducible byte-for-byte at a fixed seed. The benchmark includes profiles where REVIVE is
-expected to perform poorly (`ABUNDANT`).
+PAYVANTA pre-registers falsification conditions (F-1…F-6) before the benchmark runs. Results are
+reproducible byte-for-byte at a fixed seed. The benchmark includes profiles where the **REVIVE**
+recovery policy is expected to perform poorly (`ABUNDANT`).
 
-**Why it matters:** Most hackathon submissions cherry-pick favourable results. REVIVE's methodology
+**Why it matters:** Most hackathon submissions cherry-pick favourable results. PAYVANTA's methodology
 makes cherry-picking detectable and includes the unflattering profiles that honest evaluation
 requires.
 
@@ -82,7 +82,7 @@ requires.
 The audit trail is not a log — it is the authoritative store. Application tables are projections.
 Execution halts if the audit store is unwritable.
 
-**Why it matters:** Most products treat audit as a secondary concern. REVIVE treats it as the
+**Why it matters:** Most products treat audit as a secondary concern. PAYVANTA treats it as the
 primary record, making tampering detection and state reconstruction structural properties.
 
 **Evidence:** [16-audit-trail.md](16-audit-trail.md); [ADR-005](31-decision-records.md); `M-58`.
@@ -91,7 +91,7 @@ primary record, making tampering detection and state reconstruction structural p
 
 ## 3. What could not be built by composing existing tools
 
-| Existing tool | What it provides | What REVIVE adds that it cannot |
+| Existing tool | What it provides | What PAYVANTA adds that it cannot |
 |---|---|---|
 | Razorpay auto-retry | Automated retry on failed payments | Portfolio-level allocation; uplift scoring; cross-class trade-offs; stopping rules |
 | Razorpay Smart Collect | Invoice payment links | Decision intelligence on when/whether to send; budget-constrained prioritisation |
@@ -106,6 +106,6 @@ primary record, making tampering detection and state reconstruction structural p
 | Limitation | Statement |
 |---|---|
 | Synthetic data | Differentiation is demonstrated on synthetic data. Real-world advantage is `UNVERIFIED` |
-| Predictor quality | The Bayesian cell model is simple. A more sophisticated model might close the gap between REVIVE and simpler approaches |
-| Scarcity assumption | REVIVE's advantage depends on scarcity. In the `ABUNDANT` profile, the advantage may shrink toward the greedy baseline — and that is reported |
+| Predictor quality | The Bayesian cell model is simple. A more sophisticated model might close the gap between the REVIVE policy and simpler approaches |
+| Scarcity assumption | The REVIVE policy's advantage depends on scarcity. In the `ABUNDANT` profile, the advantage may shrink toward the greedy baseline — and that is reported |
 | Hackathon scope | Full-scale portfolio optimisation at production volumes would require engineering not attempted here |

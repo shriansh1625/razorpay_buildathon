@@ -10,7 +10,7 @@ observable condition that reveals a violation.
 
 ### P-1 · Value over activity
 
-REVIVE optimises incremental net recovered revenue, never the volume of things it did.
+PAYVANTA optimises incremental net recovered revenue, never the volume of things it did.
 
 **Test.** Any metric that counts actions, messages, retries, or tool calls appears only as a *cost*
 in reports, never as a success measure. If a report headline is a count of interventions, this
