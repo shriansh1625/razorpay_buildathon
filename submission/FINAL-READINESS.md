@@ -35,7 +35,7 @@ Manual: GitHub description/topics (`submission/GITHUB-METADATA.md`).
 
 ## 3. Track 03
 
-Full workflow demonstrated: DETECT → AI DIAGNOSIS (optional) → CANDIDATES → ENRV → GUARD → AUTHORIZE → EXECUTE → MEASURE → AUDIT.
+Full workflow: DETECT → DIAGNOSE → CANDIDATES → ENRV → GUARD → AUTHORIZE → EXECUTE → MEASURE → AUDIT. Optional Groq overlay runs **after** engine state exists — it does not sit above ENRV.
 
 Map: `docs/track3-evidence.md`
 

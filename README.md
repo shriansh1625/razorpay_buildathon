@@ -4,10 +4,26 @@
 
 **RECOVER REVENUE. PROVE THE RECOVERY.**
 
-PAYVANTA detects revenue at risk, determines the economically justified intervention, executes only within deterministic bounds, measures incremental net recovery, and leaves an auditable decision trail.
+PAYVANTA detects revenue at risk, evaluates recovery interventions against a do-nothing counterfactual, selects economically justified actions under constraints, executes only within deterministic controls, measures incremental net recovery, and records an auditable decision trail.
 
-**Track 03:** DETECT → INTERVENE → BOUNDED EXECUTE → MEASURE
-**Official evaluation:** 600 cells · 20 seeds × 6 profiles × 5 policies · frozen experiment
+**Track 03 — AI Revenue Recovery**
+
+```
+DETECT → INTERVENE → BOUNDED EXECUTE → MEASURE
+         ↓
+    ESCALATE · STOP · AUDIT
+```
+
+| Track 03 bar | Product evidence |
+|---|---|
+| **DETECT** | Revenue Sentinel · Control Room opportunities | `docs/track3-evidence.md` |
+| **INTERVENE** | ENRV + Lagrangian allocation (Groq proposes; engine selects) | `#/opportunity` · Recovery Lab |
+| **BOUNDED EXECUTE** | PolicyPack · authorization gate · simulated adapters | `#/guardrails` · `#/receipt` |
+| **MEASURE** | Sandbox batch incremental net · receipt measurement | `#/control` · `GET /api/product/overview` |
+| **ESCALATE / STOP** | Stopping rules · `REQUIRES_HUMAN_APPROVAL` · BLOCKED | `opp_WST4PPPH81VPNTNC18K0YGRAW9` |
+| **AUDIT** | Hash-chained intent-before-result ledger | `#/audit` · `GET /api/audit` |
+
+**Official evaluation:** 600 cells · 20 seeds × 6 profiles × 5 policies · frozen experiment · `LLM_OFF`
 
 Razorpay Buildathon — Track 03: AI Revenue Recovery
 
@@ -44,6 +60,9 @@ The Control Room is a **PAYVANTA Sandbox**: synthetic test population, bounded l
 - [Inspect PAYVANTA](#inspect-payvanta-human-and-machine)
 - [Why PAYVANTA](#why-payvanta)
 - [Why AI (honest)](#why-ai-honest)
+- [Financial semantics](#financial-semantics)
+- [Sandbox batch result](#sandbox-batch-result-seed-14--4-cycles)
+- [Demo paths](#demo-paths--success-and-refusal)
 - [Problem](#problem)
 - [The Recovery OS](#the-recovery-os)
 - [How PAYVANTA works](#how-payvanta-works)
@@ -84,17 +103,23 @@ Vocabulary used everywhere: **SANDBOX**, **OFFICIAL EVIDENCE**, **BOUNDED EXECUT
 
 ## Why PAYVANTA
 
-Three differentiators — not agent count, not chatbot chrome, not “we retry failed payments”:
+Most recovery systems ask: *“Should we retry?”*
 
-### 1. Counterfactual economics
+PAYVANTA asks: *“Is recovery worth doing at all, relative to doing nothing, under cost, capacity, policy and authorization constraints?”*
+
+That is a positioning statement — not a performance claim.
+
+Three pillars — not agent count, not chatbot chrome, not “we retry failed payments”:
+
+### 01 · DECISION — Counterfactual / do-nothing economics
 
 PAYVANTA chooses against **do nothing**, not merely against a list of actions. Every intervention is scored on **incremental net recovery** (uplift × value − cost − fatigue) versus natural recovery. Gross conversion is not the win condition.
 
-### 2. Bounded autonomy
+### 02 · CONTROL — Deterministic guardrails + authorization
 
 **Recommendation ≠ permission.** The engine (ENRV + allocation) selects. Deterministic guardrails, stopping rules, and authorization decide whether anything executes. Optional Groq diagnosis **proposes**; it does not own execution authority.
 
-### 3. Measured proof
+### 03 · PROOF — Measured outcomes + official 600-cell evaluation
 
 The **same engine** is evaluated across a frozen experiment (not this sandbox run, not Groq):
 
@@ -124,7 +149,23 @@ PAYVANTA's sandbox uses GPT-OSS 120B through Groq for contextual diagnosis and c
 | **What is deterministic?** | Every gate that can permit or block money movement — ENRV, PolicyPack, stopping rules, authorization, execution |
 | **What decides the intervention?** | Highest feasible ENRV subject to portfolio constraints; guardrails may override. AI never overrides this. |
 
-**Trust boundary (actual call graph — AI does not enter ENRV):**
+**Trust boundary (AI proposes · economics decides · controls authorize):**
+
+```
+AI                UNDERSTAND / PROPOSE
+        ↓
+ECONOMIC ENGINE   EVALUATE / SELECT
+        ↓
+CONTROL LAYER     VALIDATE / AUTHORIZE
+        ↓
+EXECUTOR          ACT
+        ↓
+MEASUREMENT       PROVE
+        ↓
+AUDIT             RECORD
+```
+
+Actual call graph — Groq does **not** enter ENRV:
 
 ```
 ENGINE CYCLE (run_traced_cycle)
@@ -225,9 +266,16 @@ Secondary: recoverable revenue · recovery rate · realized cost · authorized i
 9. **Measure** gross vs natural vs incremental vs net.
 10. **Prove** the claim with an audit reference and a sealed 600-cell benchmark.
 
+**Inspect opportunity** is a presentation trigger — the recovery cycle already ran at session boot via `run_traced_cycle`. It does not start autonomy on click.
+
 Diagnosis, ENRV, and allocation on the **engine path** are deterministic (`llm_used=False`, official benchmark `LLM_OFF`). The **sandbox** may additionally call Groq `openai/gpt-oss-120b` for contextual diagnosis and candidate **proposals**. That overlay does not authorize or execute. See [Why AI](docs/why-ai.md).
 
----
+**Real product loop:**
+
+```
+DETECT → DIAGNOSE → CANDIDATES → ENRV / COUNTERFACTUAL → ALLOCATE
+→ GUARD → AUTHORIZE → EXECUTE → MEASURE → AUDIT
+```
 
 ## Track 03 — AI Revenue Recovery
 
@@ -331,7 +379,17 @@ Blocked actions show the engine reason (budget, policy, duplicate, cooldown, app
 
 ---
 
-## Incremental Net Recovery
+## Financial semantics
+
+| Term | Meaning |
+|---|---|
+| **AT RISK** | Revenue exposed to potential loss |
+| **NATURAL** | Recovery that occurs without intervention |
+| **INCREMENTAL** | Recovery attributable to intervention beyond natural recovery |
+| **COST** | Resource / recovery cost of the intervention |
+| **NET** | Incremental recovery minus cost |
+
+**INCREMENTAL NET RECOVERY ≠ GROSS COLLECTIONS.** Natural recovery is not a PAYVANTA win.
 
 ```
 Revenue at risk
@@ -342,7 +400,35 @@ Revenue at risk
     → incremental NET recovery
 ```
 
-Natural recovery is not a win. Activity volume is not a win. Net incremental value is.
+## Sandbox batch result (seed 14 · 4 cycles)
+
+**SANDBOX BATCH RESULT — NOT OFFICIAL M-10**
+
+Verified from `GET /api/product/overview` on the default Control Room session:
+
+| Metric | Value |
+|---|---|
+| Incremental recovery | ₹19,893.25 |
+| Cost | ₹94.00 |
+| **Incremental net recovery** | **₹19,799.25** |
+| Natural recovery (this scenario) | ₹0.00 |
+
+**Pulse (last cycle):** Detected **18** · Diagnosed **18** · Evaluated **129** candidates · Authorized **6** · Blocked **4** · Executed **6** · Measured **3**
+
+This is the same engine path as the official experiment, running on a synthetic sandbox population — not a frozen benchmark cell score.
+
+## Demo paths — success and refusal
+
+Both paths are prepared on seed 14. Do **not** press Run Recovery during the pitch (it rebuilds the sandbox world).
+
+| Path | Opportunity | Expected chain |
+|---|---|---|
+| **SUCCESS** | `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` | AUTHORIZED → SUCCEEDED → MEASURED |
+| **BLOCKED** | `opp_WST4PPPH81VPNTNC18K0YGRAW9` | BLOCKED → APPROVAL DENIED → NOT_EXECUTED |
+
+UI: `#/opportunity/{id}` · API: `GET /api/opportunity/{id}` · Receipt: `GET /api/receipt/{id}`
+
+The blocked path proves refusal-to-act is structural, not a UI filter.
 
 ---
 
@@ -420,6 +506,24 @@ To verify the frozen run, **mount** the official cloud-final tree at `artefacts/
 
 Deterministic seeds · six generation profiles · five policies · 600 cells · 120 groups · eight workers · read-only artefacts · paired M-10 vs B0. Details: `docs/20-benchmark.md`, `docs/21-evaluation.md`.
 
+### Cloud validation (M13.27 gate)
+
+**CLOUD VALIDATION — not a benchmark score improvement.**
+
+| Field | Verified value |
+|---|---|
+| seed / profile / policy | 1 · ABUNDANT · REVIVE |
+| cycles | 2016 |
+| wall time | 627.3s |
+| peak RSS | 594 MB |
+| executions | 339,890 |
+| authorizations | 404,319 |
+| measurements | 339,890 |
+| metrics checksum | `80c238eb…5113da` |
+| run_valid | true |
+
+This confirms the production-shaped cell path after the metrics-tail rescue. It does not change M-10 scores.
+
 ### Engineering hardening journey
 
 See [How We Got Here](#how-we-got-here). Parallel dispatch, checkpoint repair, ABUNDANT forensics, metrics-tail rescue, cloud validation, then the official 600-cell run. That journey is **performance and reliability engineering**, not an M-10 score improvement.
@@ -469,6 +573,18 @@ Disciplined iteration. Not a single lucky run.
 
 Records: `implementation/m13-24-stress-worker-dispatch/`, `implementation/m13-25-checkpoint-repair/`, `implementation/m13-26-abundant-revive-forensics/`, `implementation/m13-27-metrics-tail-rescue/`.
 
+### Why this was hard
+
+Benchmark engineering here is not a single lucky run. The compelling work is:
+
+| Challenge | Why it mattered |
+|---|---|
+| **Checkpoint integrity (M13.25)** | A crash mid-group could leave cells on disk ahead of the manifest — resume had to become a verified invariant |
+| **Parallel execution (M13.24)** | `--workers=8` was parsed but dropped on the stress path — throughput lied until workers propagated |
+| **ABUNDANT scaling (M13.26)** | ABUNDANT × REVIVE is not a hang — it produces ~340k executions and stresses Lagrangian selection |
+| **Metrics aggregation (M13.27)** | An `O(authorization × execution)` tail turned a finished cell into a multi-hour wait |
+| **Cloud validation** | Confirmed metric equality and checksums on a production-shaped cell after the rescue |
+
 ---
 
 ## Setup
@@ -488,6 +604,32 @@ Browser: any current Chromium/Firefox/Safari. Open `#/control`.
 **Official evidence:** the frozen cell tree is **not committed** to this repository (`.gitignore` includes `artefacts/`). The repo contains the **contract, methodology, and verification logic**. For cell-level inspection, mount `artefacts/benchmark/official-cloud-final/` locally. Do not silently recreate it. Do not call an unmounted contract “evidence.” Without the tree, Control Room still runs; Benchmark Lab shows **NOT MOUNTED** and does not invent cell scores.
 
 Do **not** rerun the official 600-cell benchmark into that directory.
+
+---
+
+## Repository map
+
+| Path | Role |
+|---|---|
+| `revive/` | Core recovery engine + product server |
+| `revive/product/intelligence/` | Optional Groq diagnosis / proposal layer |
+| `revive/benchmark/` | Benchmark machinery (official contract under `official/`) |
+| `tests/` | Engine, product, and evidence validation |
+| `docs/` | Architecture, benchmark methodology, Track 03 evidence |
+| `submission/` | Pitch script, form answers, release reports |
+| `artefacts/benchmark/official-cloud-final/` | **Mounted read-only** — not in Git |
+
+Machine-readable discovery: `GET /api/product/overview` · `GET /api/benchmark/story` · `GET /api/benchmark/official/contract`
+
+---
+
+## Limitations
+
+- **Sandbox ≠ production.** Simulated adapters. No live Razorpay merchant payment execution in this submission.
+- **Population is synthetic**, not production traffic.
+- **Official 600-cell artefacts are mounted separately.** A fresh clone shows Benchmark Lab as **NOT MOUNTED**.
+- **Official benchmark uses `LLM_OFF`.** Groq is sandbox overlay only — contextual proposal support, not authorization.
+- **600 cells prove systematic evaluation of the frozen engine** — not universal superiority, production fitness, or guaranteed recovery.
 
 ---
 
