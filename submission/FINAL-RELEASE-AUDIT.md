@@ -1,8 +1,9 @@
 # PAYVANTA — Final Release Audit (P18)
 
-**Date:** 2026-09-01  
-**Public repository:** https://github.com/shriansh1625/razorpay_buildathon  
-**Public HEAD (before P18 local edits):** `645858c` — `fix: finalize PAYVANTA submission integrity`  
+**Date:** 2026-09-01
+**Public repository:** https://github.com/shriansh1625/razorpay_buildathon
+**Public HEAD (P18 ship):** `a50a457` — `docs: finalize PAYVANTA release and submission audit`
+**Prior HEAD:** `645858c` — `fix: finalize PAYVANTA submission integrity`
 **Auditor mode:** release engineer · read + targeted doc hardening · no benchmark rerun
 
 ---
@@ -11,16 +12,17 @@
 
 | Gate | Result |
 |---|---|
-| **Code / architecture truth** | **PASS** — local and public `645858c` aligned |
+| **Code / architecture truth** | **PASS** — public `a50a457` |
 | **Security (repo scan)** | **PASS** — no live secrets; test fixtures only |
 | **Benchmark immutability** | **PASS** — no diff on official paths |
 | **Git authorship** | **PASS** — `shriansh1625` only · no Co-authored-by trailers |
-| **Product tests** | **PASS** — 58 passed local · 47 passed + 11 skipped fresh clone |
-| **Public cloneability** | **PASS** — fresh clone at `645858c` installs and tests |
-| **README (P18 pass)** | **IMPROVED locally** — hero, Track 03 map, financial semantics, sandbox batch, demo paths, engineering journey |
-| **Submission readiness** | **NOT READY** — P0 video missing · P1 GitHub metadata empty |
+| **Product tests** | **PASS** — 58 passed local · 47 passed + 11 skipped fresh clone (`payvanta-p18-ship-clone`) |
+| **Public cloneability** | **PASS** — fresh clone at `a50a457` installs, tests, Control Room runs |
+| **README (P18)** | **SHIPPED** — public raw GitHub README verified |
+| **Public parity** | **PASS** — local HEAD = origin/main = `a50a457` |
+| **Submission readiness** | **P0 video only** — GitHub metadata is manual owner action (P2) |
 
-**Recommendation:** Apply P18 README + audit doc commit when owner authorizes. **Do not declare submission-complete until video is recorded and GitHub description/topics are applied.**
+**Verdict:** P18 documentation ship complete. **STOP ENGINEERING.** Record video before form submission.
 
 ---
 
@@ -29,10 +31,10 @@
 | Item | Value |
 |---|---|
 | Branch | `main` |
-| Local HEAD | `645858c` (pre-P18 doc edits) |
-| `origin/main` | `645858c` — in sync |
-| Ahead/behind | **0 / 0** before P18 local edits |
-| Working tree | P18 README + audit docs (uncommitted) |
+| Local HEAD | `a50a457` |
+| `origin/main` | `a50a457` — in sync |
+| P18 commit | `a50a457` — 4 files, +591 / −12 |
+| Fresh clone verified | `C:\temp\payvanta-p18-ship-clone` |
 | Forbidden untracked | `.claude/`, ui-v3 dumps, QA scripts, forensics — **not staged** |
 
 ---
@@ -307,9 +309,11 @@ Documented in `submission/GITHUB-METADATA.md`. **Not applied** — requires manu
 
 ## Phase 39 — Commit decision
 
-**P0 ≠ 0 · P1 ≠ 0 → DO NOT PUSH in this pass.**
+**P18 shipped:** `a50a457` pushed to `origin/main`. Public parity **PASS**.
 
-P18 local changes (README excellence + this audit + push report + readiness fix) are prepared but **not committed** pending owner authorization after blockers are understood.
+**Remaining P0:** 5-minute pitch video (owner action).
+
+**License:** none in repo — unchanged per owner decision.
 
 ---
 

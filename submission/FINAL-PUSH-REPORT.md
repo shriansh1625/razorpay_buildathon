@@ -1,54 +1,58 @@
 # PAYVANTA — Final Push Report (P18)
 
-**Date:** 2026-09-01  
+**Date:** 2026-09-01
 **Repository:** https://github.com/shriansh1625/razorpay_buildathon
 
 ---
 
-## Current remote state (verified)
+## Current remote state (verified post-push)
 
 | Field | Value |
 |---|---|
-| **Public HEAD** | `645858c` |
-| **Commit** | `fix: finalize PAYVANTA submission integrity` |
+| **Public HEAD** | `a50a457` |
+| **Commit** | `docs: finalize PAYVANTA release and submission audit` |
+| **Parent** | `645858c` — `fix: finalize PAYVANTA submission integrity` |
 | **Author** | shriansh1625 \<omshriansh16@gmail.com\> |
 | **Committer** | shriansh1625 \<omshriansh16@gmail.com\> |
 | **Co-authored-by trailers** | **None** |
-| **Local vs origin** | **In sync** at audit start |
-| **Files in ship commit** | 25 (README, docs, product, submission, tests) |
+| **Local vs origin** | **In sync** — `a50a457` |
+| **Files in P18 commit** | 4 (README + 3 submission docs) |
 
 ---
 
-## P18 local changes (pending — not pushed)
+## P18 ship (completed 2026-09-01)
 
 | File | Change |
 |---|---|
-| `README.md` | P18 public excellence pass — Track 03 map, financial semantics, sandbox batch, demo paths, engineering credibility |
-| `submission/FINAL-RELEASE-AUDIT.md` | **New** — full P18 audit |
-| `submission/FINAL-PUSH-REPORT.md` | **New** — this report |
+| `README.md` | P18 public excellence pass — Track 03 map, financial semantics, sandbox batch, demo paths, engineering journey |
+| `submission/FINAL-RELEASE-AUDIT.md` | Full P18 audit |
+| `submission/FINAL-PUSH-REPORT.md` | This report |
 | `submission/FINAL-READINESS.md` | Fix stale AI→ENRV workflow line |
 
-**Push status:** **NOT PERFORMED** — P0 video + P1 GitHub metadata block full release gates.
+**Push status:** **COMPLETE** — `645858c..a50a457` on `origin/main`
 
 ---
 
-## Verification matrix (645858c + local API smoke)
+## Verification matrix (`a50a457` + fresh clone)
 
 | Gate | Result | Evidence |
 |---|---|---|
-| `pytest tests/product -q` | **58 passed** | local |
-| Fresh clone pytest | **47 passed, 11 skipped** | `C:\temp\payvanta-p18-clone` |
+| `pytest tests/product -q` | **58 passed** | local pre-push |
+| Fresh clone pytest | **47 passed, 11 skipped** | `C:\temp\payvanta-p18-ship-clone` |
 | `node --check revive/product/ui/app.js` | **PASS** | local + clone |
-| Official benchmark code diff | **empty** | `revive/benchmark/official/` |
-| Official artefact diff | **empty** | `artefacts/benchmark/official-cloud-final/` |
+| Official benchmark code diff | **empty** | staged + committed |
+| Official artefact diff | **empty** | staged + committed |
 | Secret scan | **PASS** | fixtures only |
 | Git authorship | **PASS** | no Co-authored-by |
-| API overview / intelligence / audit / benchmark | **PASS** | port 8766 smoke |
-| Demo success opp | **PASS** | `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` in overview |
-| Demo blocked opp | **PASS** | `opp_WST4PPPH81VPNTNC18K0YGRAW9` in track03 refs |
-| Benchmark cell drilldown | **PASS** | ABUNDANT × REVIVE × seed 14 when mounted |
+| Public README (raw GitHub) | **PASS** | P18 hero + Track 03 map visible |
+| API overview / intelligence / audit / benchmark | **PASS** | port 8767 on fresh clone |
 | AI fallback (no key) | **PASS** | `DETERMINISTIC_FALLBACK` |
-| `git diff --check` / `--cached --check` | **PASS** | after whitespace fix in prior pass |
+| Sandbox batch net | **PASS** | 1979925 paise (₹19,799.25) |
+| Pulse | **PASS** | 18 / 129 / 6 / 4 / 6 / 3 |
+| Benchmark without mount | **PASS** | contract returns expected 600 · no local cell files |
+| Demo success opp | **PASS** | `opp_CQ6V…` · `AUTHORIZED` |
+| Demo blocked opp | **PASS** | `opp_WST4…` · `BLOCKED` |
+| Remote parity | **PASS** | local HEAD = origin/main = `a50a457` |
 
 ---
 
@@ -88,15 +92,13 @@ Map: `docs/track3-evidence.md` · API: `GET /api/product/overview` → `track03`
 
 ---
 
-## Owner checklist before next push
+## Owner checklist (remaining)
 
-1. Record 5-minute video (P0)
-2. Apply GitHub description + topics from `GITHUB-METADATA.md` (P1)
-3. Review P18 local diff
-4. Authorize commit: `docs/product: P18 README excellence and final release audit`
-5. `git push origin main` — **no force push**
-6. Re-verify fresh clone at new HEAD
-7. Logged-out GitHub README check
+1. **Record 5-minute video** (P0 — official requirement)
+2. **Apply GitHub description + topics** from `submission/GITHUB-METADATA.md` (manual UI — `gh` not authenticated)
+3. Optional: live Groq demo during recording (rotated key via env only)
+
+**Engineering STOP:** no new features, benchmark reruns, or UI redesign after P18 ship.
 
 ---
 
