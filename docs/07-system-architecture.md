@@ -1,5 +1,11 @@
 # 07 · System Architecture
 
+> **Implementation status (this submission).** Sections that name **Claude** or
+> unimplemented LLM agents are **HISTORICAL / SPEC CONTEXT** (see [08](08-agent-architecture.md)).
+> Shipped sandbox LLM, if any: Groq `openai/gpt-oss-120b` as a **diagnosis overlay**
+> with no money-path authority. Official benchmark: `LLM_OFF`.
+> Current architecture: [43-operating-architecture.md](43-operating-architecture.md).
+
 ---
 
 ## 1. Architectural style and the decision that drives it
@@ -64,12 +70,12 @@ system (principle P-9).
 | C-02 | Revenue Sentinel | SEE | Deterministic | `RR-FUNC-001`…`004`, `007`, `008` |
 | C-03 | Degradation Monitor | SEE | Deterministic (statistical) | `RR-FUNC-006` |
 | C-04 | Context Enricher | UNDERSTAND | Deterministic | `RR-FUNC-013`…`015`, `017` |
-| C-05 | Root Cause Analyst | UNDERSTAND | **Deterministic + LLM-assisted** | `RR-FUNC-010`…`012`, `016` |
+| C-05 | Root Cause Analyst | UNDERSTAND | **HISTORICAL spec: LLM-assisted. SHIPPED: deterministic `rank_causes`; optional Groq overlay is not this module** | `RR-FUNC-010`…`012`, `016` |
 | C-06 | Candidate Generator | SIMULATE | Deterministic (rule table) | `RR-FUNC-020`…`022` |
 | C-07 | Recovery Predictor | SIMULATE | Deterministic (statistical model) | `RR-FUNC-023`, `028` |
 | C-08 | Cost Model | SIMULATE | Deterministic | `RR-FUNC-026` |
 | C-09 | Counterfactual Evaluator | SIMULATE | Deterministic | `RR-FUNC-025`, `027`, `029` |
-| C-10 | Copy Composer | SIMULATE | **LLM-assisted**, template-bound | `RR-FUNC-024` |
+| C-10 | Copy Composer | SIMULATE | **HISTORICAL SPECIFICATION — not implemented** | `RR-FUNC-024` |
 | C-11 | Policy Pre-Filter | GUARD (early) | Deterministic | `RR-FUNC-037` |
 | C-12 | **Recovery Allocator** | PRIORITIZE | Deterministic (optimisation) | `RR-FUNC-030`…`039` |
 | C-13 | Policy / Guardrail Engine | GUARD | Deterministic | `RR-GUARD-001`…`012`, `026` |
@@ -229,7 +235,7 @@ labelled clearly, never presented as a real human decision (see [20](20-benchmar
 | Statistics | Explicit logistic / Beta-Binomial models implemented directly | Interpretability and determinism (`OS-36`, [ADR-006](31-decision-records.md)) |
 | API | HTTP/JSON | Neutral; contracts in [18](18-api-contracts.md) |
 | UI | Single-page app reading precomputed artefacts | `RR-NFR-034` |
-| LLM | Claude — `claude-opus-5` for diagnosis reasoning, `claude-haiku-4-5-20251001` for closed-set classification and copy slots | Highest capability where reasoning matters; cheapest tier where the task is classification. Both behind the cache in § 7 |
+| LLM | **HISTORICAL SPEC:** Claude models were proposed. **SHIPPED:** engine `llm_used=False`; official `LLM_OFF`; optional sandbox Groq `openai/gpt-oss-120b` for diagnosis/proposal only (`revive/product/intelligence/`) | Overlay is not on the official experiment |
 
 Storage note: monetary columns are `INTEGER` paise (`RR-NFR-001`). SQLite's lack of a decimal type is
 irrelevant because PAYVANTA never uses decimals for money.

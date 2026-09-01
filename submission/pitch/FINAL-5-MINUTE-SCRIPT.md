@@ -1,54 +1,42 @@
-# FINAL 5-minute pitch script (P13)
+# FINAL 5-minute pitch script (P16)
 
-**Opening line (do not start with “We built an AI agent…”):**
+**Form title:** PAYVANTA — Autonomous Revenue Recovery Intelligence
 
-> PAYVANTA finds revenue at risk, determines what recovery is economically justified, executes only when deterministic controls allow it, and measures the incremental net result.
+**Opening (do not start with “We built an AI agent”):**
 
-**Environment:** browser only · 1440×900 · 100% zoom · SANDBOX · seed 14 · `$env:GROQ_API_KEY` set for live AI moment (or show cached diagnosis honestly)
+> PAYVANTA finds revenue at risk, determines what recovery is economically justified, executes only when deterministic controls allow it, and measures the incremental net result — not gross collections.
 
-| Time | Screen | Action | Spoken line | Transition |
-|---|---|---|---|---|
-| 00:00 | `#/control` | Hold on Control Room | Opening line. Point to incremental net, active opportunity, pipeline, official proof ribbon. Say **SANDBOX** once. | — |
-| 00:20 | `#/opportunity/opp_CQ6VCH7HPPW9WG284G5EFRMDN0` | Open prepared success | “This is revenue at risk — typed, priced, prioritized.” | Click opportunity |
-| 00:40 | Workspace · Analyze | **AI moment (~15s)** | “PAYVANTA uses AI to interpret the recovery context and propose what may work.” Point to **AI diagnosis**: cause · evidence · candidate proposal. | Analyze / scroll to AI panel |
-| 00:55 | Same workspace | **Trust boundary** | “But the proposal never gets execution authority.” Scroll to **PAYVANTA economic decision** — ENRV-selected action. | AI panel → economic block |
-| 01:15 | Recovery Lab | Counterfactual | “Every option is scored against **do nothing**. Incremental net, not gross conversion.” | `#/lab` or counterfactual panel |
-| 01:40 | Recommendation | Selected action | “The economic engine picks the justified intervention under constraints.” | Highlight selection |
-| 02:00 | Guardrails | Gate families | “Recommendation is not permission. Guardrails run first.” | `#/guardrails` |
-| 02:20 | Authorization | AUTHORIZED | “Only AUTHORIZED actions reach execution.” Mention blocked twin briefly. | Authorization panel |
-| 02:40 | Execution | Bounded execution | “Simulated adapter. Idempotent. No live Razorpay charge.” | Execution panel |
-| 03:00 | Measurement | Incremental vs natural | “Net is the number that matters.” | Measurement block |
-| 03:20 | Receipt | `#/receipt/{id}` | “Receipt separates intelligence source from final decision and authorization.” | Open receipt |
-| 03:40 | Audit | `#/audit` | “Intent recorded before effect.” | `#/audit` |
-| 04:00 | `#/control` | Batch aggregates | “That was one working recovery run.” | Return to Control Room |
-| 04:15 | — | Pause | “Now — is this just one carefully selected scenario?” | Beat |
-| 04:25 | `#/benchmark` | Benchmark Lab | “Same engine. Evaluated separately — not this sandbox run.” | Navigate benchmark |
-| 04:30 | Evidence | 20 × 6 × 5 | “Twenty seeds, six profiles, five policies.” | Scroll counts |
-| 04:40 | — | 600 cells · 120 groups | “Six hundred official cells. Frozen configuration.” | — |
-| 04:45 | `#/benchmark/matrix` | Matrix | “Profile by policy.” | Open matrix |
-| 04:50 | Cell | ABUNDANT × REVIVE × seed 14 | “One cell: metrics, checksum, artefact, validation.” | Click cell if mounted |
-| 04:55 | Provenance | Checksum | “Verified evidence. Read-only.” | Forensics if time |
-| 05:00 | Benchmark or Control Room | Hold | **“MEASURED. NOT CLAIMED.”** | End |
+**Environment:** 1440×900 · 100% zoom · SANDBOX · seed 14 · do **not** press Run sandbox recovery
+**AI:** `$env:GROQ_API_KEY` for live overlay, or show DETERMINISTIC FALLBACK honestly.
 
-## AI lines (memorize)
+Spoken AI line (0:40):
 
-1. “AI interprets context and proposes — it does not authorize.”
-2. “The economic engine and deterministic controls decide what is allowed.”
-3. “The official benchmark evaluated the frozen engine with LLM off — not 600 AI runs.”
+> AI interprets the recovery context and proposes what may work. The economic engine independently decides what the action is worth, and deterministic controls decide whether it can execute.
 
-## Backup routes
+| Time | Screen | Action | Spoken line |
+|---|---|---|---|
+| 00:00–00:20 | `#/control` | Money pillar | Opening. Point at **SANDBOX BATCH RESULT** and **incremental net ≠ gross**. |
+| 00:20–00:40 | Success opp `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` | Open | “Typed revenue at risk. The engine already ran the batch — Inspect opens the completed decision.” |
+| 00:40–01:00 | Workspace AI panel | Inspect | Groq **proposes**. It does not authorize. Observed vs inferred vs proposal. |
+| 01:00–01:25 | Economic decision | Scroll | “If AI disagrees, the engine still wins.” |
+| 01:25–01:45 | Lab / counterfactual | Do-nothing vs action | “Every option is scored against **doing nothing**.” |
+| 01:45–02:10 | Guardrails | Gates | “Recommendation is not permission.” |
+| 02:10–02:18 | `opp_WST4PPPH81VPNTNC18K0YGRAW9` | Blocked | **BLOCKED · APPROVAL DENIED · NOT_EXECUTED.** (5–8s) |
+| 02:20–02:50 | Success execution | Back if needed | AUTHORIZED → simulated adapter → SUCCEEDED. |
+| 02:50–03:20 | Measurement | Net | At risk → natural → incremental → cost → **net**. If natural is ₹0, say it is this seeded scenario. |
+| 03:20–03:40 | Receipt + `#/audit` | Layers | Intelligence / economic decision / authorization / execution / measurement. Overlay `money_path: false`. |
+| 03:40–04:10 | Control Room | Batch pulse | “Sandbox batch, not official M-10. Detected 18 · evaluated N candidates.” |
+| 04:10–04:20 | Pause | — | “Is this one cherry-picked scenario?” |
+| 04:20–04:40 | `#/benchmark` | 20 × 6 × 5 = 600 | “Same **engine**, frozen, **LLM_OFF**. Not 600 AI runs.” |
+| 04:40–04:55 | Matrix **only if mounted** | ABUNDANT × REVIVE × 14 | M-10, checksum, artefact, provenance. If **NOT MOUNTED**, stay on contract. |
+| 04:55–05:00 | Provenance | Checksum | **MEASURED. NOT CLAIMED.** |
 
-| If this fails | Go to |
-|---|---|
-| Groq timeout | Show DETERMINISTIC FALLBACK honestly · continue economic path |
-| Success opportunity | `#/system` → claim/evidence table |
-| Blocked demo | `opp_WST4PPPH81VPNTNC18K0YGRAW9` → Guardrails → no execution |
-| Benchmark cell empty | Contract + methodology; mount at `official-cloud-final/` |
-| Navigation glitch | Refresh; seed 14 reloads |
+## Memorize
+
+1. “The model can propose. The engine decides. Controls authorize.”
+2. “Incremental net is not gross collections.”
+3. “Official 600 cells evaluate the frozen engine — artefacts mount separately.”
 
 ## Do not say
 
-- “600 AI evaluations”
-- “LLM executes payments”
-- “Scientifically proven” / “guaranteed recovery”
-- “Sandbox equals official cell”
+LLM executes · 600 AI evaluations · sandbox = official cell · production-ready · superiority

@@ -562,15 +562,16 @@ function moneyPillar(hero, wf, cr) {
         ${i < steps.length - 1 ? down : ''}
       </li>`)}
     </ol>
-    <p class="hero-cap-tight">${esc(pct(hero.recovery_rate, 2))} of at-risk revenue ·
-      ${esc(cr.cycles_run)} cycles · sandbox</p>
+    <p class="hero-cap-tight">SANDBOX BATCH RESULT · not official M-10 · INCREMENTAL NET ≠ GROSS COLLECTIONS
+      ${hero.natural_note ? ' · ' + esc(hero.natural_note) : ''}
+      · ${esc(pct(hero.recovery_rate, 2))} of at-risk · ${esc(cr.cycles_run)} cycles</p>
   </section>`;
 }
 
 function oppLifecycle(opp) {
   if (!opp) return 'OPEN';
   if (opp.blocked) {
-    return 'BLOCKED · ' + (opp.blocking_reason || 'NOT AUTHORIZED') + ' · NO EXECUTION';
+    return 'BLOCKED · ' + (opp.blocking_reason || 'NOT AUTHORIZED') + ' · NOT_EXECUTED';
   }
   const bits = [];
   if (opp.authorization_state) bits.push(opp.authorization_state);
@@ -614,12 +615,13 @@ function activeRecoveryCard(cr) {
     <p class="ar-val" data-metric="opportunity-value-at-risk">${m(opp.value_at_risk)}</p>
     <dl class="ar-rows">
       <div class="ar-row"><dt>Cause</dt><dd>${opp.cause ? esc(titleize(opp.cause)) : absentInline('none')}</dd></div>
-      <div class="ar-row"><dt>PAYVANTA recommends</dt><dd class="ar-rec">${esc(rec)}</dd></div>
+      <div class="ar-row"><dt>Engine selected</dt><dd class="ar-rec">${esc(rec)}</dd></div>
       <div class="ar-row"><dt>Expected incremental</dt><dd class="mono" data-metric="expected-incremental">${m(opp.expected_incremental)}</dd></div>
       <div class="ar-row"><dt>State</dt><dd data-status="${esc(oppStatusToken(opp))}">${esc(life)}</dd></div>
     </dl>
+    <p class="wf-foot">The recovery cycle already ran on this sandbox batch. Inspect opens the completed decision — it does not start the agent.</p>
     <div class="ar-actions">
-      <button type="button" class="btn btn-primary" data-analyze="${esc(id)}">Analyze opportunity</button>
+      <button type="button" class="btn btn-primary" data-analyze="${esc(id)}">Inspect opportunity</button>
       <a class="btn btn-ghost" href="#/opportunity/${esc(id)}">Open workspace</a>
     </div>
   </section>`;
@@ -641,6 +643,7 @@ function sysStateCard(cr) {
           <span class="sys-n mono" data-metric="sys-${k}">${esc(Number(p[k]) || 0)}</span>
         </li>`)}
     </ol>
+    ${p.evaluated_note ? h`<p class="wf-foot">${esc(p.evaluated_note)}</p>` : ''}
     <p class="ai-chip" data-ai-status="${esc((S.snap.intelligence_status && S.snap.intelligence_status.status) || 'DETERMINISTIC_FALLBACK')}">
       <span class="lbl">Intelligence</span>
       <span class="ai-chip-val">${esc(aiStatusLabel(S.snap.intelligence_status))}</span>
@@ -686,8 +689,8 @@ function runSlot(cr) {
     </div>`;
   }
   return h`<div class="run-flow" data-status="ready">
-    <p class="run-hint">READY · Bounded local run · new seed · full engine</p>
-    <button type="button" class="btn btn-primary btn-block" data-run-recovery>Run recovery</button>
+    <p class="run-hint">READY · Bounded sandbox batch · new seed · not live payments</p>
+    <button type="button" class="btn btn-primary btn-block" data-run-recovery>Run sandbox recovery</button>
   </div>`;
 }
 
@@ -727,9 +730,9 @@ function runHistoryBlock() {
   if (!rows.length) {
     return h`<section class="run-hist is-empty" aria-label="Recent runs" data-status="empty">
       <p class="lbl">Recent runs</p>
-      <p class="run-hist-empty">No recovery runs yet</p>
-      <p class="run-hint">Run Recovery to create a measured run.</p>
-      <button type="button" class="btn btn-sm" data-run-recovery>Run recovery</button>
+      <p class="run-hist-empty">No browser-started runs in this session</p>
+      <p class="run-hint">This Control Room already completed the demo cycles at load. This list only shows batches you start with Run sandbox recovery — not live payments.</p>
+      <button type="button" class="btn btn-sm" data-run-recovery>Run sandbox recovery</button>
     </section>`;
   }
   const r = rows[0];
@@ -943,10 +946,11 @@ function viewSystem() {
       ${row('Policy pack', esc(cr.policy_pack_version) + ' · ' + esc(cr.policy_pack_status))}
       ${row('Internal policy id', 'REVIVE', { mono: true })}
       ${row('Intelligence', aiStatusLabel(S.snap.intelligence_status))}
+      ${row('AI role', 'Contextual diagnosis / proposal')}
+      ${row('AI execution authority', 'NONE')}
       ${row('AI provider', S.snap.intelligence_status && S.snap.intelligence_status.enabled
         ? esc((S.snap.intelligence_status.provider || 'groq') + ' · ' + (S.snap.intelligence_status.model || 'openai/gpt-oss-120b'))
         : 'Deterministic fallback (Groq API key not set)')}
-      ${row('AI execution authority', 'None')}
       ${row('Current run', 'seed ' + esc(cr.seed) + ' · ' + esc(cr.cycles_run) + ' cycles')}
       ${row('Current opportunity', wowId
         ? h`<a class="prov" href="#/opportunity/${esc(wowId)}">${esc(shortId(wowId))}</a>`
@@ -955,8 +959,8 @@ function viewSystem() {
     </div>
   </section>
 
-  ${sec('Financial result', 'this sandbox',
-    'Measured by the engine on this session. These figures are not an official benchmark cell.')}
+  ${sec('Financial result', 'SANDBOX BATCH — not official M-10',
+    'Measured by the engine on this session. Incremental net ≠ gross collections.')}
   <div class="dl" data-metric="financial">
     ${row('At risk', m(hero.at_risk_revenue))}
     ${row('Recoverable', m(hero.recoverable_revenue))}
@@ -965,6 +969,7 @@ function viewSystem() {
     ${row('Cost', m(hero.realized_cost))}
     ${row('Incremental net recovery', m(hero.incremental_net_recovery))}
     ${row('Source', 'Sandbox engine measurement')}
+    ${hero.natural_note ? row('Natural note', esc(hero.natural_note)) : ''}
     ${row('Execution integrity', tok(hero.execution_integrity || 'UNKNOWN', hero.execution_integrity === 'PASS' ? 'ok' : 'no'))}
   </div>
 
@@ -1059,7 +1064,7 @@ function viewSystem() {
 
   ${sec('Inspect', 'API and routes', 'One product. The JSON is the same truth as this screen.')}
   <ul class="sys-links">
-    <li><a href="/api/product/overview">GET /api/product/overview</a> · intelligence.llm_used · track03</li>
+    <li><a href="/api/product/overview">GET /api/product/overview</a> · ai · intelligence.engine_llm_used · track03 (capability_declaration)</li>
     <li><a href="/api/snapshot">GET /api/snapshot</a></li>
     <li><a href="/api/audit">GET /api/audit</a></li>
     <li><a href="/api/runs">GET /api/runs</a></li>
@@ -1115,7 +1120,8 @@ const PULSE_KEYS = [
 ];
 function pulseBlock(p) {
   const max = Math.max(1, ...PULSE_KEYS.map(([k]) => Number(p[k]) || 0));
-  return h`<div class="pulse">${PULSE_KEYS.map(([k, label, tone]) => {
+  return h`<div class="pulse-wrap">
+    <div class="pulse">${PULSE_KEYS.map(([k, label, tone]) => {
     const n = Number(p[k]) || 0;
     const w = (n / max * 100).toFixed(1);
     return h`
@@ -1124,7 +1130,9 @@ function pulseBlock(p) {
       <span class="pulse-l">${esc(label)}</span>
       <span class="pulse-bar" aria-hidden="true"><i style="width:${w}%"></i></span>
     </div>`;
-  })}</div>`;
+  })}</div>
+  ${p.evaluated_note ? h`<p class="wf-foot">${esc(p.evaluated_note)}</p>` : ''}
+  </div>`;
 }
 
 function pipeStagePanel(cr) {
@@ -1257,7 +1265,7 @@ function oppCard(c) {
     </div>
     ${c.needs_review ? h`<p class="opcard-why">${esc(c.review_reason)}</p>` : ''}
     <div class="opcard-ctl">
-      <button type="button" class="btn btn-sm btn-primary" data-analyze="${esc(c.opportunity_id)}">Analyze</button>
+      <button type="button" class="btn btn-sm btn-primary" data-analyze="${esc(c.opportunity_id)}">Inspect</button>
       <a class="btn btn-sm btn-ghost" href="#/opportunity/${esc(c.opportunity_id)}">Open workspace</a>
     </div>
   </article>`;
@@ -1293,15 +1301,31 @@ function viewWorkspace() {
 
 function wsHeader(d, label) {
   const c = d.card;
+  const measured = !!c.measured;
+  const natLabel = c.natural_recovered ? 'Natural (measured)' : 'Natural (predicted)';
+  const natVal = c.natural_recovered || c.natural_recovery_est;
+  const zeroNat = c.natural_recovered && paise(c.natural_recovered) === 0;
+  const missing = measured ? 'not-measured' : (c.execution_state === 'NOT_EXECUTED' ? 'not-executed' : 'not-measured');
   return h`${sec(label || 'Recovery workspace', shortId(c.opportunity_id))}
-  <div class="kpiwrap ws-kpis"><div class="kpis" data-n="4">
+  <div class="kpiwrap ws-kpis"><div class="kpis" data-n="5">
     ${figure('At risk', m(c.value_at_risk), { key: 'ws-risk' })}
-    ${figure('Expected incremental', m(c.expected_incremental), { key: 'ws-inc' })}
-    ${figure('Natural (predicted)', m(c.natural_recovery_est), { key: 'ws-nat' })}
-    ${figure('Realized net', c.incremental_net ? m(c.incremental_net)
-      : absentInline(c.execution_state === 'NOT_EXECUTED' ? 'not-executed' : 'not-measured'),
+    ${figure(natLabel, m(natVal), { key: 'ws-nat' })}
+    ${figure('Incremental recovery', c.incremental_recovered ? m(c.incremental_recovered) : absentInline(missing), { key: 'ws-inc-r' })}
+    ${figure('Cost', c.realized_cost ? m(c.realized_cost) : absentInline(missing), { key: 'ws-cost' })}
+    ${figure('Incremental net', c.incremental_net ? m(c.incremental_net)
+      : absentInline(missing),
       { key: 'ws-net', accent: 'net' })}
-  </div></div>`;
+  </div></div>
+  <p class="hero-eq">
+    ${c.incremental_recovered ? h`<b>${m(c.incremental_recovered)}</b><span class="op">incr.</span>
+      <span class="op">−</span>
+      <b>${c.realized_cost ? m(c.realized_cost) : '—'}</b><span class="op">cost</span>
+      <span class="op">=</span>
+      <b>${c.incremental_net ? m(c.incremental_net) : '—'}</b><span class="op">net</span>` : ''}
+  </p>
+  <p class="wf-foot">${zeroNat
+    ? 'NATURAL RECOVERY IS ZERO IN THIS SEEDED SCENARIO. Incremental net is not gross collections. Expected incremental is the engine forecast; incremental net is measured.'
+    : 'Incremental net = incremental recovery − cost. Not gross collections. Expected incremental remains on the economic decision panel.'}</p>`;
 }
 
 function wsFull(d) {
@@ -1465,23 +1489,26 @@ function aiDiagnosisPanel(oppId, d) {
     : 'Deterministic fallback';
   const cand = (p.candidate_actions || []).slice(0, 3).map(c =>
     h`<li><span class="mono">${esc(c.action_id)}</span> — ${esc(c.reason)}</li>`);
-  return panel('AI diagnosis', h`
+  return panel('AI proposal — not a financial decision', h`
     <div class="ai-panel" data-source="${esc(ai.source || 'fallback')}" data-status="${esc(ai.status || '')}">
-      <p class="lbl">Intelligence source</p>
-      <p><b>${esc(src)}</b> · diagnosis confidence ${esc(typeof p.cause_confidence === 'number' ? p.cause_confidence.toFixed(2) : '—')}</p>
+      <p class="lbl">AI PROPOSAL</p>
+      <p><b>${esc(src)}</b> · diagnosis confidence ${esc(typeof p.cause_confidence === 'number' ? p.cause_confidence.toFixed(2) : '—')}
+        <span class="dim">(confidence in the diagnosis, not recovery probability)</span></p>
       <div class="dl" style="margin-top:var(--s-3)">
-        ${row('Primary cause', esc(titleize(p.primary_cause || 'unknown')))}
-        ${row('Observed evidence', (p.observed_evidence || []).length
+        ${row('Proposed cause', esc(titleize(p.primary_cause || 'unknown')))}
+        ${row('Observed', (p.observed_evidence || []).length
           ? esc((p.observed_evidence || []).slice(0, 4).join(' · '))
+          : absentInline('none'))}
+        ${row('Inferred', (p.inference_notes || []).length
+          ? esc((p.inference_notes || []).slice(0, 3).join(' · '))
           : absentInline('none'))}
         ${row('Uncertainty', p.uncertainty ? esc(p.uncertainty) : absentInline('none'))}
       </div>
-      ${cand.length ? h`<p class="lbl" style="margin-top:var(--s-3)">Candidate proposals</p><ul class="factlist">${cand.join('')}</ul>` : ''}
-      ${(p.inference_notes || []).length ? h`<p class="wf-foot">${esc((p.inference_notes || []).join(' '))}</p>` : ''}
+      ${cand.length ? h`<p class="lbl" style="margin-top:var(--s-3)">Proposed candidates</p><ul class="factlist">${cand.join('')}</ul>` : ''}
       <div class="ai-boundary" style="margin-top:var(--s-3)">
-        <p class="lbl">PAYVANTA economic decision</p>
+        <p class="lbl">PAYVANTA ECONOMIC DECISION</p>
         <p><b>${esc(econ.selected_action || d.card.best_action || 'Do nothing / deferred')}</b></p>
-        <p class="wf-foot">${esc(econ.note || 'Deterministic ENRV and guardrails are authoritative.')}</p>
+        <p class="wf-foot">${esc(econ.note || 'If the proposal disagrees with this action, the engine still wins. AI never authorizes.')}</p>
       </div>
     </div>`, titleize(p.primary_cause || 'proposal'));
 }
@@ -2028,12 +2055,31 @@ function receiptPreview(r) {
     ${row('Selected', r.selected_action ? esc(r.selected_action) : absentInline('not-authorized'))}
     ${row('Authorization', tok(titleize(r.authorization.state), authTone(r.authorization.state), 'sq'))}
     ${row('Execution', r.execution.stage ? esc(titleize(r.execution.stage)) : absentInline('not-executed'))}
+    ${row('Natural', r.natural_recovery ? m(r.natural_recovery) : absentInline('not attributed'))}
     ${row('Incremental net', net ? m(net) : absentInline(r.execution.stage ? 'not-measured' : 'not-executed'), { mono: true })}
   </div>
-  <p class="wf-foot">Sandbox receipt — not an official cell.</p>`;
+  <p class="wf-foot">Sandbox receipt — not an official cell. Incremental net ≠ gross collections.</p>`;
 }
 
 /* ------------------------------------------------------------ RECEIPT */
+function receiptIntelligenceLayer(r) {
+  const cached = (r && r.intelligence) || (S.aiDiagnosis && S.aiDiagnosis[r.opportunity_id]);
+  const src = cached
+    ? (cached.source === 'groq' ? 'GPT-OSS 120B · Groq (proposal only)' : 'Deterministic fallback')
+    : 'Not requested this session';
+  const cause = cached && cached.proposal
+    ? cached.proposal.primary_cause
+    : (cached && cached.ai_proposal_primary_cause);
+  return h`
+    <div class="receipt-layers" aria-label="Trust layers">
+      ${row('Intelligence', esc(src) + (cause ? ' · proposed ' + titleize(cause) : ''))}
+      ${row('Economic decision', esc(r.selected_action || 'No action authorized') + ' · engine')}
+      ${row('Authorization', tok(titleize(r.authorization.state), authTone(r.authorization.state), 'sq'))}
+      ${row('Execution', r.execution.stage ? tok(titleize(r.execution.stage), r.execution.stage === 'SUCCEEDED' ? 'ok' : 'wa', 'sq') : tok('NOT EXECUTED', 'no', 'sq'))}
+      ${row('Measurement', r.incremental_net_recovery ? m(r.incremental_net_recovery) : absentInline(r.execution.stage ? 'not-measured' : 'not-executed'))}
+    </div>`;
+}
+
 function receiptBlock(r) {
   const net = r.incremental_net_recovery;
   const neg = net && net.paise < 0;
@@ -2044,6 +2090,7 @@ function receiptBlock(r) {
       <h3 class="receipt-h">${esc(r.selected_action || 'No action authorized')}</h3>
       <p class="receipt-sub">${esc(r.opportunity_id)} · cycle ${esc(r.cycle_id)}</p>
     </header>
+    ${receiptIntelligenceLayer(r)}
     <div class="receipt-net">
       <span class="lbl">Incremental net recovery</span>
       <span class="receipt-net-v ${neg ? 'is-neg' : ''}" data-metric="rc-net-${esc(r.opportunity_id)}">${
@@ -4068,9 +4115,9 @@ function paletteOpen() {
 }
 function paletteSources() {
   const items = [
-    { kind: 'RUN', label: 'Run recovery', hint: 'Bounded sandbox batch run', action: runRecovery },
+    { kind: 'RUN', label: 'Run sandbox recovery', hint: 'Bounded sandbox batch run — not live payments', action: runRecovery },
     { kind: 'GO', label: 'Find opportunity', hint: 'Opportunity explorer', hash: '#/opportunities' },
-    { kind: 'GO', label: 'Analyze opportunity', hint: 'Active recovery decision', action: analyzeActive },
+    { kind: 'GO', label: 'Inspect opportunity', hint: 'Open completed recovery decision', action: analyzeActive },
     { kind: 'GO', label: 'Open workspace', hint: 'Recovery Workspace', action: openActiveWorkspace },
     { kind: 'GO', label: 'Open decision receipt', hint: 'Transaction record + audit certificate', action: openActiveReceipt },
     { kind: 'GO', label: 'Open audit', hint: 'Audit Ledger', hash: '#/audit' },

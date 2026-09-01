@@ -13,9 +13,22 @@ Razorpay Buildathon — Track 03: AI Revenue Recovery
 
 ![PAYVANTA Control Room](docs/assets/control-room.png)
 
-PAYVANTA is a **revenue recovery operating system**.
+*Screenshot: Control Room **with official evidence mounted on the machine that captured it**. The frozen artefact tree is **not** in Git. A fresh clone shows Benchmark Lab as **NOT MOUNTED**, not `BENCHMARK_VALID`. This image is not proof that 600 cells ship in the repository.*
+
+PAYVANTA is a **revenue recovery operating system** for **merchant revenue operations / finance operations** teams.
+
+**Names in this repository (do not confuse them):**
+
+| Name | What it is |
+|---|---|
+| **PAYVANTA** | Product (this Control Room and recovery OS) |
+| **`revive`** | Python package / CLI (`revive control-room`) |
+| **REVIVE** | Internal engine **policy id** (`policy_id="REVIVE"`), not the product name |
+| **razorpay_buildathon** | Public GitHub repository slug |
 
 The Control Room is a **PAYVANTA Sandbox**: synthetic test population, bounded local execution. It is not official benchmark evidence. Official evidence is read-only and separate.
+
+**INCREMENTAL NET RECOVERY ≠ GROSS COLLECTIONS.** Natural recovery is not a PAYVANTA win.
 
 | | |
 |---|---|
@@ -71,7 +84,7 @@ Vocabulary used everywhere: **SANDBOX**, **OFFICIAL EVIDENCE**, **BOUNDED EXECUT
 
 ## Why PAYVANTA
 
-Three differentiators — not agent count, not chatbot chrome:
+Three differentiators — not agent count, not chatbot chrome, not “we retry failed payments”:
 
 ### 1. Counterfactual economics
 
@@ -79,23 +92,25 @@ PAYVANTA chooses against **do nothing**, not merely against a list of actions. E
 
 ### 2. Bounded autonomy
 
-**Recommendation ≠ permission.** Diagnosis, ENRV, and allocation propose. Deterministic guardrails, stopping rules, and authorization decide whether anything executes. The decision layer does not own execution authority.
+**Recommendation ≠ permission.** The engine (ENRV + allocation) selects. Deterministic guardrails, stopping rules, and authorization decide whether anything executes. Optional Groq diagnosis **proposes**; it does not own execution authority.
 
 ### 3. Measured proof
 
-The engine is evaluated across a frozen experiment:
+The **same engine** is evaluated across a frozen experiment (not this sandbox run, not Groq):
 
 ```
 20 seeds × 6 profiles × 5 policies = 600 official cells
 ```
 
-Sandbox demonstrates operation. Official Benchmark Lab evaluates the **same engine** under frozen configuration. They are not the same run.
+The repository contains the contract, methodology, and verification logic. The frozen artefact tree is **gitignored** and must be **mounted** to inspect cell scores. Until mounted, Benchmark Lab shows **NOT MOUNTED**, not VERIFIED.
+
+**Not Razorpay Agent Studio.** PAYVANTA is not a platform for building merchant agents and does not claim to be better than Agent Studio. The defensible wedge is: *which recovery action is economically worth taking, relative to doing nothing, under cost, capacity, policy, natural recovery, and authorization constraints?* That is not “retry failed subscriptions.”
 
 ---
 
 ## Why AI (honest)
 
-Track 03 is **AI Revenue Recovery**. Two layers — keep them separate:
+PAYVANTA's sandbox uses GPT-OSS 120B through Groq for contextual diagnosis and candidate proposals. The deterministic PAYVANTA engine independently evaluates economic value and controls execution. The official benchmark remains a frozen deterministic evaluation and runs with LLM_OFF.
 
 | Layer | LLM? | Role |
 |---|---|---|
@@ -109,10 +124,16 @@ Track 03 is **AI Revenue Recovery**. Two layers — keep them separate:
 | **What is deterministic?** | Every gate that can permit or block money movement — ENRV, PolicyPack, stopping rules, authorization, execution |
 | **What decides the intervention?** | Highest feasible ENRV subject to portfolio constraints; guardrails may override. AI never overrides this. |
 
-**Trust boundary:**
+**Trust boundary (actual call graph — AI does not enter ENRV):**
 
 ```
-AI (propose · interpret)  →  ECONOMIC ENGINE (price · select)  →  CONTROL (validate · authorize)  →  ENGINE (execute · measure)
+ENGINE CYCLE (run_traced_cycle)
+  detect → taxonomy diagnose → candidates → ENRV → allocate
+  → guard → authorize → execute/block → measure → audit
+
+OPTIONAL OVERLAY (after engine state exists)
+  POST /api/opportunity/{id}/ai-diagnosis
+  → Groq structured proposal → UI + product audit (money_path=false)
 ```
 
 Groq API key must be supplied through `GROQ_API_KEY` (server-side environment only — never in Git or frontend). Without it: **DETERMINISTIC FALLBACK** (honest, no fake AI). Full detail: [`docs/why-ai.md`](docs/why-ai.md) · `GET /api/product/overview` → `ai`
@@ -128,7 +149,17 @@ Groq API key must be supplied through `GROQ_API_KEY` (server-side environment on
 | **Official benchmark** | Frozen `LLM_OFF` evidence | Read-only |
 
 ```
-OBSERVED CONTEXT → AI DIAGNOSIS (optional) → ENRV / COUNTERFACTUAL → POLICY → GUARDRAILS → AUTHORIZE → EXECUTE → MEASURE → AUDIT
+OBSERVED CONTEXT
+        │
+        ▼
+ENGINE CYCLE — run_traced_cycle
+detect → taxonomy diagnose → candidates → ENRV → allocate
+→ guard → authorize → execute/block → measure → audit
+        │
+        │  engine state already exists
+        ▼
+OPTIONAL AI OVERLAY (sandbox)
+Groq GPT-OSS 120B · proposal only · money_path=false
 ```
 
 - **AI ENABLED:** set `GROQ_API_KEY` server-side (never in frontend or Git)
@@ -194,7 +225,7 @@ Secondary: recoverable revenue · recovery rate · realized cost · authorized i
 9. **Measure** gross vs natural vs incremental vs net.
 10. **Prove** the claim with an audit reference and a sealed 600-cell benchmark.
 
-Diagnosis, ENRV, and allocation are **deterministic decision intelligence**. This submission does **not** call an LLM (`llm_used=False`, official `LLM_OFF`). See [Why AI](docs/why-ai.md).
+Diagnosis, ENRV, and allocation on the **engine path** are deterministic (`llm_used=False`, official benchmark `LLM_OFF`). The **sandbox** may additionally call Groq `openai/gpt-oss-120b` for contextual diagnosis and candidate **proposals**. That overlay does not authorize or execute. See [Why AI](docs/why-ai.md).
 
 ---
 
@@ -230,27 +261,30 @@ Sandbox shows one working batch. Official Benchmark Lab evaluates the **same eng
 
 ## Architecture
 
+**Agent loop (money path):** `revive/product/trace.py` `run_traced_cycle`. UI Analyze is a **presentation trigger**, not autonomy.
+
 ```mermaid
 flowchart TD
-  IN[INPUT] --> DET[DETECTION]
-  DET --> DIAG[DIAGNOSIS]
-  DIAG --> CAND[CANDIDATES]
-  CAND --> CF[COUNTERFACTUAL / ECONOMICS]
-  CF --> POL[DETERMINISTIC POLICY]
+  CTX[RECOVERY CONTEXT]
+  CTX --> ENG[ENGINE OBSERVATION / CANDIDATES]
+  CTX --> AI[AI DIAGNOSIS / PROPOSAL · Groq optional sandbox]
+  ENG --> CORE[PAYVANTA DECISION CORE]
+  AI -.->|propose only · no authority| CORE
+  CORE --> CF[COUNTERFACTUAL / ENRV]
+  CF --> ALLOC[LAGRANGIAN ALLOCATION]
+  ALLOC --> POL[DETERMINISTIC POLICY]
   POL --> GRD[GUARDRAILS]
   GRD --> AUTH[AUTHORIZATION]
-  AUTH --> EX[BOUNDED EXECUTION]
+  AUTH --> ALLOW[ALLOW]
+  AUTH --> BLOCK[BLOCK / ESCALATE]
+  ALLOW --> EX[BOUNDED EXECUTION]
   EX --> MEAS[MEASUREMENT]
   MEAS --> AUD[AUDIT]
 ```
 
-Parallel, frozen:
+Groq is a **sandbox overlay**. It does not sit above ENRV in the call graph. Official experiment is parallel and frozen (`LLM_OFF`).
 
-```
-OFFICIAL EXPERIMENT → FROZEN CONFIG → 600 CELLS → VERIFIED EVIDENCE
-```
-
-Details: `docs/07-system-architecture.md`, `docs/43-operating-architecture.md`.
+Details: `docs/43-operating-architecture.md`, `docs/why-ai.md`.
 
 ---
 
@@ -439,7 +473,7 @@ Records: `implementation/m13-24-stress-worker-dispatch/`, `implementation/m13-25
 
 ## Setup
 
-**OS:** Windows, macOS, or Linux. **Python:** 3.11+. No extra web framework. No API keys for the sandbox.
+**OS:** Windows, macOS, or Linux. **Python:** 3.11+. No extra web framework. Control Room runs **without** API keys (**DETERMINISTIC FALLBACK**). Optional sandbox AI: set `GROQ_API_KEY` server-side only.
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -451,7 +485,7 @@ Optional: `revive control-room --port 8765 --host 127.0.0.1`
 
 Browser: any current Chromium/Firefox/Safari. Open `#/control`.
 
-**Official evidence:** gitignored. Mount `artefacts/benchmark/official-cloud-final/` to verify 600 cells. Without it, Control Room still runs; Benchmark Lab shows the declared contract and does not invent cell scores.
+**Official evidence:** the frozen cell tree is **not committed** to this repository (`.gitignore` includes `artefacts/`). The repo contains the **contract, methodology, and verification logic**. For cell-level inspection, mount `artefacts/benchmark/official-cloud-final/` locally. Do not silently recreate it. Do not call an unmounted contract “evidence.” Without the tree, Control Room still runs; Benchmark Lab shows **NOT MOUNTED** and does not invent cell scores.
 
 Do **not** rerun the official 600-cell benchmark into that directory.
 
@@ -470,7 +504,7 @@ Open http://127.0.0.1:8765 — Control Room first viewport. Do **not** click Run
 |---|---|
 | 0:00 | Control Room — money, active opportunity, system state |
 | 0:20 | Active recovery opportunity |
-| 0:40 | Analyze opportunity |
+| 0:40 | Inspect opportunity (cycle already ran) |
 | 1:15 | Recovery Lab — do nothing vs interventions |
 | 1:40 | PAYVANTA recommends |
 | 2:00 | Guardrails |

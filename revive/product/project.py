@@ -742,6 +742,9 @@ def opportunity_card(trace: OpportunityTrace) -> dict[str, Any]:
         "blocked": blocked,
         "execution_state": execution_state,
         "incremental_net": _money(meas.realized_net_value_paise) if meas else None,
+        "incremental_recovered": _money(meas.incremental_recovered_paise) if meas else None,
+        "natural_recovered": _money(meas.natural_recovered_paise) if meas else None,
+        "gross_recovered": _money(meas.gross_recovered_paise) if meas else None,
         "realized_recovery": _money(meas.gross_recovered_paise) if meas else None,
         "realized_cost": _money(meas.realized_cost_paise) if meas else None,
         "observability": observability,
@@ -784,10 +787,15 @@ def system_pulse(state: ProductRunState) -> dict[str, Any]:
     last = state.cycles[-1] if state.cycles else None
     traces = last.opportunities if last else ()
     evaluated = sum(len(t.candidates) for t in traces)
+    detected = last.detected_count if last else 0
     return {
-        "detected": last.detected_count if last else 0,
+        "detected": detected,
         "diagnosed": last.diagnosed_count if last else 0,
         "evaluated": evaluated,
+        "evaluated_note": (
+            f"{evaluated} candidate interventions evaluated across "
+            f"{detected} opportunities in the last cycle."
+        ),
         "authorized": last.authorized_count if last else 0,
         "blocked": last.blocked_count if last else 0,
         "executed": last.executed_count if last else 0,
@@ -1258,6 +1266,7 @@ def control_room(state: ProductRunState) -> dict[str, Any]:
     incremental = sum(m.incremental_recovered_paise for m in measurements)
     recovery_rate = (incremental / at_risk) if at_risk else 0.0
     wf = waterfall(state)
+    natural_paise = int((wf["realized"]["natural"] or {}).get("paise") or 0)
     last = state.cycles[-1] if state.cycles else None
     pipeline = {
         "DETECTED": last.detected_count if last else 0,
@@ -1308,6 +1317,14 @@ def control_room(state: ProductRunState) -> dict[str, Any]:
             "blocked_interventions": blocked,
             "policy_compliance": "PASS" if compliance else "REVIEW",
             "execution_integrity": "PASS" if integrity else "FAIL",
+            "result_kind": "SANDBOX_BATCH",
+            "not_official_m10": True,
+            "natural_zero_in_scenario": natural_paise == 0,
+            "natural_note": (
+                "NATURAL RECOVERY IS ZERO IN THIS SEEDED SCENARIO."
+                if natural_paise == 0
+                else None
+            ),
         },
         "calculations": _calculations(state, traces, wf),
         "system_pulse": system_pulse(state),

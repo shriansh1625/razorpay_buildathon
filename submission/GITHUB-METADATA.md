@@ -16,7 +16,6 @@ PAYVANTA — Autonomous Revenue Recovery Intelligence | Razorpay AI Buildathon T
 
 ```
 ai
-agentic-ai
 revenue-recovery
 fintech
 payments
@@ -26,7 +25,9 @@ risk
 automation
 ```
 
-Do **not** add `langgraph` unless LangGraph is actually used in the shipped runtime (it is not in this submission).
+Do **not** add `langgraph`. Do **not** add `agentic-ai`. The shipped agent is bounded orchestration in `run_traced_cycle`, not an LLM tool-loop.
+
+**As of P17 audit:** GitHub `description` is still `null` and `topics` is `[]`. Apply the fields above in the GitHub UI before submission. This file cannot set them without authenticated `gh`.
 
 ## Website (optional)
 

@@ -40,6 +40,6 @@ Do **not** improvise. Use prepared routes.
 > “Six hundred cells are verified when the frozen tree is mounted. The contract and methodology are in the repo — here is the declared experiment structure.”
 
 **AI question mid-demo:**  
-> “No LLM — decision intelligence. Diagnosis ranks evidence, ENRV compares to do-nothing, allocation picks under constraints. Guardrails decide execution.”
+> “PAYVANTA’s sandbox may call Groq for diagnosis proposals. The engine still decides. If Groq is off, you are seeing DETERMINISTIC FALLBACK — that is honest, not fake AI.”
 
 See also: `submission/pitch/VIDEO-RECORDING-CHECKLIST.md`

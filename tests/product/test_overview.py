@@ -30,7 +30,14 @@ def test_overview_matches_sandbox_snapshot():
     assert ov["intelligence"]["official_llm_mode"] == "LLM_OFF"
     assert ov["ai"]["execution_authority"] == "none"
     assert ov["audit"]["ledger_count"] >= 1
-    assert ov["track03"]["detect"] is True
+    assert ov["track03"]["kind"] == "capability_declaration"
+    assert ov["track03"]["not_independent_proof"] is True
+    assert ov["track03"]["detect"]["declared"] is True
+    assert ov["track03"]["detect"]["status"] == "implemented"
+    assert ov["track03"]["detect"]["implementation_reference"]
+    assert ov["financial"]["kind"] == "SANDBOX_BATCH"
+    assert ov["financial"]["not_official_m10"] is True
+    assert ov["track03"]["agent_loop"] == "revive/product/trace.py::run_traced_cycle"
     assert (
         ov["financial"]["incremental_net_recovery"]
         == room["hero"]["incremental_net_recovery"]

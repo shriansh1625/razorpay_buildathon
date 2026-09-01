@@ -2250,3 +2250,9 @@ kbd {
   background: color-mix(in srgb, var(--acc-50) 8%, transparent);
   font-size: var(--t-small); color: var(--ink-20);
 }
+.receipt-layers {
+  margin: 0 var(--s-4) var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--line-20);
+  font-size: var(--t-small);
+}

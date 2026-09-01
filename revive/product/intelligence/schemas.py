@@ -117,7 +117,79 @@ def _coerce_str_list(raw: Any, *, limit: int = 12) -> tuple[str, ...]:
     return tuple(out)
 
 
-def parse_proposal(payload: dict[str, Any], *, expected_opportunity_id: str) -> DiagnosisProposal:
+_GENERIC_VALUES = frozenset({"none", "true", "false", "yes", "no", "null", "n/a", "na"})
+
+
+def _flatten_kv(obj: Any, prefix: str = "") -> list[tuple[str, str]]:
+    pairs: list[tuple[str, str]] = []
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            path = f"{prefix}.{key}" if prefix else str(key)
+            pairs.extend(_flatten_kv(value, path))
+        return pairs
+    if obj is None:
+        return pairs
+    text = str(obj).strip()
+    if text:
+        pairs.append((prefix, text))
+    return pairs
+
+
+def grounding_tokens(
+    evidence_facts: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
+) -> tuple[str, ...]:
+    """Tokens that may appear as OBSERVED. Keys alone are not enough."""
+    tokens: list[str] = []
+    for source in (evidence_facts, context):
+        for key, value in _flatten_kv(source or {}):
+            short_key = key.split(".")[-1]
+            tokens.append(f"{short_key}={value}".lower())
+            tokens.append(f"{key}={value}".lower())
+            if len(value) >= 4 and value.lower() not in _GENERIC_VALUES:
+                tokens.append(value.lower())
+    return tuple(dict.fromkeys(tokens))
+
+
+def claim_is_grounded(claim: str, tokens: tuple[str, ...]) -> bool:
+    text = claim.strip().lower()
+    if not text:
+        return False
+    for token in tokens:
+        if len(token) < 4:
+            continue
+        if text == token or token in text:
+            return True
+        if len(text) >= 8 and text in token:
+            return True
+    return False
+
+
+def classify_observed_claims(
+    raw_items: Any,
+    *,
+    evidence_facts: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Split model 'observed' strings into grounded facts vs inference."""
+    tokens = grounding_tokens(evidence_facts, context)
+    observed: list[str] = []
+    inferred: list[str] = []
+    for item in _coerce_str_list(raw_items, limit=12):
+        if claim_is_grounded(item, tokens):
+            observed.append(item)
+        else:
+            inferred.append(f"Not in evidence (treated as inference): {item}")
+    return tuple(observed), tuple(inferred)
+
+
+def parse_proposal(
+    payload: dict[str, Any],
+    *,
+    expected_opportunity_id: str,
+    evidence_facts: dict[str, Any] | None = None,
+    context: dict[str, Any] | None = None,
+) -> DiagnosisProposal:
     if not isinstance(payload, dict):
         raise ValueError("proposal must be an object")
     oid = str(payload.get("opportunity_id", "")).strip()
@@ -153,12 +225,19 @@ def parse_proposal(payload: dict[str, Any], *, expected_opportunity_id: str) -> 
                 expected_context_fit=fit,
             )
         )
+    grounded, downgraded = classify_observed_claims(
+        payload.get("observed_evidence"),
+        evidence_facts=evidence_facts,
+        context=context,
+    )
+    inferences = list(_coerce_str_list(payload.get("inference_notes")))
+    inferences.extend(downgraded)
     return DiagnosisProposal(
         opportunity_id=oid,
         primary_cause=cause,
         cause_confidence=conf,
-        observed_evidence=_coerce_str_list(payload.get("observed_evidence")),
-        inference_notes=_coerce_str_list(payload.get("inference_notes")),
+        observed_evidence=grounded,
+        inference_notes=tuple(inferences[:12]),
         candidate_actions=tuple(candidates),
         missing_evidence=_coerce_str_list(payload.get("missing_evidence")),
         risk_flags=_coerce_str_list(payload.get("risk_flags")),

@@ -1,14 +1,19 @@
 # 08 · Agent and Module Architecture
 
-> **Implementation status (this submission).** The table below is the original
-> specification. It is **not** a description of the running binary.
+> **Implementation status (this submission).** The table below is the **original
+> specification**. It is **not** a description of the running binary.
 >
-> Shipped diagnosis always records `llm_used=False` (`revive/recovery/diagnosis/diagnose.py`;
-> `allow_llm=False`). Official cells use `llm_mode=LLM_OFF`. **Copy Composer (C-10) is not
-> implemented.** There is no chatbot and no live model call.
+> **HISTORICAL / SPEC CONTEXT:** early design named two LLM agents (Root Cause
+> Analyst, Copy Composer) and Claude models. **Copy Composer is not
+> implemented.** Engine diagnosis records `llm_used=False`
+> (`revive/recovery/diagnosis/diagnose.py`; `allow_llm=False`). Official cells
+> use `llm_mode=LLM_OFF`.
 >
-> What shipped: deterministic diagnosis, deterministic ENRV and allocation,
-> deterministic guardrails, bounded execution, measurement, audit.
+> **SHIPPED:** deterministic engine cycle in `run_traced_cycle`. Optional
+> **sandbox overlay:** Groq `openai/gpt-oss-120b` for structured diagnosis /
+> proposal only (`revive/product/intelligence/`). No chatbot. Groq does not
+> authorize or execute.
+>
 > See [why-ai.md](why-ai.md) and [43-operating-architecture.md](43-operating-architecture.md).
 
 ---
@@ -26,9 +31,20 @@ A module that fails any of the four is merged into its caller.
 
 Furthermore, **most modules in PAYVANTA are not agents.** They are deterministic functions. The word
 "agent" is reserved for components that (i) invoke an LLM, or (ii) orchestrate a bounded sequence of
-tool calls. By that definition PAYVANTA has **three agents and eighteen deterministic modules**, and
-that ratio is intentional — it is the direct consequence of
-[README § C-7](README.md#c-7--the-deterministic-authority-rule).
+tool calls.
+
+**SHIPPED (this submission — the running binary):**
+
+| Kind | Count | Members |
+|---|---|---|
+| **Agent (orchestrating)** | 1 | `run_traced_cycle` (detect → measure) |
+| **Sandbox LLM overlay** | 1 optional | Groq `openai/gpt-oss-120b` diagnosis / proposal — **no money-path authority** |
+| **LLM-invoking money-path agents** | **0** | Engine diagnosis is `rank_causes`; `llm_used=False` |
+| **Copy Composer (C-10)** | **0** | **Not implemented** |
+| **Deterministic engine** | ENRV, allocation, PolicyPack, authorization, execution, measurement, audit | [43](43-operating-architecture.md) |
+| **Human-in-the-loop** | 1 | Approver (via C-15), simulated in sandbox |
+
+**HISTORICAL SPECIFICATION** (original design counts — **not** the running binary):
 
 | Kind | Count | Members |
 |---|---|---|
@@ -135,7 +151,9 @@ a positive assertion, not an omission.
 | **Evaluation** | Field-completeness rate; fatigue-state agreement with independent recomputation from `Intervention` rows |
 | **Requirements** | `RR-FUNC-013`…`015`, `017` |
 
-### C-05 · Root Cause Analyst  🤖 AGENT
+### C-05 · Root Cause Analyst  🤖 AGENT — HISTORICAL SPECIFICATION
+
+Engine diagnosis as shipped is deterministic `rank_causes` (`llm_used=False`). Optional Groq overlay is **not** this module.
 
 | Field | Value |
 |---|---|
@@ -235,7 +253,7 @@ a positive assertion, not an omission.
 | **Evaluation** | Hand-computed fixtures; component-sum reconstruction; monotonicity properties ([11 § 6](11-counterfactual-engine.md)) |
 | **Requirements** | `RR-FUNC-025`, `027`, `029` |
 
-### C-10 · Copy Composer  🤖 AGENT
+### C-10 · Copy Composer  🤖 AGENT — HISTORICAL SPECIFICATION (not implemented)
 
 | Field | Value |
 |---|---|

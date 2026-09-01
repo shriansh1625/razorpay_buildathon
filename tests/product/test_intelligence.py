@@ -64,9 +64,66 @@ def test_parse_proposal_validates_cause_and_actions():
         "risk_flags": [],
         "uncertainty": "Moderate",
     }
-    proposal = parse_proposal(payload, expected_opportunity_id="opp_TEST123")
+    proposal = parse_proposal(
+        payload,
+        expected_opportunity_id="opp_TEST123",
+        evidence_facts={"reason_code": "insufficient_funds"},
+    )
     assert proposal.primary_cause == "INSUFFICIENT_FUNDS"
     assert proposal.candidate_actions[0].action_id == "A01"
+    assert proposal.observed_evidence == ("reason_code=insufficient_funds",)
+
+
+def test_parse_proposal_downgrades_fabricated_observation():
+    payload = {
+        "opportunity_id": "opp_TEST123",
+        "primary_cause": "INSUFFICIENT_FUNDS",
+        "cause_confidence": 0.7,
+        "observed_evidence": [
+            "reason_code=insufficient_funds",
+            "customer_promised_to_pay_tomorrow",
+        ],
+        "inference_notes": ["May retry after payday."],
+        "candidate_actions": [
+            {
+                "action_id": "A01",
+                "reason": "Immediate retry may succeed.",
+                "expected_context_fit": "Soft decline pattern",
+            }
+        ],
+        "missing_evidence": [],
+        "risk_flags": [],
+        "uncertainty": "Moderate",
+    }
+    proposal = parse_proposal(
+        payload,
+        expected_opportunity_id="opp_TEST123",
+        evidence_facts={"reason_code": "insufficient_funds"},
+    )
+    assert proposal.observed_evidence == ("reason_code=insufficient_funds",)
+    assert any("customer_promised_to_pay_tomorrow" in note for note in proposal.inference_notes)
+    assert all("customer_promised_to_pay_tomorrow" not in item for item in proposal.observed_evidence)
+
+
+def test_parse_proposal_rejects_malformed_payload():
+    with pytest.raises(ValueError, match="proposal must be an object"):
+        parse_proposal(["not", "an", "object"], expected_opportunity_id="opp_TEST123")
+
+
+def test_parse_proposal_rejects_unknown_cause():
+    payload = {
+        "opportunity_id": "opp_TEST123",
+        "primary_cause": "MADE_UP_CAUSE",
+        "cause_confidence": 0.7,
+        "observed_evidence": [],
+        "inference_notes": [],
+        "candidate_actions": [],
+        "missing_evidence": [],
+        "risk_flags": [],
+        "uncertainty": "",
+    }
+    with pytest.raises(ValueError, match="invalid primary_cause"):
+        parse_proposal(payload, expected_opportunity_id="opp_TEST123")
 
 
 def test_parse_proposal_rejects_invalid_action():
@@ -180,12 +237,6 @@ def test_ai_contract_timeout_and_retry_constants():
     assert GROQ_MODEL == "openai/gpt-oss-120b"
 
 
-def test_parse_proposal_rejects_unknown_cause():
-    payload = _mock_ai_payload("opp_TEST123", cause="MADE_UP_CAUSE")
-    with pytest.raises(ValueError, match="invalid primary_cause"):
-        parse_proposal(payload, expected_opportunity_id="opp_TEST123")
-
-
 def test_parse_proposal_rejects_opportunity_id_mismatch():
     payload = _mock_ai_payload("opp_OTHER")
     with pytest.raises(ValueError, match="opportunity_id mismatch"):
@@ -248,6 +299,25 @@ def test_economic_boundary_ai_proposal_does_not_override_engine(monkeypatch):
     assert econ["authority"] == "deterministic_engine"
     assert econ["selected_action"] == action_label(engine_action)
     assert econ["selected_action"] != action_label(ai_action)
+    joined_observed = " ".join(result.proposal.observed_evidence)
+    assert "customer_promised_to_pay" not in joined_observed
+
+
+def test_diagnose_downgrades_ungrounded_observed_claims(monkeypatch):
+    monkeypatch.setenv("GROQ_API_KEY", "test-key-not-real")
+    session = build_demo_session(seed=DEMO_SEED)
+    trace = find_trace(session.state, SUCCESS_OID)
+    assert trace is not None
+    payload = _mock_ai_payload(SUCCESS_OID)
+    payload["observed_evidence"] = ["this_claim_is_not_in_the_fixture_evidence"]
+    with patch(
+        "revive.product.intelligence.diagnosis.complete_structured",
+        return_value=payload,
+    ):
+        result = diagnose_opportunity(trace)
+    assert result.status == "AI_COMPLETED"
+    assert result.proposal.observed_evidence == ()
+    assert any("this_claim_is_not_in_the_fixture_evidence" in n for n in result.proposal.inference_notes)
 
 
 def test_safety_boundary_ai_cannot_override_blocked_opportunity(monkeypatch):
@@ -409,6 +479,11 @@ def test_ai_diagnosis_records_audit_event(monkeypatch):
         snap2 = _http_json("GET", "/api/snapshot", port)
         events = snap2.get("intelligence_events") or []
         assert any(e.get("event") == "AI_DIAGNOSIS_COMPLETED" for e in events)
+        audit = _http_json("GET", "/api/audit", port)
+        overlay = [e for e in audit["events"] if e.get("category") == "intelligence"]
+        assert overlay
+        assert overlay[0].get("money_path") is False
+        assert overlay[0].get("event") == "AI_DIAGNOSIS_COMPLETED"
         event = intelligence_event(
             diagnose_opportunity(find_trace(srv._session().state, oid))
         )

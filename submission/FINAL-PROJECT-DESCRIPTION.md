@@ -4,9 +4,9 @@
 
 Merchants lose revenue across failed payments, abandoned checkouts, mandate failures, and overdue invoices. Much of it would recover naturally. Blind retries and blast campaigns waste capacity and customer patience. The question is not “send another message” but **where the next unit of recovery effort produces incremental net value** under policy and resource limits.
 
-## Solution
+## Project objectives (~110 words)
 
-PAYVANTA detects revenue at risk, determines the economically justified recovery intervention, executes only inside deterministic bounds, measures incremental net recovery across a batch, and records an auditable decision trail. Its sandbox uses AI-assisted contextual diagnosis (Groq GPT-OSS 120B), while deterministic economics and controls retain execution authority. The underlying engine is evaluated separately across 600 official experiment cells.
+PAYVANTA is a bounded revenue recovery system for merchant revenue operations. It detects typed revenue at risk, prices each intervention against doing nothing (incremental net recovery, not gross collections), allocates under capacity and policy constraints, and executes only after deterministic guardrails and authorization. Optional Groq GPT-OSS 120B interprets sandbox context and proposes causes and candidates; it has no execution authority. The same engine is evaluated separately across a frozen 20×6×5 official experiment (600 cells, LLM_OFF). This submission does not claim live Razorpay integration, production fitness, or universal superiority.
 
 ## Agentic / AI role (honest)
 

@@ -150,7 +150,12 @@ def diagnose_opportunity(trace: OpportunityTrace) -> DiagnosisResult:
                 {"role": "user", "content": user_msg},
             ]
         )
-        proposal = parse_proposal(raw, expected_opportunity_id=trace.opportunity.opportunity_id)
+        proposal = parse_proposal(
+            raw,
+            expected_opportunity_id=trace.opportunity.opportunity_id,
+            evidence_facts=observation.get("evidence_facts"),
+            context=observation.get("context"),
+        )
         return DiagnosisResult(
             proposal=proposal,
             source="groq",
@@ -171,6 +176,8 @@ def diagnose_opportunity(trace: OpportunityTrace) -> DiagnosisResult:
 
 
 def intelligence_event(result: DiagnosisResult) -> dict[str, Any]:
+    from datetime import datetime, timezone
+
     return {
         "event": "AI_DIAGNOSIS_COMPLETED",
         "status": result.status,
@@ -180,4 +187,8 @@ def intelligence_event(result: DiagnosisResult) -> dict[str, Any]:
         "opportunity_id": result.proposal.opportunity_id,
         "primary_cause": result.proposal.primary_cause,
         "schema_version": AI_SCHEMA_VERSION,
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "layer": "product_sandbox_overlay",
+        "money_path": False,
+        "note": "Overlay diagnosis. Not an engine money-path event.",
     }

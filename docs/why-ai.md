@@ -1,5 +1,11 @@
 # Why AI is in PAYVANTA — and what actually shipped
 
+PAYVANTA's sandbox uses GPT-OSS 120B through Groq for contextual
+diagnosis and candidate proposals. The deterministic PAYVANTA engine
+independently evaluates economic value and controls execution.
+The official benchmark remains a frozen deterministic evaluation
+and runs with LLM_OFF.
+
 Track 03 is **AI Revenue Recovery**. This document states the implemented
 architecture without dressing deterministic code as an LLM.
 
@@ -99,55 +105,45 @@ path never calls Groq (`LLM_OFF`).
 
 ---
 
-## 7. Preferred control flow (implemented)
+## 7. Control flow (as implemented)
+
+**Money path** (`run_traced_cycle`):
 
 ```
-signals
-  → detection
-  → AI diagnosis / proposal (optional Groq · sandbox only)
-  → candidate set
-  → counterfactual / economics
-  → deterministic policy
-  → guardrails
-  → authorization
-  → bounded execution
-  → measurement
-  → audit
+signals → detection → taxonomy diagnosis → candidates → ENRV
+  → allocation → policy → guardrails → authorization
+  → bounded execution → measurement → engine audit
 ```
 
-Intelligence proposes. Controls decide whether anything executes.
+**Sandbox overlay** (optional, after engine state exists):
+
+```
+POST /api/opportunity/{id}/ai-diagnosis
+  → Groq structured DiagnosisProposal
+  → UI panel + product-layer audit row
+```
+
+The overlay does **not** feed ENRV, authorization, or adapters.
+Clicking **Inspect opportunity** in the UI is a presentation trigger, not the agent loop.
 
 ---
 
-## 9. AI / deterministic boundary (trust architecture)
+## 8. AI / deterministic boundary (trust architecture)
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  AI DIAGNOSIS · Groq optional · sandbox only                    │
-│  contextual interpretation · candidate proposal · no authority  │
-└────────────────────────────┬────────────────────────────────────┘
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  DETERMINISTIC ENGINE · ENRV · Lagrangian allocate              │
-│  llm_used=False on engine path · official benchmark LLM_OFF   │
-└────────────────────────────┬────────────────────────────────────┘
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  CONTROL · VALIDATE · AUTHORIZE                                 │
-│  PolicyPack · stopping rules · authorization · escalation       │
-└────────────────────────────┬────────────────────────────────────┘
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  ENGINE · EXECUTE · MEASURE                                     │
-│  bounded adapters · incremental attribution · audit journal     │
-└─────────────────────────────────────────────────────────────────┘
+MONEY PATH (already complete before overlay):
+  detect → taxonomy diagnose → candidates → ENRV → allocate
+  → guard → authorize → execute/block → measure → audit
+
+OPTIONAL OVERLAY (after engine state exists — no arrow into ENRV):
+  POST /ai-diagnosis → Groq proposal → UI + product audit (money_path=false)
 ```
 
 Machine-readable: `GET /api/product/overview` → `ai`, `intelligence`, `guardrails`, `track03`.
 
 ---
 
-## 8. Why the official benchmark stays LLM_OFF
+## 9. Why the official benchmark stays LLM_OFF
 
 The **frozen official experiment** ran with `LLM_OFF`. That evidence is not
 re-run when Groq is enabled in the sandbox. Faking benchmark AI usage would be

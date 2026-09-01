@@ -195,6 +195,35 @@ def _opportunity_block(snapshot: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
+def _track_capability(
+    *,
+    implementation: str,
+    test: str,
+    ui: str | None = None,
+    api: str | None = None,
+    demo_opportunity: str | None = None,
+) -> dict[str, Any]:
+    """Self-declared capability — not independent proof."""
+    payload: dict[str, Any] = {
+        "capability": True,
+        "status": "implemented",
+        "declared": True,
+        "implementation_reference": implementation,
+        "test_reference": test,
+        "implementation": implementation,
+        "test": test,
+    }
+    if ui:
+        payload["ui_reference"] = ui
+        payload["ui"] = ui
+    if api:
+        payload["api_reference"] = api
+        payload["api"] = api
+    if demo_opportunity:
+        payload["demo_opportunity"] = demo_opportunity
+    return payload
+
+
 def product_overview(
     snapshot: dict[str, Any],
     bench: dict[str, Any] | None = None,
@@ -326,6 +355,8 @@ def product_overview(
             "opportunity_id": snapshot.get("wow_opportunity_id"),
         },
         "financial": {
+            "kind": "SANDBOX_BATCH",
+            "not_official_m10": True,
             "at_risk": hero.get("at_risk_revenue"),
             "recoverable": hero.get("recoverable_revenue"),
             "natural": realized.get("natural") or hero.get("natural_recovery"),
@@ -334,7 +365,9 @@ def product_overview(
             "cost": hero.get("realized_cost"),
             "incremental_net_recovery": hero.get("incremental_net_recovery"),
             "source": "sandbox_engine_measurement",
-            "note": "These figures are this sandbox session. They are not an official benchmark cell.",
+            "natural_zero_in_scenario": hero.get("natural_zero_in_scenario"),
+            "natural_note": hero.get("natural_note"),
+            "note": "SANDBOX BATCH RESULT. Not official benchmark M-10. Incremental net ≠ gross collections.",
         },
         "workflow": {
             "loop": list(WORKFLOW),
@@ -357,14 +390,51 @@ def product_overview(
             "ui": "#/audit",
         },
         "track03": {
-            "detect": True,
-            "determine_intervention": True,
-            "bounded_execution": True,
-            "batch_measurement": True,
-            "escalation": True,
-            "stopping_rules": True,
-            "audit_trail": True,
-            "evidence": "docs/track3-evidence.md",
+            "kind": "capability_declaration",
+            "not_independent_proof": True,
+            "evidence_document": "docs/track3-evidence.md",
+            "detect": _track_capability(
+                implementation="revive/recovery/sentinel/",
+                test="tests/recovery/test_sentinel_recall.py",
+                ui="#/control",
+                api="GET /api/snapshot",
+            ),
+            "determine_intervention": _track_capability(
+                implementation="candidates + ENRV + Lagrangian (engine; not Groq)",
+                test="tests/recovery/test_valuation_enrv.py",
+                ui="#/opportunity/{id}",
+                api="GET /api/opportunity/{id}",
+            ),
+            "bounded_execution": _track_capability(
+                implementation="revive/policy/authorize.py + revive/execution/",
+                test="tests/execution/test_authorization_requirement.py",
+                ui="#/guardrails",
+            ),
+            "batch_measurement": _track_capability(
+                implementation="control_room.hero + system_pulse",
+                test="tests/product/test_overview.py",
+                ui="#/control",
+                api="GET /api/product/overview",
+            ),
+            "escalation": _track_capability(
+                implementation="simulated approver + authorization BLOCKED",
+                test="tests/product/test_control_room.py::test_demo_seed_has_success_and_blocked_paths",
+                ui="#/opportunity/opp_WST4PPPH81VPNTNC18K0YGRAW9",
+                demo_opportunity="opp_WST4PPPH81VPNTNC18K0YGRAW9",
+            ),
+            "stopping_rules": _track_capability(
+                implementation="policy stopping evaluator",
+                test="tests/policy/test_authorization_demo.py",
+                ui="#/guardrails",
+            ),
+            "audit_trail": _track_capability(
+                implementation="revive/audit/journal.py",
+                test="tests/execution/test_integrity.py::test_audit_intent_before_result",
+                ui="#/audit",
+                api="GET /api/audit",
+            ),
+            "agent_loop": "revive/product/trace.py::run_traced_cycle",
+            "ai_overlay": "POST /api/opportunity/{id}/ai-diagnosis (sandbox only; no execution authority)",
         },
         "claims": claims,
         "inspect": {

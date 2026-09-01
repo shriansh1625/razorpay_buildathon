@@ -26,7 +26,7 @@ Before pressing record:
 ## Script
 
 - [ ] `submission/pitch/FINAL-5-MINUTE-SCRIPT.md` open on second monitor
-- [ ] AI moment at **0:40** — show diagnosis + ENRV, say no LLM honestly
+- [ ] AI moment at **0:40** — Inspect opportunity. Show Groq **proposal** vs engine **economic decision**. Say the model does not authorize. If no key: show DETERMINISTIC FALLBACK honestly.
 - [ ] Benchmark reveal after **4:15** — not before
 - [ ] Close with **MEASURED. NOT CLAIMED.**
 

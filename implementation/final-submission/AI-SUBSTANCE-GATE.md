@@ -21,7 +21,7 @@
 | **Audit** | `revive/audit/` | Intent before effect | Automatic | Journal append | Yes |
 | **Orchestration** | `revive/product/trace.py` | Full recovery cycle wiring | **Bounded agent loop** | Pipeline coordination | Yes |
 
-**LLM inference:** none. `diagnose()` sets `llm_used=False` (line 66). Overview reports `official_llm_mode: LLM_OFF`.
+**Engine LLM inference:** none (`llm_used=False`). **Sandbox overlay:** optional Groq diagnosis/proposal. Overview reports `official_llm_mode: LLM_OFF`.
 
 ---
 
@@ -63,7 +63,7 @@ Future sandbox LLM (if ever added) must: pass deterministic validation, never au
 ## Phase 9 — AI evaluator 20-second answers
 
 **Why is this AI?**  
-Track 03 AI Revenue Recovery is decision intelligence under uncertainty: counterfactual economics, portfolio allocation under scarcity, and bounded autonomous orchestration — not a chatbot. No LLM in this build; see `docs/why-ai.md`.
+Track 03 AI Revenue Recovery is decision intelligence under uncertainty: counterfactual economics, portfolio allocation under scarcity, and bounded autonomous orchestration — not a chatbot. Sandbox may call Groq for diagnosis/proposal only; official engine path remains `LLM_OFF`. See `docs/why-ai.md`.
 
 **Where is AI used?**  
 Not an LLM. Intelligence lives in `rank_causes`, `compute_enrv`, `lagrangian_allocate`, and the recovery cycle in `revive/product/trace.py`. API: `GET /api/product/overview` → `intelligence`.

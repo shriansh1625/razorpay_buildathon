@@ -48,10 +48,39 @@ def _clear_ai_state() -> None:
     _LAST_AI_STATUS = None
 
 
+def _ai_audit_rows() -> list[dict]:
+    """Product-layer overlay rows. Not appended to the engine AuditJournal."""
+    rows: list[dict] = []
+    for ev in _AI_EVENTS[-20:]:
+        rows.append(
+            {
+                "timestamp": ev.get("timestamp") or "ai",
+                "category": "intelligence",
+                "event": ev.get("event") or "AI_DIAGNOSIS_COMPLETED",
+                "stage": "AI_DIAGNOSIS",
+                "label": "Sandbox AI diagnosis overlay",
+                "object": ev.get("opportunity_id"),
+                "decision": ev.get("primary_cause"),
+                "result": ev.get("status"),
+                "blocked": False,
+                "audit_reference": None,
+                "layer": ev.get("layer") or "product_sandbox_overlay",
+                "source": ev.get("source"),
+                "model": ev.get("model"),
+                "schema_version": ev.get("schema_version"),
+                "money_path": False,
+                "note": ev.get("note")
+                or "Not a money-path event. Engine hash journal is unchanged.",
+            }
+        )
+    return rows
+
+
 def _enrich_snapshot(base: dict) -> dict:
     enriched = dict(base)
     enriched["intelligence_status"] = intelligence_status(last_status=_LAST_AI_STATUS)
     enriched["intelligence_events"] = list(_AI_EVENTS[-20:])
+    enriched["audit_ledger"] = list(base.get("audit_ledger") or []) + _ai_audit_rows()
     return enriched
 
 
