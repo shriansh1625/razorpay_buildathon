@@ -4,7 +4,18 @@
 
 **RECOVER REVENUE. PROVE THE RECOVERY.**
 
-PAYVANTA detects revenue at risk, evaluates recovery interventions against a do-nothing counterfactual, selects economically justified actions under constraints, executes only within deterministic controls, measures incremental net recovery, and records an auditable decision trail.
+**One-line value:** Recover revenue only when the economics justify the intervention — relative to doing nothing, under deterministic policy, capacity, cost, and authorization constraints.
+
+PAYVANTA is a **revenue recovery control plane** (not a retry bot, chatbot, or generic AI dashboard). It detects revenue at risk, evaluates recovery interventions against a do-nothing counterfactual, selects economically justified actions under constraints, executes only within deterministic controls, measures incremental net recovery, and records an auditable decision trail.
+
+```
+AT RISK → DO NOTHING / INTERVENE → ECONOMIC SELECTION → GUARDRAILS
+→ AUTHORIZED / BLOCKED → EXECUTED → MEASURED NET
+```
+
+**DECISION** · Does intervention beat doing nothing?
+**CONTROL** · Deterministic guardrails + authorization before effect.
+**PROOF** · Measured incremental net + audit trail + official 600-cell benchmark (`LLM_OFF`).
 
 **Track 03 — AI Revenue Recovery**
 
@@ -63,7 +74,8 @@ The Control Room is a **PAYVANTA Sandbox**: synthetic test population, bounded l
 - [Financial semantics](#financial-semantics)
 - [Sandbox batch result](#sandbox-batch-result-seed-14--4-cycles)
 - [Demo paths](#demo-paths--success-and-refusal)
-- [Problem](#problem)
+- [Submission](#submission)
+- [Security](#security)
 - [The Recovery OS](#the-recovery-os)
 - [How PAYVANTA works](#how-payvanta-works)
 - [Track 03](#track-03--ai-revenue-recovery)
@@ -415,20 +427,40 @@ Verified from `GET /api/product/overview` on the default Control Room session:
 
 **Pulse (last cycle):** Detected **18** · Diagnosed **18** · Evaluated **129** candidates · Authorized **6** · Blocked **4** · Executed **6** · Measured **3**
 
-This is the same engine path as the official experiment, running on a synthetic sandbox population — not a frozen benchmark cell score.
+**Do not confuse sandbox batch with a single opportunity.** The batch incremental net above is the **aggregate across the seed-14 sandbox run**. It is **not** the result of one opportunity. Example: the prepared success opportunity below measured **₹855.53** incremental net on its own.
+
+This is the same engine path as the official experiment, running on a synthetic sandbox population — **not** a frozen benchmark cell score and **not** official M-10.
 
 ## Demo paths — success and refusal
 
-Both paths are prepared on seed 14. Do **not** press Run Recovery during the pitch (it rebuilds the sandbox world).
+Both paths are prepared on **SANDBOX · SEED 14**. Do **not** press **Run sandbox recovery** during a demo (it rebuilds the sandbox world).
 
-| Path | Opportunity | Expected chain |
-|---|---|---|
-| **SUCCESS** | `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` | AUTHORIZED → SUCCEEDED → MEASURED |
-| **BLOCKED** | `opp_WST4PPPH81VPNTNC18K0YGRAW9` | BLOCKED → APPROVAL DENIED → NOT_EXECUTED |
+### Success path
 
-UI: `#/opportunity/{id}` · API: `GET /api/opportunity/{id}` · Receipt: `GET /api/receipt/{id}`
+| Field | Value |
+|---|---|
+| **Opportunity** | `opp_CQ6VCH7HPPW9WG284G5EFRMDN0` |
+| **Context** | Receivable overdue |
+| **Cause** | Buyer cashflow constraint |
+| **Selected action** | Resume checkout |
+| **Path** | AUTHORIZED → SUCCEEDED → MEASURED |
+| **Measured incremental net** | **₹855.53** (this opportunity only) |
 
-The blocked path proves refusal-to-act is structural, not a UI filter.
+UI: `#/opportunity/opp_CQ6VCH7HPPW9WG284G5EFRMDN0` · Receipt: `GET /api/receipt/opp_CQ6VCH7HPPW9WG284G5EFRMDN0`
+
+### Blocked path
+
+| Field | Value |
+|---|---|
+| **Opportunity** | `opp_WST4PPPH81VPNTNC18K0YGRAW9` |
+| **Context** | Mandate health |
+| **Cause** | Mandate expired |
+| **Considered action** | **Update mandate** |
+| **Path** | BLOCKED → APPROVAL DENIED → NOT_EXECUTED |
+
+UI: `#/opportunity/opp_WST4PPPH81VPNTNC18K0YGRAW9` · Guardrails: `#/opportunity/opp_WST4PPPH81VPNTNC18K0YGRAW9/guardrails`
+
+The blocked path proves refusal-to-act is structural, not a UI filter. *(Other action codes exist in the catalogue — e.g. cancel and reissue — but **seed-14 WST4** uses **update mandate**.)*
 
 ---
 
@@ -446,7 +478,8 @@ This is the engine you just saw operating. That engine was evaluated separately 
 | Official cells | **600** = 20 × 6 × 5 |
 | Evaluation groups | **120** = 20 × 6 |
 | Workers | **8** |
-| Validation | **BENCHMARK_VALID** |
+| Validation | **BENCHMARK_VALID** *(when official evidence is mounted)* |
+| Fresh clone without mount | **NOT MOUNTED** — contract ships; cell scores do not |
 | Blocked | **false** |
 
 Frozen experiment reference:
@@ -629,7 +662,32 @@ Machine-readable discovery: `GET /api/product/overview` · `GET /api/benchmark/s
 - **Population is synthetic**, not production traffic.
 - **Official 600-cell artefacts are mounted separately.** A fresh clone shows Benchmark Lab as **NOT MOUNTED**.
 - **Official benchmark uses `LLM_OFF`.** Groq is sandbox overlay only — contextual proposal support, not authorization.
-- **600 cells prove systematic evaluation of the frozen engine** — not universal superiority, production fitness, or guaranteed recovery.
+- **600 cells prove systematic evaluation of the frozen engine** — not universal superiority, production fitness, or guaranteed recovery. **Not 600 AI evaluations.** Groq does not score the official benchmark (`LLM_OFF`).
+
+---
+
+## Submission
+
+| Item | Link |
+|---|---|
+| **Repository** | https://github.com/shriansh1625/razorpay_buildathon |
+| **5-minute pitch video** | https://youtu.be/aCEyAMXtP8s |
+| **Track** | Razorpay AI Buildathon — Track 03: AI Revenue Recovery |
+| **Form answers** | `submission/FORM-ANSWERS.md` |
+| **Pitch script** | `submission/pitch/FINAL-5-MINUTE-SCRIPT.md` |
+| **Release audit** | `submission/FINAL-RELEASE-AUDIT.md` |
+
+Recommended GitHub description: `PAYVANTA — Autonomous Revenue Recovery Intelligence | Razorpay AI Buildathon Track 03`
+Topics: `ai`, `revenue-recovery`, `fintech`, `payments`, `razorpay`, `python`, `risk`, `automation` — see `submission/GITHUB-METADATA.md`. Do **not** add `agentic-ai`.
+
+---
+
+## Security
+
+- **No secrets in Git.** `GROQ_API_KEY` is server-side environment only — never in frontend or committed files.
+- **Official benchmark tree is read-only** to the product; write attempts to official paths are rejected.
+- **AI overlay audit rows** are marked `money_path: false` — Groq proposals never authorize execution.
+- Rotate any API key that was ever exposed outside your environment.
 
 ---
 
